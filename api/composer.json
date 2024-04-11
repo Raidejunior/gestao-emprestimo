@@ -1,0 +1,25 @@
+{
+    "name": "pis/api",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Raide Junior",
+            "email": "raidejunior@gmail.com"
+            
+        },
+        {
+            "name": "Thiago Nogueira",
+            "email": "th.nogueira21@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "kahlan/kahlan": "^5.2"
+    },
+    "require": {
+        "phputil/router": "^0.2.15"
+    }
+}

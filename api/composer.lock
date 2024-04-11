@@ -1,0 +1,120 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "6cdd9e7010816141b98854a84d5fd0b4",
+    "packages": [
+        {
+            "name": "phputil/router",
+            "version": "v0.2.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thiagodp/router.git",
+                "reference": "5dbbb76afeeef076b5663ea92c0005c79887ffb9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thiagodp/router/zipball/5dbbb76afeeef076b5663ea92c0005c79887ffb9",
+                "reference": "5dbbb76afeeef076b5663ea92c0005c79887ffb9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-pcre": "*",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "kahlan/kahlan": "^5.2",
+                "phpstan/phpstan": "^1.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "phputil\\router\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "ExpressJS-like router for PHP",
+            "support": {
+                "issues": "https://github.com/thiagodp/router/issues",
+                "source": "https://github.com/thiagodp/router/tree/v0.2.15"
+            },
+            "time": "2023-12-01T21:19:47+00:00"
+        }
+    ],
+    "packages-dev": [
+        {
+            "name": "kahlan/kahlan",
+            "version": "5.2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kahlan/kahlan.git",
+                "reference": "e7d89f4a6ba0d71517a31e7e197b14d3bd85a0af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kahlan/kahlan/zipball/e7d89f4a6ba0d71517a31e7e197b14d3bd85a0af",
+                "reference": "e7d89f4a6ba0d71517a31e7e197b14d3bd85a0af",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "rector/rector": "^0.18",
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "bin": [
+                "bin/kahlan"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Kahlan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CrysaLEAD"
+                }
+            ],
+            "description": "The PHP Test Framework for Freedom, Truth and Justice.",
+            "keywords": [
+                "BDD",
+                "Behavior-Driven Development",
+                "Monkey Patching",
+                "TDD",
+                "mock",
+                "stub",
+                "testing",
+                "unit test"
+            ],
+            "support": {
+                "issues": "https://github.com/kahlan/kahlan/issues",
+                "source": "https://github.com/kahlan/kahlan/tree/5.2.6"
+            },
+            "time": "2023-12-05T21:56:31+00:00"
+        }
+    ],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
+}
