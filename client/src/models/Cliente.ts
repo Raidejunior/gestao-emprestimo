@@ -67,6 +67,12 @@ export class Cliente {
         return mensagem;
     }
 
+    converterData(data: any) {
+       
+        const partes = data.split('-');
+    
+        return new Date(partes[0], partes[1], partes[2]);
+    }
 
     async localizarCliente(): Promise<Cliente> {
         
@@ -80,14 +86,13 @@ export class Cliente {
         }
 
         const dados = await resp.json();
-        if(dados.length < 1) {
+        if(!dados) {
             throw new Error('Nenhum cliente foi encontrado');
         }
 
-        const [cliente] = dados;
 
-        return new Cliente({ nome: cliente.nome, cpf: cliente.cpf, 
-            dataNascimento: cliente.dataNascimento } );
+        return new Cliente({ nome: dados.nome, cpf: dados.cpf, 
+            dataNascimento: this.converterData(dados.dataNascimento) } );
 
     }   
 
