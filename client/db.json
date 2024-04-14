@@ -1,0 +1,14 @@
+{
+    "clientes": [
+        {
+            "nome": "Cliente 1",
+            "cpf": "12345678910",
+            "dataNascimento": "19/05/2009"
+        },
+        {
+            "nome": "Cliente 2",
+            "cpf": "12345678912",
+            "dataNascimento": "20/06/2003"
+        }
+    ]
+}
