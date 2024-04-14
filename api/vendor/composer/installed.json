@@ -63,6 +63,57 @@
             "install-path": "../kahlan/kahlan"
         },
         {
+            "name": "phputil/cors",
+            "version": "v0.2.2",
+            "version_normalized": "0.2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thiagodp/cors.git",
+                "reference": "06c4c48c809d52605efca2e6145301c896685baf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thiagodp/cors/zipball/06c4c48c809d52605efca2e6145301c896685baf",
+                "reference": "06c4c48c809d52605efca2e6145301c896685baf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*"
+            },
+            "require-dev": {
+                "kahlan/kahlan": "^5.2",
+                "phpstan/phpstan": "^1.9",
+                "phputil/router": "^0.2.6"
+            },
+            "time": "2023-10-04T23:43:42+00:00",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "files": [
+                    "src/cors.php"
+                ],
+                "psr-4": {
+                    "phputil\\cors\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thiago Delgado Pinto",
+                    "email": "thiago-dp@bol.com.br"
+                }
+            ],
+            "description": "CORS middleware for phputil/router",
+            "support": {
+                "issues": "https://github.com/thiagodp/cors/issues",
+                "source": "https://github.com/thiagodp/cors/tree/v0.2.2"
+            },
+            "install-path": "../phputil/cors"
+        },
+        {
             "name": "phputil/router",
             "version": "v0.2.15",
             "version_normalized": "0.2.15.0",

@@ -20,6 +20,7 @@
         "kahlan/kahlan": "^5.2"
     },
     "require": {
-        "phputil/router": "^0.2.15"
+        "phputil/router": "^0.2.15",
+        "phputil/cors": "^0.2.2"
     }
 }

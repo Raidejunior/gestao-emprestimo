@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'phputil\\router\\' => array($vendorDir . '/phputil/router/src'),
-    'Raide\\Api\\' => array($baseDir . '/src'),
+    'phputil\\cors\\' => array($vendorDir . '/phputil/cors/src'),
     'Kahlan\\' => array($vendorDir . '/kahlan/kahlan/src'),
+    '' => array($baseDir . '/src', $baseDir . '/repository'),
 );

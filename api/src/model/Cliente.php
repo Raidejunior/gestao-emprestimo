@@ -1,17 +1,28 @@
 <?php
 
 class Cliente {
+    private $id;
     private $nome;
     private $cpf;
     private $dataNascimento;
 
-    public function __construct($nome, $cpf, $dataNascimento) {
+    public function __construct($id, $nome, $cpf, $dataNascimento) {
+        $this->id = $id;
         $this->nome = $nome;
         $this->cpf = $cpf;
         $this->dataNascimento = $dataNascimento;
     }
 
     // Getters e Setters
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
 
     public function getNome() {
         return $this->nome;

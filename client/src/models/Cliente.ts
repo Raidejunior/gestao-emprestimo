@@ -73,8 +73,7 @@ export class Cliente {
         if(!this.isCPFValido()) {
             throw new Error('CPF inválido!');
         }
-
-        const resp = await fetch(API + `/clientes?cpf=${this.cpf}`);
+        const resp = await fetch(API + `/cliente?cpf=${this.cpf}`);
 
         if(!resp.ok) {
             throw new Error('Erro ao buscar cliente');

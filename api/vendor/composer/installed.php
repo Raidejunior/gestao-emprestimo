@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
-        'name' => 'raide/api',
+        'name' => 'pis/api',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '5721521796425086e5c1fb4e4b58126576debfd3',
+        'reference' => 'f22aa4505531a0b4051f573205d0085cccd0df70',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -19,6 +19,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'phputil/cors' => array(
+            'pretty_version' => 'v0.2.2',
+            'version' => '0.2.2.0',
+            'reference' => '06c4c48c809d52605efca2e6145301c896685baf',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phputil/cors',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'phputil/router' => array(
             'pretty_version' => 'v0.2.15',
             'version' => '0.2.15.0',
@@ -28,10 +37,10 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'raide/api' => array(
+        'pis/api' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '5721521796425086e5c1fb4e4b58126576debfd3',
+            'reference' => 'f22aa4505531a0b4051f573205d0085cccd0df70',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

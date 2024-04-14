@@ -11,4 +11,4 @@ CREATE TABLE cliente (
 INSERT INTO cliente
 (nome, cpf, dataNascimento)
 VALUES
-('Cliente 1', '191.959.207-57', '2008-07-26');
+('Cliente 1', '19195920757', '2008-07-26');

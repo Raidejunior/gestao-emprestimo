@@ -19,7 +19,7 @@ export class ControladoraCliente {
 
         try {
             const cliente = await c.localizarCliente();
-            this.visao.mostrarResultado(`Olá, ${cliente.nome}!`);
+            this.visao.mostrarResultado(`${cliente.formataMensagem()}`);
 
         } catch(e: any) {
             this.visao.mostrarResultado(e.message);

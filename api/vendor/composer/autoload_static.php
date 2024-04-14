@@ -8,16 +8,14 @@ class ComposerStaticInitc3099f4e07039e9d6db330d750825903
 {
     public static $files = array (
         '337663d83d8353cc8c7847676b3b0937' => __DIR__ . '/..' . '/kahlan/kahlan/src/functions.php',
+        '46be4dacb8f7d49652a44d0dcf87a45c' => __DIR__ . '/..' . '/phputil/cors/src/cors.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'p' => 
         array (
             'phputil\\router\\' => 15,
-        ),
-        'R' => 
-        array (
-            'Raide\\Api\\' => 10,
+            'phputil\\cors\\' => 13,
         ),
         'K' => 
         array (
@@ -30,14 +28,19 @@ class ComposerStaticInitc3099f4e07039e9d6db330d750825903
         array (
             0 => __DIR__ . '/..' . '/phputil/router/src',
         ),
-        'Raide\\Api\\' => 
+        'phputil\\cors\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/..' . '/phputil/cors/src',
         ),
         'Kahlan\\' => 
         array (
             0 => __DIR__ . '/..' . '/kahlan/kahlan/src',
         ),
+    );
+
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/../..' . '/src',
+        1 => __DIR__ . '/../..' . '/repository',
     );
 
     public static $classMap = array (
@@ -49,6 +52,7 @@ class ComposerStaticInitc3099f4e07039e9d6db330d750825903
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitc3099f4e07039e9d6db330d750825903::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitc3099f4e07039e9d6db330d750825903::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInitc3099f4e07039e9d6db330d750825903::$fallbackDirsPsr4;
             $loader->classMap = ComposerStaticInitc3099f4e07039e9d6db330d750825903::$classMap;
 
         }, null, ClassLoader::class);
