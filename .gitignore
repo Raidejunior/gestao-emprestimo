@@ -9,7 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
-/api/vendor
+/api/vendor/
 dist-ssr
 *.local
 
