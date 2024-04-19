@@ -1,6 +1,10 @@
 <?php
+namespace src\repository;
+use PDO;
 
-require_once 'src/model/Cliente.php';
+require_once 'vendor/autoload.php';
+
+use src\model\Cliente;
 
 class ClienteRepository{
     private $pdo;
@@ -10,10 +14,10 @@ class ClienteRepository{
     }
     
     /**
-     * @param string $cpf Cpf
+     * Recebe um cpf e faz a busca dele no banco de dados.
+     * @param string $cpf
      * @return Cliente|null
      */
-
      public function retornaClientePorCPF( int $cpf ): Cliente {
         $ps = $this->pdo->prepare(
             'SELECT * FROM cliente WHERE cpf = :cpf'
