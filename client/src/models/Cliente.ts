@@ -1,5 +1,4 @@
 export const TAM_CPF = 11;
-const API = 'http://localhost:8080';
 
 export class Cliente {
 
@@ -10,26 +9,27 @@ export class Cliente {
     constructor(cliente = { nome: '', cpf: '', dataNascimento: new Date() }) {
         this.nome = cliente.nome;
         this.cpf = cliente.cpf;
-        this.dataNascimento = cliente.dataNascimento;
+        this.dataNascimento = this.converterData(cliente.dataNascimento);
     }
 
 
-    isCPFValido(): boolean {
+    static isCPFValido(cpf: string): boolean {
+
         // Verifica se o CPF está preenchido
-        if (this.cpf === null || this.cpf === undefined || this.cpf.trim() === '') {
+        if (cpf === null || cpf === undefined || cpf.trim() === '') {
             return false;
         }
-    
+
         // Remove caracteres não numéricos do CPF
-        this.cpf = this.cpf.replace(/\D/g, '');
+        cpf = cpf.replace(/\D/g, '');
     
         // Verifica se o CPF possui 11 dígitos
-        if (this.cpf.length !== TAM_CPF) {
+        if (cpf.length !== TAM_CPF) {
             return false;
         }
-    
+
         // Verifica se todos os dígitos do CPF são iguais
-        if (/^(\d)\1+$/.test(this.cpf)) {
+        if (/^(\d)\1+$/.test(cpf)) {
             return false;
         }
     
@@ -67,33 +67,13 @@ export class Cliente {
         return mensagem;
     }
 
-    converterData(data: any) {
-       
+    converterData(data: any): Date {
         const partes = data.split('-');
-    
-        return new Date(partes[0], partes[1], partes[2]);
-    }
-
-    async localizarCliente(): Promise<Cliente> {
+        const ano = partes[0];
+        const mes = partes[1] - 1;
+        const dia = partes[2];
         
-        if(!this.isCPFValido()) {
-            throw new Error('CPF inválido!');
-        }
-        const resp = await fetch(API + `/cliente?cpf=${this.cpf}`);
-
-        if(!resp.ok) {
-            throw new Error('Erro ao buscar cliente');
-        }
-
-        const dados = await resp.json();
-        if(!dados) {
-            throw new Error('Nenhum cliente foi encontrado');
-        }
-
-
-        return new Cliente({ nome: dados.nome, cpf: dados.cpf, 
-            dataNascimento: this.converterData(dados.dataNascimento) } );
-
+        return new Date(ano, mes, dia);
     }   
 
 }

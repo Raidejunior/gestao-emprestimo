@@ -3,12 +3,41 @@
         {
             "nome": "Cliente 1",
             "cpf": "12345678910",
-            "dataNascimento": "19/05/2009"
+            "dataNascimento": "2009-04-16"
+        }
+    ],
+    "formapagamento": [
+        {
+            "id": 1,
+            "descricao": "6 meses",
+            "numMeses": 6,
+            "juros": 10
         },
         {
-            "nome": "Cliente 2",
-            "cpf": "12345678912",
-            "dataNascimento": "20/06/2003"
+            "id": 2,
+            "descricao": "12 meses",
+            "numMeses": 12,
+            "juros": 22
         }
-    ]
+    ],
+    "calcular": {
+        "numParcelas": 3,
+        "parcelas": [
+            {
+                "numero": 1,
+                "vencimento": "2024-05-17",
+                "valor": 178.80
+            },
+            {
+                "numero": 2,
+                "vencimento": "2024-06-17",
+                "valor": 178.80
+            },
+            {
+                "numero": 3,
+                "vencimento": "2024-07-17",
+                "valor": 178.80
+            }
+        ]
+    }
 }
