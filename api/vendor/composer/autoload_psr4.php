@@ -6,8 +6,12 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'src\\view\\' => array($baseDir . '/src/view'),
+    'src\\service\\' => array($baseDir . '/src/service'),
+    'src\\repository\\' => array($baseDir . '/src/repository'),
+    'src\\model\\' => array($baseDir . '/src/model'),
+    'src\\controller\\' => array($baseDir . '/src/controller'),
     'phputil\\router\\' => array($vendorDir . '/phputil/router/src'),
     'phputil\\cors\\' => array($vendorDir . '/phputil/cors/src'),
     'Kahlan\\' => array($vendorDir . '/kahlan/kahlan/src'),
-    '' => array($baseDir . '/src', $baseDir . '/repository'),
 );

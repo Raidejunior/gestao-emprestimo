@@ -12,6 +12,14 @@ class ComposerStaticInitc3099f4e07039e9d6db330d750825903
     );
 
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'src\\view\\' => 9,
+            'src\\service\\' => 12,
+            'src\\repository\\' => 15,
+            'src\\model\\' => 10,
+            'src\\controller\\' => 15,
+        ),
         'p' => 
         array (
             'phputil\\router\\' => 15,
@@ -24,6 +32,26 @@ class ComposerStaticInitc3099f4e07039e9d6db330d750825903
     );
 
     public static $prefixDirsPsr4 = array (
+        'src\\view\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/view',
+        ),
+        'src\\service\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/service',
+        ),
+        'src\\repository\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/repository',
+        ),
+        'src\\model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/model',
+        ),
+        'src\\controller\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/controller',
+        ),
         'phputil\\router\\' => 
         array (
             0 => __DIR__ . '/..' . '/phputil/router/src',
@@ -38,11 +66,6 @@ class ComposerStaticInitc3099f4e07039e9d6db330d750825903
         ),
     );
 
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/../..' . '/src',
-        1 => __DIR__ . '/../..' . '/repository',
-    );
-
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
@@ -52,7 +75,6 @@ class ComposerStaticInitc3099f4e07039e9d6db330d750825903
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitc3099f4e07039e9d6db330d750825903::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitc3099f4e07039e9d6db330d750825903::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInitc3099f4e07039e9d6db330d750825903::$fallbackDirsPsr4;
             $loader->classMap = ComposerStaticInitc3099f4e07039e9d6db330d750825903::$classMap;
 
         }, null, ClassLoader::class);

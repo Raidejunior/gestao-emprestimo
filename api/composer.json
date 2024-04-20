@@ -2,7 +2,11 @@
     "name": "pis/api",
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "src\\model\\": "src/model", 
+            "src\\controller\\": "src/controller",
+            "src\\repository\\": "src/repository",
+            "src\\service\\" : "src/service",
+            "src\\view\\" : "src/view"
         }
     },
     "authors": [

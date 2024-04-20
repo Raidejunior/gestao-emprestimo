@@ -7,24 +7,19 @@ header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
 require_once 'vendor/autoload.php';
-require_once './src/service/ClienteService.php';
 
 use phputil\router\Router;
 use function phputil\cors\cors;
+use src\controller\ClienteController;
 
 $app = new Router();
 $app->use( cors() );
-$app->get('/cliente', function( $req, $res ) {
-    $cpf = $_GET['cpf'];
-    $clienteService = new ClienteService();
-    $cliente = $clienteService->buscaCPF($cpf);
 
-    $res->json([
-        "id" => $cliente->getId(),
-        "nome" => $cliente->getNome(), 
-        "cpf" => $cliente->getCPF(), 
-        "dataNascimento" => $cliente->getDataNascimento()
-    ]);
+$app->get('/cliente', function( $req, $res ) {
+    $cpf = $req->param('cpf');
+    $clienteController = new ClienteController();
+    $cliente = $clienteController->buscaCPF($cpf);
+    $res->send($cliente);
 } );
 $app->listen();
 ?>
