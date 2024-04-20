@@ -30,3 +30,14 @@ INSERT INTO formapagamento
 (descricao, meses, juros)
 VALUES
 ('12 meses', 12, 22);
+
+CREATE TABLE emprestimo (
+    id INT NOT NULL AUTO_INCREMENT,
+    cliente_id INT NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    forma_pagamento_id INT NOT NULL,
+    data_emprestimo DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (cliente_id) REFERENCES cliente(id),
+    FOREIGN KEY (forma_pagamento_id) REFERENCES formapagamento(id),
+    CONSTRAINT `pk_emprestimo` PRIMARY KEY( id )
+   )ENGINE=INNODB;

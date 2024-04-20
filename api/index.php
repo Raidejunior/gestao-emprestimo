@@ -12,6 +12,7 @@ use phputil\router\Router;
 use function phputil\cors\cors;
 use src\controller\ClienteController;
 use src\controller\FormaPagamentoController;
+use src\controller\EmprestimoController;
 
 $app = new Router();
 $app->use( cors() );
@@ -27,6 +28,20 @@ $app->get('/forma_pagamento', function( $req, $res ) {
     $formaPagamentoController = new FormaPagamentoController();
     $lista = $formaPagamentoController->retornaListaFormaPagamento();
     $res->send($lista);
+});
+
+$app->post('/salvar_emprestimo', function( $req, $res ) {
+    $cliente_id = $req->param('cliente_id');
+    $valor = $req->param('valor');
+    $forma_pagamento_id = $req->param('forma_pagamento_id');
+    $emprestimo = [
+        "cliente_id" => $cliente_id, 
+        "valor" => $valor, 
+        "forma_pagamento_id" => $forma_pagamento_id
+    ];
+    $emprestimoController = new EmprestimoController();
+    $retorno = $emprestimoController->salvarEmprestimo($emprestimo);
+    $res->send($retorno);
 });
 
 $app->listen();
