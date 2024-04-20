@@ -27,7 +27,7 @@ class ClienteRepository{
 
         $dados = $ps->fetch(PDO::FETCH_ASSOC);
 
-        $cliente = new Cliente($dados["id"], $dados["nome"], $dados["cpf"], $dados["dataNascimento"]);
+        $cliente = new Cliente($dados["id"], $dados["nome"], $dados["cpf"], $dados["data_nascimento"]);
 
         return $cliente;
      }
