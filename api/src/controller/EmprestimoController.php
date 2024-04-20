@@ -4,8 +4,7 @@ namespace src\controller;
 
 require_once 'vendor/autoload.php';
 
-use src\repository\DBConnection;
-use src\repository\EmprestimoRepository;
+use src\model\EmprestimoModel;
 use src\view\EmprestimoView;
 
 class EmprestimoController{
@@ -15,11 +14,9 @@ class EmprestimoController{
      * @return int - Vai retornar uma resposta HTTP.
      */
     function salvarEmprestimo($emprestimo){
-        $db = new DBConnection();
-        $pdo = $db->conectar();
-        $emprestimoRepository = new EmprestimoRepository($pdo);
+        $emprestimoModel = new EmprestimoModel();
+        $dadoRetorno = $emprestimoModel->salvarEmprestimo($emprestimo);
         $emprestimoView = new EmprestimoView();
-        $dadoRetorno = $emprestimoRepository->salvarEmprestimo($emprestimo);
         $retornoHTTP = $emprestimoView->retornaEmprestimoHTTP($dadoRetorno);
         return $retornoHTTP;
     }   
