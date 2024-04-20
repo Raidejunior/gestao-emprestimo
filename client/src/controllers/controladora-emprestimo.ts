@@ -33,13 +33,26 @@ export class ControladoraEmprestimo {
         this.visao.montarFormasDePagamento(formasPagamento);
     }
 
-    async calcularParcelas(): Promise<void> {
-        const servicoEmprestimo = new ServicoEmprestimo();
-        //const dados = await servicoEmprestimo.buscarFormaDePagamentoPeloId(idFormaPagamento);
+    async calcularParcelas(numParcelas: number, juros: number): Promise<Emprestimo> {
+        const valor = this.visao.valor();
+        const formaPagamento = new FormaPagamento(0, '', numParcelas, juros);
 
-        const parcelas = await servicoEmprestimo.calcularParcelas();
+        const emprestimo = new Emprestimo(valor, formaPagamento);
 
-        this.visao.montarParcelas(parcelas);
+        emprestimo.calculaParcelas();
+
+        this.visao.montarParcelas({ 
+            parcelas: emprestimo.parcelas, 
+            juros: emprestimo.formaPagamento.juros,
+            total: emprestimo.valorPagoEmprestimo
+        });
+
+        return emprestimo;
+    }
+
+    async salvarEmprestimo(numParcelas: number, juros: number) {
+        const emprestimo = await this.calcularParcelas(numParcelas, juros);
+        emprestimo.salvarEmprestimo();
     }
 
     private configurarCalculoDeParcelas(): void {
@@ -47,7 +60,7 @@ export class ControladoraEmprestimo {
     }
 
     private configurarEmprestimo(): void {
-        //this.visao.definirAcaoAoRealizarEmprestimo(this.realizarEmprestimo.bind(this));
+        this.visao.definirAcaoAoRealizarEmprestimo(this.salvarEmprestimo.bind(this));
     }
 
     private configurarVerificaoDeValor(): void {

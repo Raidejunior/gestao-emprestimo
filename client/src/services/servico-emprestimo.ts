@@ -1,6 +1,21 @@
 import { API } from "../models/API.ts";
+import { Emprestimo } from "../models/Emprestimo.ts";
 
 export class ServicoEmprestimo {
+
+
+    async salvarEmprestimo(emprestimo: Emprestimo) {
+        console.log(emprestimo);
+        const resp = await fetch(API + '/emprestimos', { 
+            body: JSON.stringify(emprestimo),
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if(!resp.ok) {
+            throw new Error('Erro ao salvar empréstimo!');
+        }
+    }
 
     async buscarFormasDePagamento() {
         
@@ -31,14 +46,5 @@ export class ServicoEmprestimo {
         return dados;
     }
 
-    //async calcularParcelas(valorEmprestimo: number, formaPagamento: FormaPagamento)
 
-    async calcularParcelas() {
-        const resp = await fetch(API + `/calcular`);
-        if(!resp.ok) {
-            throw new Error('Erro ao calcular parcelas');
-        }
-
-        return await resp.json();
-    }
 }
