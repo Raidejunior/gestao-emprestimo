@@ -1,43 +1,125 @@
 {
-    "clientes": [
+  "clientes": [
+    {
+      "nome": "Cliente 1",
+      "cpf": "12345678910",
+      "dataNascimento": "2009-04-16",
+      "id": "f2f9"
+    }
+  ],
+  "formapagamento": [
+    {
+      "id": "1",
+      "descricao": "3 meses",
+      "numMeses": 3,
+      "juros": 10
+    },
+    {
+      "id": "2",
+      "descricao": "12 meses",
+      "numMeses": 12,
+      "juros": 22
+    }
+  ],
+  "calcular": {
+    "numParcelas": 3,
+    "parcelas": [
+      {
+        "numero": 1,
+        "vencimento": "2024-05-17",
+        "valor": 178.8
+      },
+      {
+        "numero": 2,
+        "vencimento": "2024-06-17",
+        "valor": 178.8
+      },
+      {
+        "numero": 3,
+        "vencimento": "2024-07-17",
+        "valor": 178.8
+      }
+    ]
+  },
+  "emprestimos": [
+    {
+      "id": "0aaa",
+      "cliente": {
+        "nome": "Cliente 1",
+        "cpf": "12345678910",
+        "dataNascimento": "2009-04-16T03:00:00.000Z"
+      },
+      "valorSolicitadoEmprestimo": 4444,
+      "formaPagamento": {
+        "id": 1,
+        "descricao": "",
+        "numMeses": 12,
+        "juros": 22
+      },
+      "dataHora": "2024-04-20T03:59:44.185Z",
+      "valorPagoEmprestimo": 5421.68,
+      "parcelas": [
         {
-            "nome": "Cliente 1",
-            "cpf": "12345678910",
-            "dataNascimento": "2009-04-16"
-        }
-    ],
-    "formapagamento": [
-        {
-            "id": 1,
-            "descricao": "6 meses",
-            "numMeses": 6,
-            "juros": 10
+          "numero": 1,
+          "vencimento": "2024-05-20T00:59:44.182Z",
+          "valor": 451.81
         },
         {
-            "id": 2,
-            "descricao": "12 meses",
-            "numMeses": 12,
-            "juros": 22
+          "numero": 2,
+          "vencimento": "2024-06-20T00:59:44.182Z",
+          "valor": 451.81
+        },
+        {
+          "numero": 3,
+          "vencimento": "2024-07-20T00:59:44.182Z",
+          "valor": 451.81
+        },
+        {
+          "numero": 4,
+          "vencimento": "2024-08-20T00:59:44.182Z",
+          "valor": 451.81
+        },
+        {
+          "numero": 5,
+          "vencimento": "2024-09-20T00:59:44.182Z",
+          "valor": 451.81
+        },
+        {
+          "numero": 6,
+          "vencimento": "2024-10-20T00:59:44.182Z",
+          "valor": 451.81
+        },
+        {
+          "numero": 7,
+          "vencimento": "2024-11-20T00:59:44.182Z",
+          "valor": 451.81
+        },
+        {
+          "numero": 8,
+          "vencimento": "2024-12-20T00:59:44.182Z",
+          "valor": 451.81
+        },
+        {
+          "numero": 9,
+          "vencimento": "2025-01-20T00:59:44.182Z",
+          "valor": 451.81
+        },
+        {
+          "numero": 10,
+          "vencimento": "2025-02-20T00:59:44.182Z",
+          "valor": 451.81
+        },
+        {
+          "numero": 11,
+          "vencimento": "2025-03-20T00:59:44.182Z",
+          "valor": 451.8
+        },
+        {
+          "numero": 12,
+          "vencimento": "2025-04-20T00:59:44.182Z",
+          "valor": 451.78
         }
-    ],
-    "calcular": {
-        "numParcelas": 3,
-        "parcelas": [
-            {
-                "numero": 1,
-                "vencimento": "2024-05-17",
-                "valor": 178.80
-            },
-            {
-                "numero": 2,
-                "vencimento": "2024-06-17",
-                "valor": 178.80
-            },
-            {
-                "numero": 3,
-                "vencimento": "2024-07-17",
-                "valor": 178.80
-            }
-        ]
+      ]
     }
+  ]
 }

@@ -21,13 +21,13 @@ export class ControladoraCliente {
 
         try {
             if(!Cliente.isCPFValido(cpf)) {
+                Cliente.salvarClienteSessionStorage(null);
                 throw new Error('CPF inválido!');
             }
             
-            const dadosCliente = await servicoCliente.localizarCliente(cpf);
-            const cliente = new Cliente({ ...dadosCliente } );
-
-            sessionStorage.setItem('cliente', JSON.stringify(cliente));
+            const cliente = await servicoCliente.localizarCliente(cpf);
+            Cliente.salvarClienteSessionStorage(cliente);
+            
             this.visao.mostrarResultado(`${cliente.formataMensagem()}`);
 
             const controlEmprestimo = new ControladoraEmprestimo();

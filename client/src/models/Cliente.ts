@@ -6,10 +6,10 @@ export class Cliente {
     cpf: string;
     dataNascimento: Date;
 
-    constructor(cliente = { nome: '', cpf: '', dataNascimento: new Date() }) {
-        this.nome = cliente.nome;
-        this.cpf = cliente.cpf;
-        this.dataNascimento = this.converterData(cliente.dataNascimento);
+    constructor(nome: string, cpf: string, dataNascimento: Date | string ) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataNascimento = this.converterData(dataNascimento);
     }
 
 
@@ -34,6 +34,10 @@ export class Cliente {
         }
     
         return true; // O CPF está preenchido e válido
+    }
+
+    static salvarClienteSessionStorage(cliente: Cliente | null) {
+        sessionStorage.setItem('cliente', JSON.stringify(cliente));
     }
 
     isDataNascimentoPreenchida(): boolean {
@@ -73,6 +77,8 @@ export class Cliente {
         const mes = partes[1] - 1;
         const dia = partes[2];
         
+        console.log('ano: ', ano, mes, dia);
+        console.log(new Date(ano, mes, dia));
         return new Date(ano, mes, dia);
     }   
 
