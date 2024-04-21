@@ -4,7 +4,7 @@ import { API } from "../models/API.ts";
 export class ServicoCliente {
 
     async localizarCliente(cpf: string): Promise<Cliente> {
-         const resp = await fetch(API + `/clientes?cpf=${cpf}`);
+         const resp = await fetch(API + `/cliente?cpf=${cpf}`);
 
         if(!resp.ok) {
             Cliente.salvarClienteSessionStorage(null);
