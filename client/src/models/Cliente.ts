@@ -2,11 +2,13 @@ export const TAM_CPF = 11;
 
 export class Cliente {
 
+    id: number;
     nome: string;
     cpf: string;
     dataNascimento: Date;
 
-    constructor(nome: string, cpf: string, dataNascimento: Date | string ) {
+    constructor(id: number, nome: string, cpf: string, dataNascimento: Date | string ) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = this.converterData(dataNascimento);

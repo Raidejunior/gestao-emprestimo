@@ -12,14 +12,15 @@ export class ServicoCliente {
         }
 
         const dados = await resp.json();
-        const [dadosCliente] = dados;
 
-        if(!dadosCliente) {
+        if(dados.length === 0) {
             Cliente.salvarClienteSessionStorage(null);
             throw new Error('Nenhum cliente foi encontrado');
         }
 
-        const cliente = new Cliente(dadosCliente.nome, dadosCliente.cpf, dadosCliente.dataNascimento );
+        const {...dadosCliente} = dados;
+
+        const cliente = new Cliente(dadosCliente.id, dadosCliente.nome, dadosCliente.cpf, dadosCliente.dataNascimento );
 
         return cliente;
     }
