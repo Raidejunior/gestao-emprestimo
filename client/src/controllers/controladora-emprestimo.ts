@@ -52,7 +52,13 @@ export class ControladoraEmprestimo {
 
     async salvarEmprestimo(id: number, numParcelas: number, juros: number) {
         const emprestimo = await this.calcularParcelas(id, numParcelas, juros);
-        emprestimo.salvarEmprestimo();
+        const resp = emprestimo.salvarEmprestimo();
+
+        if(resp) {
+            const servicoEmprestimo = new ServicoEmprestimo();
+            const emprestimos = await servicoEmprestimo.buscarTodosOsEmprestimos();
+            this.visao.MontarTabelaDeEmprestimos(emprestimos);
+        }
     }
 
     private configurarCalculoDeParcelas(): void {

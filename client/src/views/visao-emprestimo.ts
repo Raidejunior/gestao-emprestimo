@@ -79,6 +79,41 @@ export class VisaoEmprestimo {
 
         (document.getElementById('realizar-emprestimo') as HTMLButtonElement).hidden = false;
     }
+
+    MontarTabelaDeEmprestimos(emprestimos: any) {
+        const emprestimosHTML = emprestimos.map(
+            (e: { dataHora: any; cliente: { nome: any; }; valorSolicitadoEmprestimo: any; formaPagamento: { meses: any; juros: any; }; valorPagoEmprestimo: any; }) => {
+                return (`
+                <tr>
+                    <td>${e.dataHora}</td>
+                    <td>${e.cliente.nome}</td>
+                    <td>${e.valorSolicitadoEmprestimo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
+                    <td>${e.formaPagamento.meses}</td>
+                    <td>${e.formaPagamento.juros}%</td>
+                    <td>${e.valorPagoEmprestimo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
+                </tr>
+        `)});
+
+        document.getElementById('conteudo')!.innerHTML = `
+            <h2>Empréstimos</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data - Hora</th>
+                        <th>Cliente</th>
+                        <th>Valor pedido</th>
+                        <th>Parcelas</th>
+                        <th>Juros</th>
+                        <th>Valor a ser pago</th>
+                    <tr>
+                </thead>
+                <tbody>
+                    ${emprestimosHTML.join('\n')}
+                </tbody>
+            </table>
+        `;
+    }
     
     definirAcaoAoDigitarValor(funcao: Function) : void {
         document.getElementById('valor')?.addEventListener('blur', e => {

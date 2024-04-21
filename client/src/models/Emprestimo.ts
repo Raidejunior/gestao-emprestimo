@@ -96,16 +96,22 @@ export class Emprestimo {
     /**
      * Salva os dados do emprestimo que o usuário acabou de buscar no LocalStorage
      */
-    salvarEmprestimo(): void {
-        const dadosCliente = JSON.parse(sessionStorage.getItem('cliente')!);
-        const dtNascimento = new Date(dadosCliente.dataNascimento);
-        const dataNascimentoFormatada = `${dtNascimento.getFullYear() + '-' + (dtNascimento.getMonth() + 1) + '-' + dtNascimento.getUTCDate()}` // formatando a data
-        const cliente = new Cliente(dadosCliente.id, dadosCliente.nome, dadosCliente.cpf, dataNascimentoFormatada);
-        this.cliente = cliente;
-        this.dataHora = new Date();
+    salvarEmprestimo(): boolean {
 
-        const servicoEmprestimo = new ServicoEmprestimo();
-        servicoEmprestimo.salvarEmprestimo(this);
+        try {
+            const dadosCliente = JSON.parse(sessionStorage.getItem('cliente')!);
+            const dtNascimento = new Date(dadosCliente.dataNascimento);
+            const dataNascimentoFormatada = `${dtNascimento.getFullYear() + '-' + (dtNascimento.getMonth() + 1) + '-' + dtNascimento.getUTCDate()}` // formatando a data
+            const cliente = new Cliente(dadosCliente.id, dadosCliente.nome, dadosCliente.cpf, dataNascimentoFormatada);
+            this.cliente = cliente;
+            this.dataHora = new Date();
+
+            const servicoEmprestimo = new ServicoEmprestimo();
+            servicoEmprestimo.salvarEmprestimo(this);
+            return true;
+        } catch(e) {
+            return false;
+        }
     }
 
     /**
