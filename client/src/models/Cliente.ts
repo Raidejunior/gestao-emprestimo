@@ -54,8 +54,12 @@ export class Cliente {
         return true; // A data de nascimento está preenchida e é válida
     }
 
-    getIdade(): number {
-        const hoje = new Date();
+    getIdade(dataAtual?: Date | string): number {
+        let hoje = new Date();
+        if(dataAtual) {
+            hoje = this.converterData(dataAtual); // Uma data qualquer pode ser passada como argumento para representar o dia atual
+        }
+
         let idade = hoje.getFullYear() - this.dataNascimento.getFullYear();
         const mesAtual = hoje.getMonth() + 1; // Os meses começam a partir de zero
         const mesNascimento = this.dataNascimento.getMonth() + 1;
@@ -71,14 +75,16 @@ export class Cliente {
         return mensagem;
     }
 
-    converterData(data: any): Date {
+    converterData(data: Date | string): Date {
+        if(data instanceof Date) {
+            return data;
+        }
+
         const partes = data.split('-');
-        const ano = partes[0];
-        const mes = partes[1] - 1;
-        const dia = partes[2];
+        const ano = Number(partes[0]);
+        const mes = Number(partes[1]) - 1;
+        const dia = Number(partes[2]);
         
-        console.log('ano: ', ano, mes, dia);
-        console.log(new Date(ano, mes, dia));
         return new Date(ano, mes, dia);
     }   
 
