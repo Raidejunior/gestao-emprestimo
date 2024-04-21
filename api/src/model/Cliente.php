@@ -8,10 +8,10 @@ use src\repository\DBConnection;
 use src\repository\ClienteRepository;
 
 class Cliente {
-    private $id;
-    private $nome;
-    private $cpf;
-    private $dataNascimento;
+    public $id;
+    public $nome;
+    public $cpf;
+    public $dataNascimento;
 
     public function __construct($id = null, $nome = null, $cpf = null, $dataNascimento = null) {
         $this->id = $id;
