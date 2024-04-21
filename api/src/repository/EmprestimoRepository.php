@@ -19,7 +19,13 @@ class EmprestimoRepository{
      * 
      */
     function buscarTodosEmprestimos() {
-        $ps = $this->pdo->prepare('SELECT * FROM emprestimo ORDER BY data_emprestimo DESC');
+        $sql = "SELECT e.data_emprestimo, c.nome AS cliente_nome, e.valor, fp.meses AS parcelas, fp.juros 
+            FROM emprestimo e
+            JOIN cliente c ON c.id = e.cliente_id
+            JOIN forma_pagamento fp ON fp.id = e.forma_pagamento_id
+            ORDER BY e.data_emprestimo DESC
+        "; 
+        $ps = $this->pdo->prepare($sql);
         $ps->execute();
         $dados = $ps->fetchAll(PDO::FETCH_ASSOC);
 
