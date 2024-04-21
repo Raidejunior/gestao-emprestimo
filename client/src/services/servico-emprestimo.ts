@@ -19,7 +19,7 @@ export class ServicoEmprestimo {
 
     async buscarFormasDePagamento() {
         
-        const resp = await fetch(API + '/formapagamento');
+        const resp = await fetch(API + '/forma_pagamento');
         if(!resp.ok) {
             throw new Error('Erro ao carregar formas de pagamento');
         }
@@ -33,7 +33,7 @@ export class ServicoEmprestimo {
     }
 
     async buscarFormaDePagamentoPeloId(id: number) {
-        const resp = await fetch(API + `/formapagamento?id=${id}`);
+        const resp = await fetch(API + `/forma_pagamento?id=${id}`);
         if(!resp.ok) {
             throw new Error('Erro ao carregar forma de pagamento');
         }
