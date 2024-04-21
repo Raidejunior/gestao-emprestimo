@@ -28,7 +28,11 @@ export class VisaoEmprestimo {
                 <select id="formas-pagamento">
                     <option value="" selected></option>
                 </select>
+                <button type="submit" id="realizar-emprestimo" hidden>Realizar empréstimo</button>
             </form>
+
+            <div id="info-parcelas"></div>
+            <table id="parcelas"></table>
         `
     }
 
@@ -55,24 +59,25 @@ export class VisaoEmprestimo {
             `
         });
 
-        document.getElementById('conteudo')!.innerHTML += `
+        document.getElementById('info-parcelas')!.innerHTML = `
             <p>Juros: ${dados.juros}%</p>
             <p>Nº parcelas: ${dados.parcelas.length}</p>
-            <p>Valor total a ser pago: ${dados.total}</p>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">Parcela</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Vencimento</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${parcelasHTML.join('\n')}  
-                </tbody>
-            </table>
+            <p>Valor total a ser pago: ${dados.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
         `;
+        document.getElementById('parcelas')!.innerHTML = `
+            <thead>
+                <tr>
+                    <th>Parcela</th>
+                    <th>Valor</th>
+                    <th>Vencimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${parcelasHTML.join('\n')}  
+            </tbody>
+        `;
+
+        (document.getElementById('realizar-emprestimo') as HTMLButtonElement).hidden = false;
     }
     
     definirAcaoAoDigitarValor(funcao: Function) : void {

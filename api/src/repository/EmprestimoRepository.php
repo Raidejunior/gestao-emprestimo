@@ -1,14 +1,31 @@
 <?php
 namespace src\repository;
 
+use PDO;
+use src\model\Emprestimo;
+
 class EmprestimoRepository{
 
-    private $pdo;
+    private PDO $pdo;
 
-    function __construct($pdo)
+    function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;        
     }
+
+
+    /**
+     * Responsável por trazer todos os empréstimos que estão no banco de dados.
+     * 
+     */
+    function buscarTodosEmprestimos() {
+        $ps = $this->pdo->prepare('SELECT * FROM emprestimo ORDER BY data_emprestimo DESC');
+        $ps->execute();
+        $dados = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+        return $dados;
+    }
+
 
     /**
      * Responsável pela inserção do empréstimo no banco de dados.

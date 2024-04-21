@@ -17,7 +17,7 @@ use src\controller\EmprestimoController;
 $app = new Router();
 $app->use( cors() );
 
-$app->get('/cliente', function( $req, $res ) {
+$app->get('/clientes', function( $req, $res ) {
     $cpf = $req->param('cpf');
     $clienteController = new ClienteController();
     $cliente = $clienteController->buscaCPF($cpf);
@@ -30,7 +30,15 @@ $app->get('/forma_pagamento', function( $req, $res ) {
     $res->send($lista);
 });
 
-$app->post('/salvar_emprestimo', function( $req, $res ) {
+$app->get('/emprestimos', function( $req, $res ) {
+    $emprestimoController = new EmprestimoController();
+    $emprestimos = $emprestimoController->buscarTodosEmprestimos();
+
+    $res->send($emprestimos);
+});
+
+
+$app->post('/emprestimos', function( $req, $res ) {
     $cliente_id = $req->param('cliente_id');
     $valor = $req->param('valor');
     $forma_pagamento_id = $req->param('forma_pagamento_id');
