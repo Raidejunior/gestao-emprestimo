@@ -3,23 +3,20 @@ namespace src\controller;
 
 require_once 'vendor/autoload.php';
 
-use src\repository\DBConnection;
-use src\repository\FormaPagamentoRepository;
+use src\model\FormaPagamento;
 use src\view\FormaPagamentoView;
 
 class FormaPagamentoController{
 
     /**
-     * Responsável por gerenciar a busca pela lista de forma de pagamento.
+     * Responsável por gerenciar a busca pelo array de forma de pagamento.
      * @return string retorna uma string em formato json com as formas de pagamento.
      */
-    public function retornaListaFormaPagamento(){
-        $db = new DBConnection();
-        $pdo = $db->conectar();
-        $formaPagamentoRepository = new FormaPagamentoRepository($pdo);
-        $lista = $formaPagamentoRepository->retornaListaFormaPagamento();
+    public function retornaArrayFormaPagamento(){
+        $formaPagamentoModel = new FormaPagamento();
+        $arrayFormaPagamento = $formaPagamentoModel->retornaArrayFormaPagamento();
         $formaPagamentoView = new FormaPagamentoView();
-        $listaEmJson = $formaPagamentoView->retornaArrayFormaPagamentoEmJson($lista);
+        $listaEmJson = $formaPagamentoView->retornaArrayFormaPagamentoEmJson($arrayFormaPagamento);
         return $listaEmJson;
     }
 }

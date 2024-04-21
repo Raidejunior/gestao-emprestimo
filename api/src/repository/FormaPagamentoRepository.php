@@ -18,7 +18,7 @@ class FormaPagamentoRepository{
      * Responsável por fazer a busca no banco de dados das formas de pagamento e retornar uma lista delas.
      * @return array Vai retornar um array de FormaPagamento
      */
-    public function retornaListaFormaPagamento() : array {
+    public function retornaArrayFormaPagamento() : array {
         $ps = $this->pdo->prepare('SELECT * FROM forma_pagamento');
         $ps->execute();
         $dados = $ps->fetchAll(PDO::FETCH_ASSOC);
