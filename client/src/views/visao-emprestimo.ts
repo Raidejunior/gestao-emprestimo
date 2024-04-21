@@ -6,19 +6,20 @@ export class VisaoEmprestimo {
         return Number(valorEmprestimo);
     }
 
-    formaPagamento(): { juros: number, numParcelas: number } {
+    formaPagamento(): { id: number, juros: number, numParcelas: number } {
         const select = document.getElementById('formas-pagamento') as HTMLSelectElement;
         const formaPagamento = select.options[select.selectedIndex];
-            
+        
+        const id = Number(formaPagamento.dataset.id);
         const juros = Number(formaPagamento.dataset.juros);
         const numParcelas = Number(formaPagamento.dataset.parcelas);
 
-        return { juros, numParcelas};
+        return { id, juros, numParcelas};
     }
 
     montarFormasDePagamento(dados: Array<any>): void {
         let formasDePagamentoHTML = dados.map(fp => `
-            <option value="${fp.id}" data-parcelas="${fp.meses}" data-juros="${fp.juros}">${fp.descricao}</option>
+            <option data-id="${fp.id}" data-parcelas="${fp.meses}" data-juros="${fp.juros}">${fp.descricao}</option>
         `);
 
         document.getElementById('formas-pagamento')!.innerHTML += formasDePagamentoHTML.join('\n');
@@ -73,13 +74,13 @@ export class VisaoEmprestimo {
 
     definirAcaoAoSelecionarFormaDePagamento(funcao: Function) {
         document.getElementById('formas-pagamento')?.addEventListener('change', () => {
-            const { juros, numParcelas } = this.formaPagamento();
+            const { id, juros, numParcelas } = this.formaPagamento();
             
             if(!juros || !this.valor()){
                 return;
             }
 
-            funcao(numParcelas, juros);
+            funcao(id, numParcelas, juros);
         });
     }
 
@@ -88,8 +89,8 @@ export class VisaoEmprestimo {
             ?.addEventListener('click', e => {
                 e.preventDefault();
 
-                const { juros, numParcelas } = this.formaPagamento();
-                funcao(numParcelas, juros);
+                const { id, juros, numParcelas } = this.formaPagamento();
+                funcao(id, numParcelas, juros);
         });
     }
 
