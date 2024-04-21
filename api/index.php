@@ -24,7 +24,7 @@ $app->get('/cliente', function( $req, $res ) {
     $res->send($cliente);
 } );
 
-$app->get('/formapagamento', function( $req, $res ) {
+$app->get('/forma_pagamento', function( $req, $res ) {
     $formaPagamentoController = new FormaPagamentoController();
     $lista = $formaPagamentoController->retornaListaFormaPagamento();
     $res->send($lista);

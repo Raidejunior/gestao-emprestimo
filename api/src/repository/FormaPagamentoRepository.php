@@ -19,7 +19,7 @@ class FormaPagamentoRepository{
      * @return array Vai retornar um array de FormaPagamento
      */
     public function retornaListaFormaPagamento() : array {
-        $ps = $this->pdo->prepare('SELECT * FROM formapagamento');
+        $ps = $this->pdo->prepare('SELECT * FROM forma_pagamento');
         $ps->execute();
         $dados = $ps->fetchAll(PDO::FETCH_ASSOC);
         return $dados;
