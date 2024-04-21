@@ -26,12 +26,12 @@ export class Emprestimo {
      */
     calculaParcelas(): void {
         const valorTotal = this.formataNumero(this.valorSolicitadoEmprestimo * (1 + this.formaPagamento.juros / 100));
-        const valorParcela = this.formataNumero(valorTotal / this.formaPagamento.numMeses);
-        let diferenca = this.formataNumero(valorTotal - valorParcela * this.formaPagamento.numMeses);
+        const valorParcela = this.formataNumero(valorTotal / this.formaPagamento.meses);
+        let diferenca = this.formataNumero(valorTotal - valorParcela * this.formaPagamento.meses);
         this.parcelas = [];
         
 
-        for(let i = 0; i < this.formaPagamento.numMeses; i++) {
+        for(let i = 0; i < this.formaPagamento.meses; i++) {
             let dataParcelaAtual = new Date();
             dataParcelaAtual.setUTCHours(dataParcelaAtual.getUTCHours() - 3); // Ajusta a data e hora para o fuso horário brasileiro
             dataParcelaAtual.setMonth(dataParcelaAtual.getMonth() + 1 + i); // Adicionando 30 dias para o vencimento de cada parcela
@@ -100,7 +100,7 @@ export class Emprestimo {
         const dadosCliente = JSON.parse(sessionStorage.getItem('cliente')!);
         const dtNascimento = new Date(dadosCliente.dataNascimento);
         const dataNascimentoFormatada = `${dtNascimento.getFullYear() + '-' + (dtNascimento.getMonth() + 1) + '-' + dtNascimento.getUTCDate()}` // formatando a data
-        const cliente = new Cliente(dadosCliente.nome, dadosCliente.cpf, dataNascimentoFormatada);
+        const cliente = new Cliente(dadosCliente.id, dadosCliente.nome, dadosCliente.cpf, dataNascimentoFormatada);
         this.cliente = cliente;
         this.dataHora = new Date();
 

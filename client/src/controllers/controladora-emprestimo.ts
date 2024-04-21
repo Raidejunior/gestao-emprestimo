@@ -24,9 +24,9 @@ export class ControladoraEmprestimo {
         const servicoEmprestimo = new ServicoEmprestimo();
         const dados = await servicoEmprestimo.buscarFormasDePagamento();
         const formasPagamento = [];
-
+        
         for(let dado of dados) {
-            let formaPagamento = new FormaPagamento(dado.id, dado.descricao, dado.numMeses, dado.juros);
+            let formaPagamento = new FormaPagamento(dado.id, dado.descricao, dado.meses, dado.juros);
             formasPagamento.push(formaPagamento);
         }   
 

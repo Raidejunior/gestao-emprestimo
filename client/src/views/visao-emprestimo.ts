@@ -18,7 +18,7 @@ export class VisaoEmprestimo {
 
     montarFormasDePagamento(dados: Array<any>): void {
         let formasDePagamentoHTML = dados.map(fp => `
-            <option value="${fp.id}" data-parcelas="${fp.numMeses}" data-juros="${fp.juros}">${fp.descricao}</option>
+            <option value="${fp.id}" data-parcelas="${fp.meses}" data-juros="${fp.juros}">${fp.descricao}</option>
         `);
 
         document.getElementById('formas-pagamento')!.innerHTML += formasDePagamentoHTML.join('\n');
