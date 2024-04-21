@@ -26,7 +26,7 @@ $app->get('/cliente', function( $req, $res ) {
 
 $app->get('/forma_pagamento', function( $req, $res ) {
     $formaPagamentoController = new FormaPagamentoController();
-    $lista = $formaPagamentoController->retornaListaFormaPagamento();
+    $lista = $formaPagamentoController->retornaArrayFormaPagamento();
     $res->send($lista);
 });
 

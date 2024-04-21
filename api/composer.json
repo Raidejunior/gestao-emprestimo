@@ -1,5 +1,8 @@
 {
     "name": "pis/api",
+    "scripts": {
+        "test": "kahlan"
+    },
     "autoload": {
         "psr-4": {
             "src\\model\\": "src/model", 
