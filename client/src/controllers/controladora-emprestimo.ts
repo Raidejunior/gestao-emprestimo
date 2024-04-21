@@ -11,9 +11,9 @@ export class ControladoraEmprestimo {
         this.visao = new VisaoEmprestimo();
     }
 
-    configurarFormulario(): void {
-        document.getElementById('form-emprestimo')!.hidden = false;
-
+    configurarFormulario(nome:string, idade: number): void {
+        this.visao.montarFormulario(nome, idade);
+        
         this.carregarFormasDePagamento();
         this.configurarEmprestimo();
         this.configurarVerificaoDeValor();

@@ -14,7 +14,22 @@ export class VisaoEmprestimo {
         const juros = Number(formaPagamento.dataset.juros);
         const numParcelas = Number(formaPagamento.dataset.parcelas);
 
-        return { id, juros, numParcelas};
+        return { id, juros, numParcelas };
+    }
+
+    montarFormulario(nome: string, idade: number) {
+        document.getElementById('conteudo')!.innerHTML = `
+            <h2 class="info-cliente">${nome}, ${idade} anos</h2>
+
+            <form class="form-emprestimo">
+                <label for="valor">Valor:</label>
+                <input type="number" id="valor">
+                <label for="formas-pagamento">Forma de pagamento:</label>
+                <select id="formas-pagamento">
+                    <option value="" selected></option>
+                </select>
+            </form>
+        `
     }
 
     montarFormasDePagamento(dados: Array<any>): void {
@@ -26,16 +41,10 @@ export class VisaoEmprestimo {
     }
 
     montarParcelas(dados: any): void {
-
-
-        document.getElementById('parcelas')!.innerHTML = `
-            <thead><th>Parcela</th><th>Valor</th><th>Vencimento</th><thead>
-        `
-
         const parcelasHTML = dados.parcelas.map((d: { numero: any; valor: any; vencimento: any; }) => {
             const mesVencimento = d.vencimento.getMonth() + 1; // meses começam com 0 em JS
             const vencimentoParcela = d.vencimento.getUTCDate() + '/' + (mesVencimento < 10 ? `0${mesVencimento}` : mesVencimento) + '/' + d.vencimento.getFullYear(); // formatando a data
-            const valorParcela = d.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            const valorParcela = d.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); // formatando o valor das parcelas para R$
             
             return `
                 <tr>
@@ -46,15 +55,23 @@ export class VisaoEmprestimo {
             `
         });
 
-        document.getElementById('parcelas')!.innerHTML += `
-            <tbody>
+        document.getElementById('conteudo')!.innerHTML += `
+            <p>Juros: ${dados.juros}%</p>
+            <p>Nº parcelas: ${dados.parcelas.length}</p>
+            <p>Valor total a ser pago: ${dados.total}</p>
+
+            <table>
+                <thead>
                     <tr>
-                        <td>Juros: ${dados.juros}%</td>
-                        <td>Nº parcelas: ${dados.parcelas.length}</td>
-                        <td>Valor total a ser pago: ${dados.total}</td>
+                        <th scope="col">Parcela</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Vencimento</th>
                     </tr>
-                    ${parcelasHTML.join('\n')}
-            </tbody>
+                </thead>
+                <tbody>
+                    ${parcelasHTML.join('\n')}  
+                </tbody>
+            </table>
         `;
     }
     

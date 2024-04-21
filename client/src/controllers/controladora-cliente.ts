@@ -28,10 +28,11 @@ export class ControladoraCliente {
             const cliente = await servicoCliente.localizarCliente(cpf);
             Cliente.salvarClienteSessionStorage(cliente);
             
-            this.visao.mostrarResultado(`${cliente.formataMensagem()}`);
-
+            const nome = cliente.nome;
+            const idade = cliente.getIdade();
             const controlEmprestimo = new ControladoraEmprestimo();
-            controlEmprestimo.configurarFormulario();
+            
+            controlEmprestimo.configurarFormulario(nome, idade);
 
         } catch(e: any) {
             this.visao.mostrarResultado(e.message);
