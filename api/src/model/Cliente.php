@@ -32,40 +32,5 @@ class Cliente {
         $cliente = $cr->retornaClientePorCPF($cpf);
         return $cliente;
     }
-
-    // Getters e Setters
-
-    public function getId() {
-        return $this->id;
-    }
-
-    public function setId($id) {
-        $this->id = $id;
-    }
-
-
-    public function getNome() {
-        return $this->nome;
-    }
-
-    public function setNome($nome) {
-        $this->nome = $nome;
-    }
-
-    public function getCPF() {
-        return $this->cpf;
-    }
-
-    public function setCPF($cpf) {
-        $this->cpf = $cpf;
-    }
-
-    public function getDataNascimento() {
-        return $this->dataNascimento;
-    }
-
-    public function setDataNascimento($dataNascimento) {
-        $this->dataNascimento = $dataNascimento;
-    }
 }
 ?>
