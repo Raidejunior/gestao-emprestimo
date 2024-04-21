@@ -27,7 +27,6 @@ export class VisaoEmprestimo {
 
     montarParcelas(dados: any): void {
 
-        console.log(dados);
 
         document.getElementById('parcelas')!.innerHTML = `
             <thead><th>Parcela</th><th>Valor</th><th>Vencimento</th><thead>

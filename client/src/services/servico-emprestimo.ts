@@ -5,7 +5,6 @@ export class ServicoEmprestimo {
 
 
     async salvarEmprestimo(emprestimo: Emprestimo) {
-        console.log(emprestimo.cliente?.id, emprestimo.valorSolicitadoEmprestimo, emprestimo.formaPagamento.id);
         const resp = await fetch(API + `/salvar_emprestimo?cliente_id=${emprestimo.cliente?.id}&valor=${emprestimo.valorSolicitadoEmprestimo}&forma_pagamento_id=${emprestimo.formaPagamento.id}`, { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
