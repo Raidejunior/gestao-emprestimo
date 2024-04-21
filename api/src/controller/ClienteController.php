@@ -4,8 +4,7 @@ namespace src\controller;
 require_once 'vendor/autoload.php';
 
 use src\view\ClienteView;
-use src\repository\DBConnection;
-use src\repository\ClienteRepository;
+use src\model\Cliente;
 
 class ClienteController{
 
@@ -15,10 +14,8 @@ class ClienteController{
      * @return Json - Vai retornar um json com os dados do cliente.
      */
     public function buscaCPF($cpf) {
-        $db = new DBConnection();
-        $pdo = $db->conectar();
-        $cr = new ClienteRepository($pdo);
-        $cliente = $cr->retornaClientePorCPF($cpf);
+        $clienteModel = new Cliente();
+        $cliente = $clienteModel->buscaCPF($cpf);
         $cv = new ClienteView();
         $clienteEmJson = $cv->retornaClienteEmJson($cliente);
 

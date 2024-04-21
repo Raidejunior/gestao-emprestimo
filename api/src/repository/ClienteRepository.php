@@ -16,9 +16,9 @@ class ClienteRepository{
     /**
      * Recebe um cpf e faz a busca dele no banco de dados.
      * @param string $cpf
-     * @return Cliente|null
+     * @return array|false
      */
-     public function retornaClientePorCPF( int $cpf ): Cliente {
+     public function retornaClientePorCPF( int $cpf ) {
         $ps = $this->pdo->prepare(
             'SELECT * FROM cliente WHERE cpf = :cpf'
         );
@@ -27,9 +27,7 @@ class ClienteRepository{
 
         $dados = $ps->fetch(PDO::FETCH_ASSOC);
 
-        $cliente = new Cliente($dados["id"], $dados["nome"], $dados["cpf"], $dados["data_nascimento"]);
-
-        return $cliente;
+        return $dados;
      }
 
 }

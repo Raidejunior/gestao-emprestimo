@@ -13,10 +13,10 @@ class ClienteView{
         if($cliente)
         {
             $clienteEmJson = json_encode([
-                "id" => $cliente->getId(),
-                "nome" => $cliente->getNome(),
-                "cpf" => $cliente->getCPF(),
-                "dataNascimento" => $cliente->getDataNascimento()
+                "id" => $cliente["id"],
+                "nome" => $cliente["nome"],
+                "cpf" => $cliente["cpf"],
+                "dataNascimento" => $cliente["data_nascimento"]
             ]);
         } else {
             $clienteEmJson = json_encode([]);
