@@ -29,14 +29,14 @@ export class VisaoEmprestimo {
         document.getElementById('conteudo')!.innerHTML = `
             <h2 class="info-cliente">${nome}, ${idade} anos</h2>
 
-            <form class="form-emprestimo">
-                <div class="valor-parcelas mb-3">
+            <form class="form-emprestimo mb-3">
+                <div class="valor-parcelas">
                     <label for="valor" class="form-label">Valor</label>
                     <input type="number" class="form-control" id="valor">
                     <div class="form-text">Apenas valores entre R$500 e R$ 50.000</div>
                 </div>
                 <div class="forma-pagamento">
-                    <label for="formas-pagamento">Forma de pagamento</label>
+                    <label for="formas-pagamento" class="form-label">Forma de pagamento</label>
                     <select class="form-select" id="formas-pagamento" aria-label="Selecione">
                         <option selected>Selecione</option>
                     </select>
@@ -131,14 +131,24 @@ export class VisaoEmprestimo {
     
     definirAcaoAoDigitarValor(funcao: Function) : void {
         document.getElementById('valor')?.addEventListener('blur', e => {
+            const divAviso = document.querySelector('.form-text');
             const valor = (e.target as HTMLInputElement ).value;
             if(!valor){
                 return;
             }
 
             if(!funcao(Number(valor))) {
+                if (divAviso !== null) {
+                    divAviso.classList.add('div-aviso-valor-color-red');
+                }
                 alert('O valor do empréstimo deve estar entre R$ 500 e R$ 50.000');
+            }else{
+                if (divAviso !== null) {
+                    divAviso.classList.remove('div-aviso-valor-color-red');
+                }
             }
+
+            
         });
     }
 
