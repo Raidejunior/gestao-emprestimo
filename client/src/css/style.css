@@ -1,68 +1,103 @@
-body, .form-cliente {
+@import url("https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Spartan", sans-serif;
+}
+
+/* Estilos Globais */
+
+html body p {
+font-size: 16px;
+margin: 15px 0 20px 0;
+}
+
+html body{
+    width: 100%;
+    background: #E3E6F3;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-body{
-    width: 100%;
+.div-aviso-valor-color-red {
+    color: red !important;
 }
 
-h1 {
-    margin-top: 3000px;
+/* Section Header */
+
+#header{
+    display: flex;
+    justify-content: center;
 }
+
+#header h1 {
+    margin: 30px;
+}
+
+/* Section Conteudo */
 
 #conteudo {
     padding: 20px;
-    margin-top: 30px;
     width: 900px;
     min-height: 650px;
     border-radius: 20px;
-    background-color: darkgrey;
+    background-color: whitesmoke;
 }
 
-.form-cliente {
-    align-self: center;
-    justify-self: center;
+#conteudo .form-cliente {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.form-cliente #cpf {
-    width:300px;
+#conteudo .form-cliente #cpf {
+    width: 300px;
 }
 
-.form-cliente #buscar { 
+#conteudo .form-cliente #buscar { 
     width: 250px
 }
 
 
-.info-cliente {
-    align-self: flex-start;
+#conteudo h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-.form-emprestimo {
-    margin-top: 40px;
+#conteudo .form-emprestimo {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.form-emprestimo #valor {
+#conteudo .form-emprestimo #valor {
     width: 80%;
 }
 
-.valor-parcelas {
+#conteudo .valor-parcelas {
     width: 60%;
 }
 
-.forma-pagamento {
+#conteudo .forma-pagamento {
     display: flex;
     flex-direction: column;
 }
 
-#info-parcelas {
+#conteudo #info-parcelas {
     margin-top: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+
+#conteudo table th, #conteudo table td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+  text-align: center;
 }
