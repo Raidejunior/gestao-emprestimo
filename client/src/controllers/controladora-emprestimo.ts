@@ -15,9 +15,9 @@ export class ControladoraEmprestimo {
         this.visao.montarFormulario(nome, idade);
         
         this.carregarFormasDePagamento();
-        this.configurarEmprestimo();
         this.configurarVerificaoDeValor();
         this.configurarCalculoDeParcelas();
+        this.configurarEmprestimo();
     }
 
     async carregarFormasDePagamento(): Promise<void> {
