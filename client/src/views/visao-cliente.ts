@@ -1,7 +1,11 @@
 export class VisaoCliente {
     
     cpf(): string {
-        return ( document.getElementById('cpf') as HTMLInputElement ).value;
+        return this.desformataCPF(( document.getElementById('cpf') as HTMLInputElement ).value);
+    }
+
+    desformataCPF(cpfFormatado: string) {
+        return cpfFormatado.replace(/\D/g, '');
     }
 
     mostrarResultado(msg: string): void {
