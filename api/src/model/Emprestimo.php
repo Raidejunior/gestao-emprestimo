@@ -44,7 +44,10 @@ class Emprestimo{
      * @return int dado do id da linha inserida ou -1 para posterior avaliação e retorno HTTP correto.
      */
     function salvarEmprestimo($emprestimo){
-        $this->validaValores($emprestimo);
+        $erro = $this->validaValores($emprestimo);
+        if($erro){
+            throw new Exception( 'Dados de valor não permitido.', 400);
+        }
         $db = new DBConnection();
         $pdo = $db->conectar();
         $emprestimoRepository = new EmprestimoRepository($pdo);
@@ -57,10 +60,12 @@ class Emprestimo{
      */
     function validaValores($emprestimo){
         $valor = $emprestimo['valor'];
-        if($valor < 500 && $valor > 50.000)
+        $erro = 0;
+        if($valor < 500 || $valor > 50000)
         {
-            throw new Exception( 'Dados de valor não permitido.', 400);
+            $erro = 1;
         }
+        return $erro;
     }
 
 }
