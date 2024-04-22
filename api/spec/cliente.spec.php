@@ -1,7 +1,7 @@
 <?php
 use src\model\Cliente;
 
-describe('BuscaClientesPorCpf', function(){
+describe('Chamadas de Cliente.', function(){
     beforeAll( function() {
         $this->clienteModel = new Cliente();
     });
