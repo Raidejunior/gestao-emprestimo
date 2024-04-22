@@ -1,7 +1,7 @@
 <?php
 use src\model\FormaPagamento;
 
-describe('retornaListaFormaPagamento', function() {
+describe('Chamadas de FormaPagamento', function() {
     beforeAll( function() {
         $this->formaPagamentoModel = new FormaPagamento();
     });
