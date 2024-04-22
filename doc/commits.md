@@ -10,6 +10,6 @@
 
 - `remove`: Exclusão de arquivos, diretórios ou funcionalidades.
 
-- `docs`: Mudanças na documentação.
+- `doc`: Mudanças na documentação.
 
 - `refactor`: Mudanças no projeto que não alterem sua funcionalidade.
