@@ -27,8 +27,12 @@ export class VisaoEmprestimo {
 
     montarFormulario(nome: string, idade: number) {
         document.getElementById('conteudo')!.innerHTML = `
-            <h2 class="info-cliente">${nome}, ${idade} anos</h2>
-
+            <section id="form-emprestimo-header">
+                <div>
+                    <a class="btn btn-large" href="/">Início</a>
+                </div>
+                <h2 class="info-cliente">${nome}, ${idade} anos</h2>
+            </section>
             <form class="form-emprestimo mb-3">
                 <div class="valor-parcelas">
                     <label for="valor" class="form-label">Valor</label>
@@ -109,7 +113,12 @@ export class VisaoEmprestimo {
         `)});
 
         document.getElementById('conteudo')!.innerHTML = `
-            <h2>Empréstimos</h2>
+            <section id="form-emprestimo-header">
+                <div>
+                    <a class="btn btn-large" href="/">Início</a>
+                </div>
+                <h2>Empréstimos</h2>
+            </section>
 
             <table class="table table-striped">
                 <thead>

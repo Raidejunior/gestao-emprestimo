@@ -62,8 +62,17 @@ html body{
     width: 250px
 }
 
+#conteudo #form-emprestimo-header .btn{
+    border: 1px solid black;
+    background-color: white;
+    transition: 0.2s ease;
+}
 
-#conteudo h2 {
+#conteudo #form-emprestimo-header .btn:hover{
+    background-color: #E3E6F3;
+}
+
+#conteudo #form-emprestimo-header h2 {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
