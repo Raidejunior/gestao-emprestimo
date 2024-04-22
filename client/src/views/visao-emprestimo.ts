@@ -17,22 +17,36 @@ export class VisaoEmprestimo {
         return { id, juros, numParcelas };
     }
 
+    // <label for="valor">Valor:</label>
+    // <input type="number" id="valor">
+    // <label for="formas-pagamento">Forma de pagamento:</label>
+    // <select id="formas-pagamento">
+    //     <option value="" selected></option>
+    // </select>
+    // <button type="submit" id="realizar-emprestimo" hidden>Realizar empréstimo</button>
+
     montarFormulario(nome: string, idade: number) {
         document.getElementById('conteudo')!.innerHTML = `
             <h2 class="info-cliente">${nome}, ${idade} anos</h2>
 
             <form class="form-emprestimo">
-                <label for="valor">Valor:</label>
-                <input type="number" id="valor">
-                <label for="formas-pagamento">Forma de pagamento:</label>
-                <select id="formas-pagamento">
-                    <option value="" selected></option>
-                </select>
-                <button type="submit" id="realizar-emprestimo" hidden>Realizar empréstimo</button>
-            </form>
+                <div class="valor-parcelas mb-3">
+                    <label for="valor" class="form-label">Valor</label>
+                    <input type="number" class="form-control" id="valor">
+                    <div class="form-text">Apenas valores entre R$500 e R$ 50.000</div>
+                </div>
+                <div class="forma-pagamento">
+                    <label for="formas-pagamento">Forma de pagamento</label>
+                    <select class="form-select" id="formas-pagamento" aria-label="Selecione">
+                        <option selected>Selecione</option>
+                    </select>
+                </div>
 
+            </form>
+                
             <div id="info-parcelas"></div>
-            <table id="parcelas"></table>
+            <table id="parcelas" class="table table-striped"></table>
+            <button type="submit" class="btn btn-primary" id="realizar-emprestimo" hidden>Realizar empréstimo</button>
         `
     }
 
@@ -97,7 +111,7 @@ export class VisaoEmprestimo {
         document.getElementById('conteudo')!.innerHTML = `
             <h2>Empréstimos</h2>
 
-            <table>
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Data - Hora</th>

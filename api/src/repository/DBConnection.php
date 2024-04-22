@@ -15,7 +15,7 @@ class DBConnection{
         $pdo = new PDO(
             'mysql:dbname=acme;host=localhost;charset=utf8',
             'root',
-            '',
+            'admin123',
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
         );
 

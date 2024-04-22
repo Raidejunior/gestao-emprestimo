@@ -1,0 +1,68 @@
+body, .form-cliente {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+body{
+    width: 100%;
+}
+
+h1 {
+    margin-top: 3000px;
+}
+
+#conteudo {
+    padding: 20px;
+    margin-top: 30px;
+    width: 900px;
+    min-height: 650px;
+    border-radius: 20px;
+    background-color: darkgrey;
+}
+
+.form-cliente {
+    align-self: center;
+    justify-self: center;
+}
+
+.form-cliente #cpf {
+    width:300px;
+}
+
+.form-cliente #buscar { 
+    width: 250px
+}
+
+
+.info-cliente {
+    align-self: flex-start;
+}
+
+.form-emprestimo {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.form-emprestimo #valor {
+    width: 80%;
+}
+
+.valor-parcelas {
+    width: 60%;
+}
+
+.forma-pagamento {
+    display: flex;
+    flex-direction: column;
+}
+
+#info-parcelas {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

@@ -93,10 +93,8 @@ export class Emprestimo {
         return Number(numero.toFixed(2));
     }
 
-    /**
-     * Salva os dados do emprestimo que o usuário acabou de buscar no LocalStorage
-     */
-    salvarEmprestimo(): boolean {
+   
+    async salvarEmprestimo(): Promise<boolean | Error> {
 
         try {
             const dadosCliente = JSON.parse(sessionStorage.getItem('cliente')!);
@@ -107,10 +105,10 @@ export class Emprestimo {
             this.dataHora = new Date();
 
             const servicoEmprestimo = new ServicoEmprestimo();
-            servicoEmprestimo.salvarEmprestimo(this);
-            return true;
+
+            return await servicoEmprestimo.salvarEmprestimo(this);
         } catch(e) {
-            return false;
+            throw new Error('Erro ao salvar empréstimo');
         }
     }
 

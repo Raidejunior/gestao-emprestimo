@@ -15,7 +15,7 @@ export class Cliente {
     }
 
 
-    static isCPFValido(cpf: string): boolean {
+    static isCPFValido(cpf: string): boolean | string {
 
         // Verifica se o CPF está preenchido
         if (cpf === null || cpf === undefined || cpf.trim() === '') {
@@ -35,7 +35,7 @@ export class Cliente {
             return false;
         }
     
-        return true; // O CPF está preenchido e válido
+        return cpf; // O CPF está preenchido e válido
     }
 
     static salvarClienteSessionStorage(cliente: Cliente | null) {

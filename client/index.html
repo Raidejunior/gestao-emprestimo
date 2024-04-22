@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acme Serviços Financeiros</title>
+    <link rel="stylesheet" href="./src/css/style.css">
     <script src="./src/main.ts" type="module" defer></script>
 </head>
 <body>
@@ -11,10 +12,16 @@
         <h1>Acme Serviços Financeiros</h1>
     </header>
     <div id="conteudo">
-        <form>
-            <label for="cpf">Digite o CPF (apenas números):</label>
+        <form class="form-cliente">
+            <div class="mb-3">
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="cpf">
+                <div class="form-text">Digite apenas números</div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="buscar">Buscar</button>
+            <!-- <label for="cpf">Digite o CPF (apenas números):</label>
             <input type="text" id="cpf">
-            <button type="submit" id="buscar">Buscar</button>
+            <button type="submit" id="buscar">Buscar</button> -->
         </form>
         <output id="info-cliente"></output>
     </div>
