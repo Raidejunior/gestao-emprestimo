@@ -16,7 +16,7 @@ export class ControladoraCliente {
     }
 
     async buscar(): Promise<void> {
-        const cpf = this.visao.cpf();
+        const cpf = this.visao.cpf(Cliente.desformataCPF);
         const servicoCliente = new ServicoCliente();
 
         try {
