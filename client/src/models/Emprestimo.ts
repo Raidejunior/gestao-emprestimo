@@ -11,7 +11,7 @@ export class Emprestimo {
     cliente?: Cliente;
     valorSolicitadoEmprestimo: number;
     formaPagamento: FormaPagamento;
-    dataHora?: Date;
+    dataHora?: Date | String;
     valorPagoEmprestimo?: number = 0
     parcelas?: Array<Parcela>
 
