@@ -43,7 +43,6 @@ class Emprestimo{
 
     /**
      * Responsável por chamar o repository para salvar o empréstimo.
-     * @param Em $emprestimo
      * @return int dado do id da linha inserida ou -1 para posterior avaliação e retorno HTTP correto.
      */
     function salvarEmprestimo(){
@@ -74,10 +73,9 @@ class Emprestimo{
      */
     function validaValores(){
         $valor = $this->valorSolicitado;
-        $erro = 0;
-        if($valor < 500 || $valor > 50000)
-        {
-            $erro = 1;
+        $erro = false;
+        if($valor < 500 || $valor > 50000){
+            $erro = true;
         }
         return $erro;
     }
