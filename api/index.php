@@ -18,16 +18,13 @@ $app = new Router();
 $app->use( cors() );
 
 $app->get('/clientes', function( $req, $res ) {
-    $cpf = $req->param('cpf');
-    $clienteController = new ClienteController();
-    $cliente = $clienteController->buscaCPF($cpf);
-    $res->send($cliente);
-} );
+    $clienteController = new ClienteController($req, $res);
+    $clienteController->buscaCPF();
+});
 
 $app->get('/forma_pagamento', function( $req, $res ) {
-    $formaPagamentoController = new FormaPagamentoController();
-    $lista = $formaPagamentoController->retornaArrayFormaPagamento();
-    $res->send($lista);
+    $formaPagamentoController = new FormaPagamentoController($req, $res);
+    $formaPagamentoController->buscarFormasPagamento();
 });
 
 $app->get('/emprestimos', function( $req, $res ) {

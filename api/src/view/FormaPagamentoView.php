@@ -6,10 +6,21 @@ namespace src\view;
  * @return string vai retornar uma string em formato json. 
  */
 class FormaPagamentoView{
+
+    private $req;
+    private $res;
+
+    public function __construct($req, $res){   
+        $this->req = $req;
+        $this->res = $res;
+    }
+
     function retornaArrayFormaPagamentoEmJson($array) {
-        if(count($array) > 0)
-        return json_encode($array);
-        else
-        return json_encode([]);
+        if(count($array) > 0) {
+            $this->res->json($array);
+        }
+        else {
+            $this->res->status(404)->send('Nenhuma forma de pagamento encontrada');
+        }
     }
 }
