@@ -38,6 +38,21 @@ export class Cliente {
         return cpf; // O CPF está preenchido e válido
     }
 
+    static desformataCPF(cpf: string): string {
+        const isCPFFormatado = Cliente.isCPFFormatado(cpf);
+        if(isCPFFormatado)
+            return cpf.replace(/\D/g, '');
+        else
+            return cpf;
+    }
+
+    static isCPFFormatado(cpf: string): boolean {
+        if(cpf.length == 14)
+            return true;
+        else
+            return false;
+    }
+
     static salvarClienteSessionStorage(cliente: Cliente | null) {
         sessionStorage.setItem('cliente', JSON.stringify(cliente));
     }

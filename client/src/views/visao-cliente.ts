@@ -1,8 +1,10 @@
 export class VisaoCliente {
     
-    cpf(): string {
-        return ( document.getElementById('cpf') as HTMLInputElement ).value;
+    cpf(desformataCPF: Function): string {
+        const cpf = (document.getElementById('cpf') as HTMLInputElement).value;
+            return desformataCPF(cpf);
     }
+
 
     mostrarResultado(msg: string): void {
         document.querySelector('output')!.innerText = msg;

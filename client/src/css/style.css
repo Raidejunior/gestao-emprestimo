@@ -67,7 +67,7 @@ html body{
     width: 250px
 }
 
-#conteudo #info-cliente {
+#conteudo #mensagemErro {
     color: red;
     width: 100%;
     text-align: center;
@@ -85,6 +85,12 @@ html body{
 }
 
 #conteudo #form-emprestimo-header h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#conteudo h2{
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
