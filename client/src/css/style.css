@@ -90,6 +90,12 @@ html body{
     margin-bottom: 20px;
 }
 
+#conteudo h2{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
 #conteudo .form-emprestimo {
     display: flex;
     flex-direction: row;
