@@ -35,28 +35,26 @@ class EmprestimoRepository{
 
     /**
      * Responsável pela inserção do empréstimo no banco de dados.
-     * @param array $emprestimo
+     * @param Emprestimo $emprestimo
      * @return int
      */
-    function salvarEmprestimo($emprestimo) : int{
+    function salvarEmprestimo(Emprestimo $emprestimo) : int{
         $ps = $this->pdo->prepare('INSERT INTO emprestimo(cliente_id, valor, forma_pagamento_id ) 
             VALUES 
                 (:cliente_id, :valor, :forma_pagamento_id)');
 
         $inserido = $ps->execute([
-            'cliente_id' => $emprestimo['cliente_id'],
-            'valor' => $emprestimo['valor'],
-            'forma_pagamento_id' => $emprestimo['forma_pagamento_id']
+            'cliente_id' => $emprestimo->cliente->id,
+            'valor' => $emprestimo->valorSolicitado,
+            'forma_pagamento_id' => $emprestimo->formaPagamento->id
         ]);
-        if($inserido)
-        {
+
+        if($inserido){
             $rowCount = $ps->rowCount();
-            if($rowCount > 0)
-            {
+            if($rowCount > 0){
                 return $this->pdo->lastInsertId();
             }
-            else
-            {
+            else{
                 return -1;
             }
         }

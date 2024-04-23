@@ -28,7 +28,7 @@ $app->get('/forma_pagamento', function( $req, $res ) {
 });
 
 $app->get('/emprestimos', function( $req, $res ) {
-    $emprestimoController = new EmprestimoController();
+    $emprestimoController = new EmprestimoController($req, $res);
     $emprestimos = $emprestimoController->buscarTodosEmprestimos();
 
     $res->send($emprestimos);
@@ -36,17 +36,8 @@ $app->get('/emprestimos', function( $req, $res ) {
 
 
 $app->post('/emprestimos', function( $req, $res ) {
-    $cliente_id = $req->param('cliente_id');
-    $valor = $req->param('valor');
-    $forma_pagamento_id = $req->param('forma_pagamento_id');
-    $emprestimo = [
-        "cliente_id" => $cliente_id, 
-        "valor" => $valor, 
-        "forma_pagamento_id" => $forma_pagamento_id
-    ];
-    $emprestimoController = new EmprestimoController();
-    $retorno = $emprestimoController->salvarEmprestimo($emprestimo);
-    $res->send($retorno);
+    $emprestimoController = new EmprestimoController($req, $res);
+    $emprestimoController->salvarEmprestimo();
 });
 
 $app->listen();

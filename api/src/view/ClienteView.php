@@ -34,6 +34,6 @@ class ClienteView{
             return;
         }
 
-        $this->res->status(201)->json($cliente); 
+        $this->res->status(200)->json($cliente); 
     }
 }

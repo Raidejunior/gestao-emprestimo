@@ -1,20 +1,21 @@
 <?php
 namespace src\view;
 
-/**
- * Responsável por retornar o array de FormaPagamento em um json array. 
- * @return string vai retornar uma string em formato json. 
- */
+
 class FormaPagamentoView{
 
     private $req;
     private $res;
-
+    
     public function __construct($req, $res){   
         $this->req = $req;
         $this->res = $res;
     }
 
+    /**
+     * Responsável por retornar o array de FormaPagamento em um json array. 
+     * @return Json Vai retornar uma string em formato json. 
+     */
     function retornaArrayFormaPagamentoEmJson($array) {
         if(count($array) > 0) {
             $this->res->json($array);
