@@ -17,14 +17,21 @@ export class VisaoEmprestimo {
         return { id, juros, numParcelas };
     }
 
+    nomeCliente(): string {
+        const nome = (document.querySelector('.info-cliente span') as HTMLSpanElement).textContent;
+
+        return String(nome);
+    }
+
 
     montarFormulario(nome: string, idade: number) {
+        
         document.getElementById('conteudo')!.innerHTML = `
             <section id="form-emprestimo-header">
                 <div>
                     <a class="btn btn-large" href="/">Início</a>
                 </div>
-                <h2 class="info-cliente">${nome}, ${idade} anos</h2>
+                <h2 class="info-cliente"><span>${nome}</span>, ${idade} anos</h2>
             </section>
             <form class="form-emprestimo mb-3" id="form-emprestimo">
                 <div class="valor-parcelas">
@@ -43,8 +50,12 @@ export class VisaoEmprestimo {
                 
             <div id="info-parcelas"></div>
             <table id="parcelas" class="table table-striped"></table>
-            <button type="submit" form="form-emprestimo" class="btn btn-primary" id="realizar-emprestimo" hidden>Realizar empréstimo</button>
-        `
+            <button type="submit" form="form-emprestimo" class="btn btn-primary" id="realizar-emprestimo" data-toggle="modal" data-target="#modalEmprestimo" hidden>Realizar empréstimo</button>
+        `;
+
+        this.montarDialogoAoClicarEmRealizarEmprestimo(); // Configurando o modal para confirmar o empréstimo
+
+        this.definirAcaoAoClicarEmRealizarEmprestimo(); // Passando os dados de valor e nome do cliente para o modal
     }
 
     montarFormasDePagamento(dados: Array<any>): void {
@@ -137,6 +148,48 @@ export class VisaoEmprestimo {
         `;
     }
 
+    montarDialogoAoClicarEmRealizarEmprestimo(): void { 
+        document.body.innerHTML += `
+        <div class="modal fade" id="modalEmprestimo" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="emprestimoModalLabel">Confirmar empréstimo</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Deseja confirmar o empréstimo de <strong><span id="valor-parcela"></span></strong>
+                            para <strong><span id="nome-cliente"></span></strong>?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" id="confirmar-emprestimo" class="btn btn-primary">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    }
+
+    mostrarMensagem(sucesso: boolean): void {
+        const classe = sucesso ? 'success' : 'danger';
+        const titulo = sucesso ? 'Sucesso' : 'Erro';
+        const msg = sucesso ? 'Empréstimo salvo com sucesso' : 'Erro ao salvar empréstimo';
+        const acao = sucesso ? 'id="buscar-emprestimos" data-dismiss="modal"' : 'data-dismiss="modal"'; // em caso de sucesso, o id é atribuido ao botão para realizar a busca quando for clicado
+
+        console.log(`alert-${classe}`);
+
+        document.querySelector('.modal-content')!.innerHTML = `
+            <div class="alert alert-${classe}" role="alert">
+                <h4 class="alert-heading">${titulo}</h4>
+                <hr>
+                <p>${msg}</p>
+                <button type="button" ${acao} class="btn btn-${classe}">Ok</button>
+            </div>
+        `;
+    }
+
     definirAcaoAoDigitarValor(funcaoVerificadora: Function, funcaoCalculadora: Function) {
         document.getElementById('valor')?.addEventListener('keyup', e => {
             const valor = Number((e.target as HTMLInputElement ).value);
@@ -177,12 +230,30 @@ export class VisaoEmprestimo {
         });
     }
 
-    definirAcaoAoRealizarEmprestimo(funcao: Function): void {
-        document.getElementById('realizar-emprestimo')
+    definirAcaoAoClicarEmRealizarEmprestimo(): void {
+        document.getElementById('realizar-emprestimo')?.addEventListener('click', e => {
+            e.preventDefault();
+
+            (document.getElementById('valor-parcela') as HTMLSpanElement).textContent = this.valor().toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            (document.getElementById('nome-cliente') as HTMLSpanElement).textContent = this.nomeCliente();
+        });
+    }
+
+    definirAcaoAoConfirmarEmprestimo(funcao: Function): void {
+        document.getElementById('confirmar-emprestimo')
             ?.addEventListener('click', e => {
                 e.preventDefault();
+                (e.target as HTMLButtonElement).disabled = true;
 
                 funcao();
+        });
+    }
+
+    definirAcaoAoSalvarEmprestimo(funcao: Function): void {
+        document.getElementById('buscar-emprestimos')!.addEventListener('click', e => {
+            e.preventDefault();
+            
+            funcao();
         });
     }
 

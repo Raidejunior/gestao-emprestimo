@@ -132,3 +132,7 @@ html body{
   padding: 10px;
   text-align: center;
 }
+
+.alert-success, .alert-danger {
+    margin: 0 !important;
+}

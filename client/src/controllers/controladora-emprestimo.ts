@@ -51,15 +51,32 @@ export class ControladoraEmprestimo {
         return emprestimo;
     }
 
+    /**
+     * Responsável por chamar o serviço para salvar um empréstimo
+    */
     async salvarEmprestimo() {
-        const emprestimo = await this.calcularParcelas();
-        const resp = await emprestimo.salvarEmprestimo();
-
-        if(resp) {
-            const servicoEmprestimo = new ServicoEmprestimo();
-            const emprestimos = await servicoEmprestimo.buscarTodosEmprestimos();
-            this.visao.montarTabelaDeEmprestimos(emprestimos);
+        try {
+            const emprestimo = await this.calcularParcelas();
+            const resp = await emprestimo.salvarEmprestimo();
+            if(resp) {
+                this.visao.mostrarMensagem(true);
+                this.visao.definirAcaoAoSalvarEmprestimo(this.buscarTodosEmprestimos.bind(this));
+            } else {
+                this.visao.mostrarMensagem(false);
+            }
+        } catch(e) {
+            this.visao.mostrarMensagem(false);
         }
+
+    }
+
+    /**
+    * Responsável por chamar o serviço para buscar todos os empréstimos
+    */
+    async buscarTodosEmprestimos() {
+        const servicoEmprestimo = new ServicoEmprestimo();
+        const emprestimos = await servicoEmprestimo.buscarTodosEmprestimos();
+        this.visao.montarTabelaDeEmprestimos(emprestimos);
     }
 
     
@@ -67,11 +84,11 @@ export class ControladoraEmprestimo {
         this.visao.definirAcaoAoSelecionarFormaDePg(Emprestimo.verificarValorEmprestimo, this.calcularParcelas.bind(this));
     }
     
-    private configurarEmprestimo(): void {
-        this.visao.definirAcaoAoRealizarEmprestimo(this.salvarEmprestimo.bind(this));
-    }
-
     private configurarCalcDeParcelasAoDigitarValor(): void {
         this.visao.definirAcaoAoDigitarValor(Emprestimo.verificarValorEmprestimo, this.calcularParcelas.bind(this));
+    }
+
+    private configurarEmprestimo(): void {
+        this.visao.definirAcaoAoConfirmarEmprestimo(this.salvarEmprestimo.bind(this));
     }
 }
