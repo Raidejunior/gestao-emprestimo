@@ -24,7 +24,8 @@
         }
     ],
     "require-dev": {
-        "kahlan/kahlan": "^5.2"
+        "kahlan/kahlan": "^5.2",
+        "phpstan/phpstan": "^1.10"
     },
     "require": {
         "phputil/router": "^0.2.15",
