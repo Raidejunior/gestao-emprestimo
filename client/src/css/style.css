@@ -40,10 +40,14 @@ html body{
 /* Section Conteudo */
 
 #conteudo {
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
     width: 900px;
     min-height: 650px;
+    margin-bottom: 30px;
     border-radius: 20px;
+    position: relative;
     background-color: whitesmoke;
 }
 
@@ -52,6 +56,7 @@ html body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 100px;
 }
 
 #conteudo .form-cliente #cpf {
@@ -60,6 +65,13 @@ html body{
 
 #conteudo .form-cliente #buscar { 
     width: 250px
+}
+
+#conteudo #info-cliente {
+    color: red;
+    width: 100%;
+    text-align: center;
+    margin-top: 25px;
 }
 
 #conteudo #form-emprestimo-header .btn{
@@ -86,6 +98,10 @@ html body{
 
 #conteudo .form-emprestimo #valor {
     width: 80%;
+}
+
+#conteudo #realizar-emprestimo {
+    align-self: center;
 }
 
 #conteudo .valor-parcelas {

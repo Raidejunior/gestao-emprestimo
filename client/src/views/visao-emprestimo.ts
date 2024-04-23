@@ -17,13 +17,6 @@ export class VisaoEmprestimo {
         return { id, juros, numParcelas };
     }
 
-    // <label for="valor">Valor:</label>
-    // <input type="number" id="valor">
-    // <label for="formas-pagamento">Forma de pagamento:</label>
-    // <select id="formas-pagamento">
-    //     <option value="" selected></option>
-    // </select>
-    // <button type="submit" id="realizar-emprestimo" hidden>Realizar empréstimo</button>
 
     montarFormulario(nome: string, idade: number) {
         document.getElementById('conteudo')!.innerHTML = `
@@ -33,10 +26,10 @@ export class VisaoEmprestimo {
                 </div>
                 <h2 class="info-cliente">${nome}, ${idade} anos</h2>
             </section>
-            <form class="form-emprestimo mb-3">
+            <form class="form-emprestimo mb-3" id="form-emprestimo">
                 <div class="valor-parcelas">
                     <label for="valor" class="form-label">Valor</label>
-                    <input type="number" class="form-control" id="valor">
+                    <input type="number" required class="form-control" id="valor">
                     <div class="form-text">Apenas valores entre R$500 e R$ 50.000</div>
                 </div>
                 <div class="forma-pagamento">
@@ -45,12 +38,12 @@ export class VisaoEmprestimo {
                         <option selected>Selecione</option>
                     </select>
                 </div>
-
+            
             </form>
                 
             <div id="info-parcelas"></div>
             <table id="parcelas" class="table table-striped"></table>
-            <button type="submit" class="btn btn-primary" id="realizar-emprestimo" hidden>Realizar empréstimo</button>
+            <button type="submit" form="form-emprestimo" class="btn btn-primary" id="realizar-emprestimo" hidden>Realizar empréstimo</button>
         `
     }
 
@@ -98,7 +91,13 @@ export class VisaoEmprestimo {
         (document.getElementById('realizar-emprestimo') as HTMLButtonElement).hidden = false;
     }
 
-    MontarTabelaDeEmprestimos(emprestimos: any) {
+    desfazerParcelas(): void {
+        document.getElementById('parcelas')!.innerHTML = '';
+        document.getElementById('info-parcelas')!.innerHTML = '';
+        (document.getElementById('realizar-emprestimo') as HTMLButtonElement).hidden = true;
+    }
+
+    montarTabelaDeEmprestimos(emprestimos: any): void {
         const emprestimosHTML = emprestimos.map(
             (e: { dataHora: any; cliente: { nome: any; }; valorSolicitadoEmprestimo: any; formaPagamento: { meses: any; juros: any; }; valorPagoEmprestimo: any; }) => {
                 return (`
@@ -138,19 +137,18 @@ export class VisaoEmprestimo {
         `;
     }
     
-    definirAcaoAoDigitarValor(funcao: Function) : void {
+    definirAcaoAoSairDoInputValor(funcao: Function) : void {
         document.getElementById('valor')?.addEventListener('blur', e => {
             const divAviso = document.querySelector('.form-text');
-            const valor = (e.target as HTMLInputElement ).value;
+            const valor = Number((e.target as HTMLInputElement ).value);
             if(!valor){
                 return;
             }
 
-            if(!funcao(Number(valor))) {
+            if(!funcao(valor)) {
                 if (divAviso !== null) {
                     divAviso.classList.add('div-aviso-valor-color-red');
                 }
-                alert('O valor do empréstimo deve estar entre R$ 500 e R$ 50.000');
             }else{
                 if (divAviso !== null) {
                     divAviso.classList.remove('div-aviso-valor-color-red');
@@ -161,15 +159,34 @@ export class VisaoEmprestimo {
         });
     }
 
-    definirAcaoAoSelecionarFormaDePagamento(funcao: Function) {
-        document.getElementById('formas-pagamento')?.addEventListener('change', () => {
-            const { id, juros, numParcelas } = this.formaPagamento();
-            
-            if(!juros || !this.valor()){
+    definirAcaoAoDigitarValor(funcaoVerificadora: Function, funcaoCalculadora: Function) {
+        document.getElementById('valor')?.addEventListener('keyup', e => {
+            const valor = Number((e.target as HTMLInputElement ).value);
+
+            if(!valor || !funcaoVerificadora(valor)){ // Se o valor não for válido, o cálculo de parcelas não é feito
+                this.desfazerParcelas(); // Se houver alguma parcela sendo mostrada, a tabela e as informações são defeitas
                 return;
             }
 
-            funcao(id, numParcelas, juros);
+            const formaPagamento = this.formaPagamento();
+            if(!formaPagamento.id){ // Se não houver uma forma de pagamento, o cálculo de parcelas não é feito 
+                return; 
+            }
+
+            funcaoCalculadora(valor);
+        });
+    } 
+
+    definirAcaoAoSelecionarFormaDePg(funcaoVerificadora: Function, funcaoCalculadora: Function): void {
+        document.getElementById('formas-pagamento')?.addEventListener('change', () => {
+            const fp = this.formaPagamento();
+            
+            console.log(fp.id, this.valor);
+            if(!fp.id || !funcaoVerificadora(this.valor())){ // Se não houver uma forma de pagamento definida ou o valor for inválido, o cálculo de parcelas não é feito
+                return;
+            }
+
+            funcaoCalculadora();
         });
     }
 
@@ -178,8 +195,7 @@ export class VisaoEmprestimo {
             ?.addEventListener('click', e => {
                 e.preventDefault();
 
-                const { id, juros, numParcelas } = this.formaPagamento();
-                funcao(id, numParcelas, juros);
+                funcao();
         });
     }
 
