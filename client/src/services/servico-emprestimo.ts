@@ -6,9 +6,11 @@ import { FormaPagamento } from "../models/FormaPagamento.ts";
 export class ServicoEmprestimo {
 
     async salvarEmprestimo(emprestimo: Emprestimo): Promise<boolean | Error> {
-        const resp = await fetch(API + `/emprestimos?cliente_id=${emprestimo.cliente?.id}&valor=${emprestimo.valorSolicitadoEmprestimo}&forma_pagamento_id=${emprestimo.formaPagamento.id}`, { 
+        console.log(emprestimo);
+        const resp = await fetch(API + `/emprestimos`, { 
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(emprestimo)
         });
 
         if(!resp.ok) {

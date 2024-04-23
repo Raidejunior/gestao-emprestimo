@@ -6,7 +6,7 @@ export class ServicoCliente {
     async localizarCliente(cpf: string): Promise<Cliente> {
          const resp = await fetch(API + `/clientes?cpf=${cpf}`);
 
-        if(resp.status === 399) {
+        if(resp.status === 404) {
             Cliente.salvarClienteSessionStorage(null);
             throw new Error('Nenhum cliente foi encontrado');
             

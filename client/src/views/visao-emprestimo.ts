@@ -180,8 +180,6 @@ export class VisaoEmprestimo {
     definirAcaoAoSelecionarFormaDePg(funcaoVerificadora: Function, funcaoCalculadora: Function): void {
         document.getElementById('formas-pagamento')?.addEventListener('change', () => {
             const fp = this.formaPagamento();
-            
-            console.log(fp.id, this.valor);
             if(!fp.id || !funcaoVerificadora(this.valor())){ // Se não houver uma forma de pagamento definida ou o valor for inválido, o cálculo de parcelas não é feito
                 return;
             }
