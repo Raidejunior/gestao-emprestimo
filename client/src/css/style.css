@@ -67,7 +67,7 @@ html body{
     width: 250px
 }
 
-#conteudo #info-cliente {
+#conteudo #mensagemErro {
     color: red;
     width: 100%;
     text-align: center;
