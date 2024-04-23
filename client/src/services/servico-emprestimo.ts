@@ -42,7 +42,11 @@ export class ServicoEmprestimo {
             let cliente = new Cliente(0, dado.cliente_nome, '12345678910', new Date());
             let emprestimo = new Emprestimo(Number(dado.valor), formaPagamento);
             emprestimo.cliente = cliente;
-            emprestimo.dataHora = dado.data_emprestimo;
+
+            const [data, hora] = dado.data_emprestimo.split(' ');
+            const [ano, mes, dia] = data.split('-');
+            const dataHora = `${dia}/${mes}/${ano} - ${hora}`; // Formatando a data e hora para o padrão brasileiro
+            emprestimo.dataHora = dataHora;
 
             let valorPagoEmprestimo = Number(dado.valor) * (1 + Number(dado.juros) / 100); // calculando o total que será pago pelo empréstimo
             valorPagoEmprestimo = Number(valorPagoEmprestimo.toFixed(2));

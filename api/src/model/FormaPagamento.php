@@ -23,14 +23,29 @@ class FormaPagamento {
 
     /**
      * Responsável por chamar repositório de forma de pagamento e passar para a controller.
-     * @return array
+     * @return FormasPagamen
      */
     public function retornaArrayFormaPagamento() {
         $db = new DBConnection();
         $pdo = $db->conectar();
         $formaPagamentoRepository = new FormaPagamentoRepository($pdo);
-        $arrayFormaPagamento = $formaPagamentoRepository->retornaArrayFormaPagamento();
-        return $arrayFormaPagamento;
+        $dados = $formaPagamentoRepository->retornaArrayFormaPagamento();
+        if(!$dados) {
+            return null;
+        }
+
+        $formasDePagamento = [];
+        foreach($dados as $fp) {
+            $formaDePagamento = new FormaPagamento(
+                $fp['id'],
+                $fp['descricao'],
+                $fp['meses'],
+                $fp['juros']
+            );
+            array_push($formasDePagamento, $formaDePagamento);
+        }
+
+        return $formasDePagamento;
     }
 
 }

@@ -22,14 +22,25 @@ class Cliente {
 
     /**
      * Responsável por chamar o repository para buscar cliente e retorná-lo.
-     * @param int $cpf
-     * @return array - Objeto cliente com os dados.
+     * @param string $cpf
+     * @return Cliente - Objeto cliente com os dados ou null caso o cliente não seja encontrado
      */
     function buscaCPF($cpf) {
         $db = new DBConnection();
         $pdo = $db->conectar();
         $cr = new ClienteRepository($pdo);
-        $cliente = $cr->retornaClientePorCPF($cpf);
+        $dadosCliente = $cr->retornaClientePorCPF($cpf);
+        if(!$dadosCliente) {
+            return null;
+        }
+
+        $cliente = new Cliente(
+            $dadosCliente["id"],
+            $dadosCliente["nome"],
+            $dadosCliente["cpf"],
+            $dadosCliente["data_nascimento"]
+        );
+        
         return $cliente;
     }
 }

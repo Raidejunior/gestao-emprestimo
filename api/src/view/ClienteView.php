@@ -3,25 +3,37 @@ namespace src\view;
 
 class ClienteView{
 
+    private $req;
+    private $res;
+
+    public function __construct($req, $res){
+        $this->req = $req;
+        $this->res = $res;
+    }
+
+    /**
+     * Responsável por retornar o CPF da requisição, devolve uma resposta com código 400 caso não haja um parâmetro CPF
+     * @return string
+     */
+    public function cpf(): string {
+        $cpf = $this->req->param('cpf');
+        if(!$cpf) {
+            $this->res->status(400)->send('Parâmetros inválidos');
+        }
+
+        return $cpf;
+    }
+
     /**
      * Responsável por receber um cliente e retorná-lo em json.
      * @param Cliente parâmetro do tipo Cliente.
-     * @return Json retorno tipo Json.
      */
     function retornaClienteEmJson($cliente){
-
-        if($cliente)
-        {
-            $clienteEmJson = json_encode([
-                "id" => $cliente["id"],
-                "nome" => $cliente["nome"],
-                "cpf" => $cliente["cpf"],
-                "dataNascimento" => $cliente["data_nascimento"]
-            ]);
-        } else {
-            $clienteEmJson = json_encode([]);
+        if(!$cliente) {
+            $this->res->status(404)->send('Nenhum cliente encontrado');
+            return;
         }
 
-        return $clienteEmJson;
+        $this->res->status(201)->json($cliente); 
     }
 }

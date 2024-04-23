@@ -14,15 +14,13 @@
         </header>
     </section>
     <section id="conteudo">
+        <h2>Busque um cliente</h2>
         <form class="form-cliente">
             <div class="mb-3">
                 <label for="cpf" class="form-label">CPF</label>
-                <input oninput="formataCPF(this)" type="text" class="form-control" placeholder="Digite apenas números" id="cpf">
+                <input type="text" required autofocus  oninput="formataCPF(this)" class="form-control" placeholder="Digite apenas números" id="cpf">
             </div>
             <button type="submit" class="btn btn-primary" id="buscar">Buscar</button>
-            <!-- <label for="cpf">Digite o CPF (apenas números):</label>
-            <input type="text" id="cpf">
-            <button type="submit" id="buscar">Buscar</button> -->
         </form>
         <output id="info-cliente"></output>
     </section>

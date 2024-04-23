@@ -15,9 +15,10 @@ export class ControladoraEmprestimo {
         this.visao.montarFormulario(nome, idade);
         
         this.carregarFormasDePagamento();
-        this.configurarVerificaoDeValor();
-        this.configurarCalculoDeParcelas();
+        this.configurarCalcDeParcelasAoSelecionaFormaDePg();
         this.configurarEmprestimo();
+        this.configurarCalcDeParcelasAoDigitarValor();
+        this.configurarVerificaoDeValor();
     }
 
     async carregarFormasDePagamento(): Promise<void> {
@@ -33,9 +34,10 @@ export class ControladoraEmprestimo {
         this.visao.montarFormasDePagamento(formasPagamento);
     }
 
-    async calcularParcelas(id: number, numParcelas: number, juros: number): Promise<Emprestimo> {
+    async calcularParcelas(): Promise<Emprestimo> {
         const valor = this.visao.valor();
-        const formaPagamento = new FormaPagamento(id, '', numParcelas, juros);
+        const fp = this.visao.formaPagamento();
+        const formaPagamento = new FormaPagamento(fp.id, '', fp.numParcelas, fp.juros);
 
         const emprestimo = new Emprestimo(valor, formaPagamento);
 
@@ -50,26 +52,31 @@ export class ControladoraEmprestimo {
         return emprestimo;
     }
 
-    async salvarEmprestimo(id: number, numParcelas: number, juros: number) {
-        const emprestimo = await this.calcularParcelas(id, numParcelas, juros);
+    async salvarEmprestimo() {
+        const emprestimo = await this.calcularParcelas();
         const resp = await emprestimo.salvarEmprestimo();
 
         if(resp) {
             const servicoEmprestimo = new ServicoEmprestimo();
             const emprestimos = await servicoEmprestimo.buscarTodosEmprestimos();
-            this.visao.MontarTabelaDeEmprestimos(emprestimos);
+            this.visao.montarTabelaDeEmprestimos(emprestimos);
         }
     }
 
-    private configurarCalculoDeParcelas(): void {
-        this.visao.definirAcaoAoSelecionarFormaDePagamento(this.calcularParcelas.bind(this));
+    
+    private configurarCalcDeParcelasAoSelecionaFormaDePg(): void {
+        this.visao.definirAcaoAoSelecionarFormaDePg(Emprestimo.verificarValorEmprestimo, this.calcularParcelas.bind(this));
     }
-
+    
     private configurarEmprestimo(): void {
         this.visao.definirAcaoAoRealizarEmprestimo(this.salvarEmprestimo.bind(this));
     }
 
+    private configurarCalcDeParcelasAoDigitarValor(): void {
+        this.visao.definirAcaoAoDigitarValor(Emprestimo.verificarValorEmprestimo, this.calcularParcelas.bind(this));
+    }
+
     private configurarVerificaoDeValor(): void {
-        this.visao.definirAcaoAoDigitarValor(Emprestimo.verificarValorEmprestimo);
+        this.visao.definirAcaoAoSairDoInputValor(Emprestimo.verificarValorEmprestimo);
     }
 }
