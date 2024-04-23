@@ -136,16 +136,13 @@ export class VisaoEmprestimo {
             </table>
         `;
     }
-    
-    definirAcaoAoSairDoInputValor(funcao: Function) : void {
-        document.getElementById('valor')?.addEventListener('blur', e => {
-            const divAviso = document.querySelector('.form-text');
-            const valor = Number((e.target as HTMLInputElement ).value);
-            if(!valor){
-                return;
-            }
 
-            if(!funcao(valor)) {
+    definirAcaoAoDigitarValor(funcaoVerificadora: Function, funcaoCalculadora: Function) {
+        document.getElementById('valor')?.addEventListener('keyup', e => {
+            const valor = Number((e.target as HTMLInputElement ).value);
+            const divAviso = document.querySelector('.form-text');
+
+            if(!funcaoVerificadora(valor)) {
                 if (divAviso !== null) {
                     divAviso.classList.add('div-aviso-valor-color-red');
                 }
@@ -154,14 +151,6 @@ export class VisaoEmprestimo {
                     divAviso.classList.remove('div-aviso-valor-color-red');
                 }
             }
-
-            
-        });
-    }
-
-    definirAcaoAoDigitarValor(funcaoVerificadora: Function, funcaoCalculadora: Function) {
-        document.getElementById('valor')?.addEventListener('keyup', e => {
-            const valor = Number((e.target as HTMLInputElement ).value);
 
             if(!valor || !funcaoVerificadora(valor)){ // Se o valor não for válido, o cálculo de parcelas não é feito
                 this.desfazerParcelas(); // Se houver alguma parcela sendo mostrada, a tabela e as informações são defeitas
@@ -181,7 +170,6 @@ export class VisaoEmprestimo {
         document.getElementById('formas-pagamento')?.addEventListener('change', () => {
             const fp = this.formaPagamento();
             
-            console.log(fp.id, this.valor);
             if(!fp.id || !funcaoVerificadora(this.valor())){ // Se não houver uma forma de pagamento definida ou o valor for inválido, o cálculo de parcelas não é feito
                 return;
             }

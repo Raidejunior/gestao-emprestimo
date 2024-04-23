@@ -18,7 +18,6 @@ export class ControladoraEmprestimo {
         this.configurarCalcDeParcelasAoSelecionaFormaDePg();
         this.configurarEmprestimo();
         this.configurarCalcDeParcelasAoDigitarValor();
-        this.configurarVerificaoDeValor();
     }
 
     async carregarFormasDePagamento(): Promise<void> {
@@ -74,9 +73,5 @@ export class ControladoraEmprestimo {
 
     private configurarCalcDeParcelasAoDigitarValor(): void {
         this.visao.definirAcaoAoDigitarValor(Emprestimo.verificarValorEmprestimo, this.calcularParcelas.bind(this));
-    }
-
-    private configurarVerificaoDeValor(): void {
-        this.visao.definirAcaoAoSairDoInputValor(Emprestimo.verificarValorEmprestimo);
     }
 }
