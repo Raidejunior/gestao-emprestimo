@@ -13,6 +13,7 @@ INSERT INTO cliente
 (nome, cpf, data_nascimento)
 VALUES
 ('Cliente 1', '19195920757', '2008-07-26');
+('Cliente 2', '12345678910', '2008-02-28');
 
 CREATE TABLE forma_pagamento (
     id INT NOT NULL AUTO_INCREMENT,
