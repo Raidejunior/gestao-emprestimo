@@ -30,7 +30,7 @@ class EmprestimoController{
         $emprestimoModel = new Emprestimo();
         $emprestimos = $emprestimoModel->buscarTodosEmprestimos();
 
-        
+        $this->emprestimoView->retornaTodosOsEmprestimos($emprestimos);
     }
 
     /**

@@ -179,8 +179,6 @@ export class VisaoEmprestimo {
         const acao = sucesso ? 'id="buscar-emprestimos" data-dismiss="modal"' : 'data-dismiss="modal"'; // em caso de sucesso, o id é atribuido ao botão para realizar a busca quando for clicado
         const textoBotao = sucesso ? 'Visualizar lista de empréstimos' : 'Ok';
 
-        console.log(`alert-${classe}`);
-
         document.querySelector('.modal-content')!.innerHTML = `
             <div class="alert alert-${classe}" role="alert">
                 <h4 class="alert-heading">${titulo}</h4>

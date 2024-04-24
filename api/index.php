@@ -24,8 +24,6 @@ $app->get('/forma_pagamento', function( $req, $res ) {
 $app->get('/emprestimos', function( $req, $res ) {
     $emprestimoController = new EmprestimoController($req, $res);
     $emprestimos = $emprestimoController->buscarTodosEmprestimos();
-
-    $res->send($emprestimos);
 });
 
 
