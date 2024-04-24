@@ -80,7 +80,7 @@ export class Cliente {
         let idade = hoje.getFullYear() - this.dataNascimento.getFullYear();
         const mesAtual = hoje.getMonth() + 1; // Os meses começam a partir de zero
         const mesNascimento = this.dataNascimento.getMonth() + 1;
-        if (mesAtual < mesNascimento || (mesAtual === mesNascimento && hoje.getDate() > this.dataNascimento.getDate())) {
+        if (mesAtual < mesNascimento || (mesAtual === mesNascimento && hoje.getDate() < this.dataNascimento.getDate())) {
             idade--; // Ainda não fez aniversário este ano
         }
         return idade;
