@@ -45,6 +45,16 @@ export class ControladoraEmprestimo {
         return emprestimo;
     }
 
+    montarParcelas(): void {
+        const emprestimo = this.calcularParcelas();
+
+        this.visao.montarParcelas({ 
+            parcelas: emprestimo.parcelas, 
+            juros: emprestimo.formaPagamento.juros,
+            total: emprestimo.valorPagoEmprestimo
+        });
+    }
+
     /**
      * Responsável por chamar o serviço para salvar um empréstimo
     */
