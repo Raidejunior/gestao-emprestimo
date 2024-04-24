@@ -17,7 +17,7 @@ class EmprestimoView{
     /**
      * Responsável por verificar o dado de retorno do DB e retornar um código HTTP de resposta.
      * @param int $dadoRetorno
-     * @return int - Vai retornar um código HTTP de resposta.
+     * Vai retornar um código HTTP de resposta.
      */
     function retornaStatusHTTP(int $codigo){
         $this->res->status($codigo)->send('');

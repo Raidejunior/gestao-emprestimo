@@ -21,7 +21,7 @@ class ClienteController{
     /**
      * Responsável por receber um cpf e gerenciar a procura/formatação dele no sistema.
      * @param string $cpf
-     * @return Json - Vai retornar um json com os dados do cliente.
+     * Vai retornar um json com os dados do cliente.
      */
     public function buscaCPF() {
         $cpf = $this->clienteView->cpf();
