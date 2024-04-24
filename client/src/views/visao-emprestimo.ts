@@ -83,7 +83,7 @@ export class VisaoEmprestimo {
 
         document.getElementById('info-parcelas')!.innerHTML = `
             <p>Juros: ${dados.juros}%</p>
-            <p>Nº parcelas: ${dados.parcelas.length}</p>
+            <p>Nº de parcelas: ${dados.parcelas.length}</p>
             <p>Valor total a ser pago: ${dados.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
         `;
         document.getElementById('parcelas')!.innerHTML = `
@@ -164,7 +164,7 @@ export class VisaoEmprestimo {
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" id="confirmar-emprestimo" class="btn btn-primary">Confirmar</button>
+                    <button type="button" id="confirmar-emprestimo" class="btn btn-success">Confirmar</button>
                     </div>
                 </div>
             </div>
@@ -175,8 +175,9 @@ export class VisaoEmprestimo {
     mostrarMensagem(sucesso: boolean): void {
         const classe = sucesso ? 'success' : 'danger';
         const titulo = sucesso ? 'Sucesso' : 'Erro';
-        const msg = sucesso ? 'Empréstimo salvo com sucesso' : 'Erro ao salvar empréstimo';
+        const msg = sucesso ? 'Empréstimo realizado com sucesso' : 'Erro ao realizar empréstimo';
         const acao = sucesso ? 'id="buscar-emprestimos" data-dismiss="modal"' : 'data-dismiss="modal"'; // em caso de sucesso, o id é atribuido ao botão para realizar a busca quando for clicado
+        const textoBotao = sucesso ? 'Visualizar lista de empréstimos' : 'Ok';
 
         console.log(`alert-${classe}`);
 
@@ -185,36 +186,36 @@ export class VisaoEmprestimo {
                 <h4 class="alert-heading">${titulo}</h4>
                 <hr>
                 <p>${msg}</p>
-                <button type="button" ${acao} class="btn btn-${classe}">Ok</button>
+                <button type="button" ${acao} class="btn btn-${classe}">${textoBotao}</button>
             </div>
         `;
     }
 
     definirAcaoAoDigitarValor(funcaoVerificadora: Function, funcaoCalculadora: Function) {
-        document.getElementById('valor')?.addEventListener('keyup', e => {
+        document.getElementById('valor')?.addEventListener('input', e => {
             const valor = Number((e.target as HTMLInputElement ).value);
             const divAviso = document.querySelector('.form-text');
 
             if(!funcaoVerificadora(valor)) {
-                if (divAviso !== null) {
-                    divAviso.classList.add('div-aviso-valor-color-red');
-                }
-            }else{
-                if (divAviso !== null) {
-                    divAviso.classList.remove('div-aviso-valor-color-red');
-                }
+                     // alterando
+                    divAviso!.classList.add('div-aviso-valor-color-red'); // se o valor não for válido, o texto da div ficará com a cor vermelhar
+            } else {
+                    divAviso!.classList.remove('div-aviso-valor-color-red');
             }
 
             if(!valor || !funcaoVerificadora(valor)){ // Se o valor não for válido, o cálculo de parcelas não é feito
+                (document.getElementById('realizar-emprestimo') as HTMLButtonElement).disabled = true; // desabilitando o botão de submit do form de empréstimo
                 this.desfazerParcelas(); // Se houver alguma parcela sendo mostrada, a tabela e as informações são defeitas
                 return;
             }
 
             const formaPagamento = this.formaPagamento();
             if(!formaPagamento.id){ // Se não houver uma forma de pagamento, o cálculo de parcelas não é feito 
+                (document.getElementById('realizar-emprestimo') as HTMLButtonElement).disabled = true;
                 return; 
             }
 
+            (document.getElementById('realizar-emprestimo') as HTMLButtonElement).disabled = false; // caso tudo esteja certo, o botão é habilitado
             funcaoCalculadora(valor);
         });
     } 
@@ -223,14 +224,19 @@ export class VisaoEmprestimo {
         document.getElementById('formas-pagamento')?.addEventListener('change', () => {
             const fp = this.formaPagamento();
             if(!fp.id || !funcaoVerificadora(this.valor())){ // Se não houver uma forma de pagamento definida ou o valor for inválido, o cálculo de parcelas não é feito
+                (document.getElementById('realizar-emprestimo') as HTMLButtonElement).disabled = true;
+
+                this.desfazerParcelas(); // desfazendo parcelas caso a forma de pagamento não seja válida
                 return;
             }
-            
+
+            (document.getElementById('realizar-emprestimo') as HTMLButtonElement).disabled = false;
             funcaoCalculadora();
         });
     }
 
     definirAcaoAoClicarEmRealizarEmprestimo(): void {
+
         document.getElementById('realizar-emprestimo')?.addEventListener('click', e => {
             e.preventDefault();
 

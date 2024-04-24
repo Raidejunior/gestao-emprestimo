@@ -29,10 +29,5 @@ class ClienteController{
         $cliente = $clienteModel->buscaCPF($cpf);
         
         $this->clienteView->retornaClienteEmJson($cliente);
-
-        // $cv = new ClienteView();
-        // $clienteEmJson = $cv->retornaClienteEmJson($cliente);
-
-        // return $clienteEmJson;
     }
 }

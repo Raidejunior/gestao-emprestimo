@@ -36,7 +36,7 @@ class EmprestimoRepository{
     /**
      * Responsável pela inserção do empréstimo no banco de dados.
      * @param Emprestimo $emprestimo
-     * @return int
+     * @return int ID do empréstimo que foi salvo no BD ou -1 em caso de erro
      */
     function salvarEmprestimo(Emprestimo $emprestimo) : int{
         $ps = $this->pdo->prepare('INSERT INTO emprestimo(cliente_id, valor, forma_pagamento_id ) 

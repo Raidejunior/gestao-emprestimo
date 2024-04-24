@@ -33,7 +33,7 @@ export class ControladoraEmprestimo {
         this.visao.montarFormasDePagamento(formasPagamento);
     }
 
-    async calcularParcelas(): Promise<Emprestimo> {
+    calcularParcelas(): Emprestimo {
         const valor = this.visao.valor();
         const fp = this.visao.formaPagamento();
         const formaPagamento = new FormaPagamento(fp.id, '', fp.numParcelas, fp.juros);
@@ -56,7 +56,7 @@ export class ControladoraEmprestimo {
     */
     async salvarEmprestimo() {
         try {
-            const emprestimo = await this.calcularParcelas();
+            const emprestimo = this.calcularParcelas();
             const resp = await emprestimo.salvarEmprestimo();
             if(resp) {
                 this.visao.mostrarMensagem(true);

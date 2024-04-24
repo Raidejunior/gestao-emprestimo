@@ -132,7 +132,19 @@ html body{
   padding: 10px;
   text-align: center;
 }
-
 .alert-success, .alert-danger {
     margin: 0 !important;
+}
+
+.alert-success {
+    display: flex;
+    flex-direction: column;
+}
+
+.alert-success p, .alert-success hr {
+    margin-top: 0;
+}
+
+#buscar-emprestimos {
+    align-self: center;
 }
