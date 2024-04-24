@@ -11,7 +11,7 @@ describe('Emprestimo', () => {
             const valorPedidoEmprestimo = 300
             const juros = 10;
             const parcelas = 3;
-            const valorPgEmprestimo = 330;
+            const valorPgEmprestimo = 330.00;
 
             const formaPagamento = new FormaPagamento(0, 'Forma 1', parcelas, juros);
             const emprestimo = new Emprestimo(valorPedidoEmprestimo, formaPagamento);
@@ -80,6 +80,6 @@ describe('Emprestimo', () => {
             const valor = 50001;
             expect(Emprestimo.verificarValorEmprestimo(valor)).toBeFalsy();
         });
-    })
+    });
 
 })
