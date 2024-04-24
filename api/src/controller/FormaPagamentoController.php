@@ -20,7 +20,7 @@ class FormaPagamentoController{
 
     /**
      * Responsável por gerenciar a busca pelo array de forma de pagamento.
-     * @return string retorna uma string em formato json com as formas de pagamento.
+     * retorna um array de formas de pagamento para a FormaDePagamentoView
      */
     public function buscarFormasPagamento(){
         $formaPagamentoModel = new FormaPagamento();

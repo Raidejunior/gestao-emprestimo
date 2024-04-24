@@ -35,7 +35,7 @@ class EmprestimoController{
 
     /**
      * Responsável por gerenciar a inserção do empréstimo no banco de dados e seu retorno.
-     * @return int - Vai retornar uma resposta HTTP.
+     * Vai retornar uma resposta .
      */
     function salvarEmprestimo(){
         $dadosCliente = $this->emprestimoView->retornaDadosCliente();
