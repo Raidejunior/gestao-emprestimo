@@ -33,6 +33,18 @@ export class ControladoraEmprestimo {
         this.visao.montarFormasDePagamento(formasPagamento);
     }
 
+    async montarParcelas(): Promise<Emprestimo> {
+        const emprestimo = await this.calcularParcelas();
+
+        this.visao.montarParcelas({ 
+            parcelas: emprestimo.parcelas, 
+            juros: emprestimo.formaPagamento.juros,
+            total: emprestimo.valorPagoEmprestimo
+        });
+
+        return emprestimo;
+    }
+    
     async calcularParcelas(): Promise<Emprestimo> {
         const valor = this.visao.valor();
         const fp = this.visao.formaPagamento();
@@ -41,12 +53,6 @@ export class ControladoraEmprestimo {
         const emprestimo = new Emprestimo(valor, formaPagamento);
 
         emprestimo.calculaParcelas();
-
-        this.visao.montarParcelas({ 
-            parcelas: emprestimo.parcelas, 
-            juros: emprestimo.formaPagamento.juros,
-            total: emprestimo.valorPagoEmprestimo
-        });
 
         return emprestimo;
     }
@@ -81,11 +87,11 @@ export class ControladoraEmprestimo {
 
     
     private configurarCalcDeParcelasAoSelecionaFormaDePg(): void {
-        this.visao.definirAcaoAoSelecionarFormaDePg(Emprestimo.verificarValorEmprestimo, this.calcularParcelas.bind(this));
+        this.visao.definirAcaoAoSelecionarFormaDePg(Emprestimo.verificarValorEmprestimo, this.montarParcelas.bind(this));
     }
     
     private configurarCalcDeParcelasAoDigitarValor(): void {
-        this.visao.definirAcaoAoDigitarValor(Emprestimo.verificarValorEmprestimo, this.calcularParcelas.bind(this));
+        this.visao.definirAcaoAoDigitarValor(Emprestimo.verificarValorEmprestimo, this.montarParcelas.bind(this));
     }
 
     private configurarEmprestimo(): void {
