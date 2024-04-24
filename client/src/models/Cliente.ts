@@ -58,8 +58,8 @@ export class Cliente {
     }
 
     isDataNascimentoPreenchida(): boolean {
-        // Verifica se a data de nascimento é null ou undefined
-        if (this.dataNascimento === null || this.dataNascimento === undefined) {
+        // Verifica se a data de nascimento é null ou undefined ou vazia
+        if (this.dataNascimento === null || this.dataNascimento === undefined || this.dataNascimento.toString() == '') {
             return false;
         }
         
@@ -80,7 +80,7 @@ export class Cliente {
         let idade = hoje.getFullYear() - this.dataNascimento.getFullYear();
         const mesAtual = hoje.getMonth() + 1; // Os meses começam a partir de zero
         const mesNascimento = this.dataNascimento.getMonth() + 1;
-        if (mesAtual < mesNascimento || (mesAtual === mesNascimento && hoje.getDate() < this.dataNascimento.getDate())) {
+        if (mesAtual < mesNascimento || (mesAtual === mesNascimento && hoje.getDate() > this.dataNascimento.getDate())) {
             idade--; // Ainda não fez aniversário este ano
         }
         return idade;
