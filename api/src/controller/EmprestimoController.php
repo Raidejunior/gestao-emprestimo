@@ -24,7 +24,7 @@ class EmprestimoController{
 
     /**
      * Responsável por gerenciar a busca de todos os empréstimos no banco de dados e seu retorno.
-     * 
+     * @return void
      */
     function buscarTodosEmprestimos() {
         $emprestimoModel = new Emprestimo();

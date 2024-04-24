@@ -11,6 +11,9 @@ export class ControladoraEmprestimo {
         this.visao = new VisaoEmprestimo();
     }
 
+    /**
+    * Responsável por todas as chamadas iniciais necessárias para o funcionamento do formulário.
+    */
     configurarFormulario(nome:string, idade: number): void {
         this.visao.montarFormulario(nome, idade);
         
@@ -20,6 +23,9 @@ export class ControladoraEmprestimo {
         this.configurarCalcDeParcelasAoDigitarValor();
     }
 
+    /**
+    * Responsável por carregar as formas de pagamento do DB e chamar método para carregá-las na tela.
+    */
     async carregarFormasDePagamento(): Promise<void> {
         const servicoEmprestimo = new ServicoEmprestimo();
         const dados = await servicoEmprestimo.buscarFormasDePagamento();
@@ -33,6 +39,10 @@ export class ControladoraEmprestimo {
         this.visao.montarFormasDePagamento(formasPagamento);
     }
 
+    /**
+    * Responsável por chamar método na model para calcular seu empréstimo e retorná-lo. 
+    * @return Emprestimo
+    */
     calcularParcelas(): Emprestimo {
         const valor = this.visao.valor();
         const fp = this.visao.formaPagamento();
@@ -45,6 +55,9 @@ export class ControladoraEmprestimo {
         return emprestimo;
     }
 
+    /**
+    * Responsável por chamar método na visao para montar as parcelas do empréstimo na tela.
+    */
     montarParcelas(): void {
         const emprestimo = this.calcularParcelas();
 
@@ -83,15 +96,23 @@ export class ControladoraEmprestimo {
         this.visao.montarTabelaDeEmprestimos(emprestimos);
     }
 
-    
+    /**
+    * Responsável por chamar método na visao para definir qual ação será feita quando for selecionado a forma de pagamento.
+    */
     private configurarCalcDeParcelasAoSelecionaFormaDePg(): void {
         this.visao.definirAcaoAoSelecionarFormaDePg(Emprestimo.verificarValorEmprestimo, this.montarParcelas.bind(this));
     }
     
+    /**
+    * Responsável por chamar método na visao para definir qual ação será feita quando for selecionado o valor do empréstimo.
+    */
     private configurarCalcDeParcelasAoDigitarValor(): void {
         this.visao.definirAcaoAoDigitarValor(Emprestimo.verificarValorEmprestimo, this.montarParcelas.bind(this));
     }
 
+    /**
+    * Responsável por chamar método na visao para definir qual ação será feita quando for confirmado o empréstimo.
+    */
     private configurarEmprestimo(): void {
         this.visao.definirAcaoAoConfirmarEmprestimo(this.salvarEmprestimo.bind(this));
     }

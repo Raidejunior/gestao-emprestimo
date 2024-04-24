@@ -11,10 +11,17 @@ export class ControladoraCliente {
         this.visao = new VisaoCliente();
     }
 
+    /**
+    * Responsável por chamar método na visao para definir qual ação será feita quando solicitado para buscar cliente por cpf.
+    */
     configurarBusca(): void {
         this.visao.definirAcaoAoBuscar(this.buscar.bind(this));
     }
 
+    /**
+    * Responsável por chamar service para localizar cliente, salvá-lo em sessão e 
+    * chamar controller para iniciar a configuração do formulário.
+    */
     async buscar(): Promise<void> {
         const cpf = this.visao.cpf(Cliente.desformataCPF);
         const servicoCliente = new ServicoCliente();
