@@ -1,7 +1,6 @@
 <?php
-namespace src\model;
 
-require_once "vendor/autoload.php";
+namespace src\model;
 
 class Parcela {
     public $id;
