@@ -1,6 +1,6 @@
 <?php
-namespace src\view;
 
+namespace src\view;
 
 class FormaPagamentoView{
 
@@ -14,7 +14,7 @@ class FormaPagamentoView{
 
     /**
      * Responsável por retornar o array de FormaPagamento em um json array. 
-     * @return Json Vai retornar uma string em formato json. 
+     * Vai retornar uma string em formato json. 
      */
     function retornaArrayFormaPagamentoEmJson($array) {
         if(count($array) > 0) {
