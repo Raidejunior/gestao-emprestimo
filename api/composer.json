@@ -5,11 +5,7 @@
     },
     "autoload": {
         "psr-4": {
-            "src\\model\\": "src/model", 
-            "src\\controller\\": "src/controller",
-            "src\\repository\\": "src/repository",
-            "src\\service\\" : "src/service",
-            "src\\view\\" : "src/view"
+            "src\\": "src/"
         }
     },
     "authors": [
@@ -29,6 +25,7 @@
     },
     "require": {
         "phputil/router": "^0.2.15",
-        "phputil/cors": "^0.2.2"
+        "phputil/cors": "^0.2.2",
+        "vlucas/phpdotenv": "^5.6"
     }
 }
