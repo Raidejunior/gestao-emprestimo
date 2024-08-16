@@ -22,7 +22,7 @@ class FuncionarioParaCadastro {
     }
 
     public function chamarConstrutorParaTeste(array $dados = []) {
-        $this->__construct($dados); // Para o construtor novamente apenas para fins de teste.
+        $this->__construct($dados); // Chama o construtor novamente apenas para fins de teste.
     }
 
     private function valida(): void {
