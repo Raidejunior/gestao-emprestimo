@@ -1,0 +1,24 @@
+<section id="form-emprestimo-header">
+    <div>
+        <a class="btn btn-large" href="/">Início</a>
+    </div>
+    <h2 class="info-cliente"><span>${nome}</span>, ${idade} anos</h2>
+</section>
+<form class="form-emprestimo mb-3" id="form-emprestimo">
+    <div class="valor-parcelas">
+        <label for="valor" class="form-label">Valor</label>
+        <input type="number" required class="form-control" id="valor">
+        <div class="form-text">Apenas valores entre R$500 e R$ 50.000</div>
+    </div>
+    <div class="forma-pagamento">
+        <label for="formas-pagamento" class="form-label">Forma de pagamento</label>
+        <select class="form-select" id="formas-pagamento" aria-label="Selecione">
+            <option selected>Selecione</option>
+        </select>
+    </div>
+
+</form>
+    
+<div id="info-parcelas"></div>
+<table id="parcelas" class="table table-striped"></table>
+<button type="submit" form="form-emprestimo" class="btn btn-primary" id="realizar-emprestimo" data-toggle="modal" data-target="#modalEmprestimo" hidden>Realizar empréstimo</button>

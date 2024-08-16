@@ -1,5 +1,7 @@
 <?php
+
 namespace src\repository;
+
 
 use PDO;
 use src\model\Emprestimo;

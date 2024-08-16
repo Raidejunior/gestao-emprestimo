@@ -1,6 +1,8 @@
 <?php
 namespace src\dto;
 
+use src\utils\AtributosInvalidos;
+
 class ClienteParaCadastro {
     public ?string $nome;
     public ?string $dataNascimento;
@@ -9,27 +11,57 @@ class ClienteParaCadastro {
     public ?string $email;
     public ?string $endereco;
     public ?string $senha;
-    public ?float $limiteDeCredito;
+    public ?string $limiteDeCredito;
 
-    public array $atributosInvalidos = [];
+    public AtributosInvalidos $atributosInvalidos;
 
-    public function __construct(array $dados) {
-        $this->nome = $dados['nome'] ?? $this->tratarInvalido('nome');
-        $this->dataNascimento = $dados['dataNascimento'] ?? $this->tratarInvalido('data de nascimento');
-        $this->cpf = $dados['cpf'] ?? $this->tratarInvalido('CPF');
-        $this->telefone = $dados['telefone'] ?? $this->tratarInvalido('telefone');
-        $this->email = $dados['email'] ?? $this->tratarInvalido('email') ;
-        $this->endereco = $dados['endereco'] ?? $this->tratarInvalido('endereço');  
-        $this->senha = $dados['senha'] ?? $this->tratarInvalido('senha') ;
+    public function __construct(array $dados = []) {
 
-        $this->limiteDeCredito = $dados['limiteCredito'] ?? $this->tratarInvalido('limiteCredito');
-        if(! is_numeric($this->limiteDeCredito)) {
-            $this->tratarInvalido('limiteCredito');
+        $this->atributosInvalidos = new AtributosInvalidos();
+
+        $this->nome = $dados['nome'] ?? null;
+        $this->dataNascimento = $dados['dataNascimento'] ?? null;
+        $this->cpf = $dados['cpf'] ?? null;
+        $this->telefone = $dados['telefone'] ?? null;
+        $this->email = $dados['email'] ?? null;
+        $this->endereco = $dados['endereco'] ?? null;  
+        $this->senha = $dados['senha'] ?? null;
+
+        $this->limiteDeCredito = $dados['limiteCredito'] ?? null;
+        
+        $this->valida();
+    }
+
+    private function valida(): void {
+        // Valida cada atributo
+        if ($this->nome === null || $this->nome === '') {
+            $this->tratarInvalido('nome');
+        }
+        if ($this->dataNascimento === null || $this->dataNascimento === '') {
+            $this->tratarInvalido('data de nascimento');
+        }
+        if ($this->cpf === null || $this->cpf === '') {
+            $this->tratarInvalido('cpf');
+        }
+        if ($this->telefone === null || $this->telefone === '') {
+            $this->tratarInvalido('telefone');
+        }
+        if ($this->email === null || $this->email === '') {
+            $this->tratarInvalido('email');
+        }
+        if ($this->endereco === null || $this->endereco === '') {
+            $this->tratarInvalido('endereço');
+        }
+        if ($this->senha === null || $this->senha === '') {
+            $this->tratarInvalido('senha');
+        }
+        if ($this->limiteDeCredito === null || $this->limiteDeCredito === '' || !is_numeric($this->limiteDeCredito)) {
+            $this->tratarInvalido('limite de crédito');
         }
     }
 
     private function tratarInvalido(string $atributo): void {
-        array_push($this->atributosInvalidos, "O atributo $atributo é obrigatório ou foi enviado incorretamente");
+        $this->atributosInvalidos->adicionar($atributo);
     }
 }
 

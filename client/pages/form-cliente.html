@@ -1,0 +1,26 @@
+<h2>Busque um cliente</h2>
+<form class="form-cliente">
+    <div class="mb-3">
+        <label for="cpf" class="form-label">CPF</label>
+        <input type="text" required autofocus  oninput="formataCPF(this)" class="form-control" placeholder="Digite apenas números" id="cpf">
+    </div>
+    <button type="submit" class="btn btn-primary" id="buscar">Buscar</button>
+</form>
+<output class="info-cliente" id="mensagemErro"></output>
+
+<script>
+    function formataCPF(i){
+        
+        var v = i.value;
+        
+        if(isNaN(v[v.length-1])){ // impede entrar outro caractere que não seja número
+            i.value = v.substring(0, v.length-1);
+            return;
+        }
+        
+        i.setAttribute("maxlength", "14");
+        if (v.length == 3 || v.length == 7) i.value += ".";
+        if (v.length == 11) i.value += "-";
+
+    }
+</script>   
