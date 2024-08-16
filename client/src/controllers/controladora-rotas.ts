@@ -1,6 +1,7 @@
 import { VisaoRotas } from "../views/visao-rotas.ts";
 import { ControladoraCliente } from "./controladora-cliente.ts";
 import { ControladoraEmprestimo } from "./controladora-emprestimo.ts";
+import { ControladoraLogin } from "./controladora-login.ts";
 
 export class ControladoraRotas {
 
@@ -15,24 +16,27 @@ export class ControladoraRotas {
 
         switch(hash) {
             case 'formulario-cliente':
+                await this.carregarConteudo('form-cliente');
                 let controlCliente = new ControladoraCliente();
                 controlCliente.configurarBusca();
-                this.carregarConteudo('form-cliente');
+                
                 break;
             case 'formulario-emprestimo':
+                await this.carregarConteudo('form-emprestimo');
                 const controlEmprestimo = new ControladoraEmprestimo();
-                this.carregarConteudo('form-emprestimo');
                 controlEmprestimo.configurarFormulario('a', 13);
                 break;
             default:
-                this.carregarConteudo('login');
+                await this.carregarConteudo('login');
+                let controlLogin = new ControladoraLogin();
+                controlLogin.configurarLogin();
         }
     }
     
     async carregarConteudo(pagina: string) {
         const resp = await fetch(`../../pages/${pagina}.html`);
         const html = await resp.text();
-        console.log(html);
+        //console.log(html);
         this.visao.carregarConteudo(html);
     }
 
