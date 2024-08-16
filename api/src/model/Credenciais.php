@@ -66,7 +66,7 @@ class Credenciais {
         $senhaComPepperESalt = $salt . $senhaComPepper;
 
         $hash = hash('sha256', $senhaComPepperESalt);
-        $armazenamento = $salt . $hash; // salvando o salt junto com a senha
+        $armazenamento = $salt . $hash; // concatenando o salt junto com a senha
 
         $this->senha = $armazenamento;
     }

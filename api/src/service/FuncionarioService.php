@@ -22,7 +22,8 @@ class FuncionarioService {
         $funcionario = $this->funcionarioRepository->cadastrarFuncionario($this->funcionario);
 
         if($funcionario instanceof Funcionario) {
-            $funcionarioParaExibicao = new FuncionarioParaExibicao($funcionario->nome, $funcionario->dataNascimento, $funcionario->email, $funcionario->telefone, $funcionario->permissao);
+            echo var_dump($funcionario);
+            $funcionarioParaExibicao = new FuncionarioParaExibicao($funcionario->login, $funcionario->email, $funcionario->permissao);
             return $funcionarioParaExibicao;
         }
 

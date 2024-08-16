@@ -10,7 +10,7 @@ class ClienteParaCadastro {
     public ?string $telefone;
     public ?string $email;
     public ?string $endereco;
-    public ?string $senha;
+
     public ?string $limiteDeCredito;
 
     public AtributosInvalidos $atributosInvalidos;
@@ -24,9 +24,7 @@ class ClienteParaCadastro {
         $this->cpf = $dados['cpf'] ?? null;
         $this->telefone = $dados['telefone'] ?? null;
         $this->email = $dados['email'] ?? null;
-        $this->endereco = $dados['endereco'] ?? null;  
-        $this->senha = $dados['senha'] ?? null;
-
+        $this->endereco = $dados['endereco'] ?? null;
         $this->limiteDeCredito = $dados['limiteCredito'] ?? null;
         
         $this->valida();
@@ -51,9 +49,6 @@ class ClienteParaCadastro {
         }
         if ($this->endereco === null || $this->endereco === '') {
             $this->tratarInvalido('endereço');
-        }
-        if ($this->senha === null || $this->senha === '') {
-            $this->tratarInvalido('senha');
         }
         if ($this->limiteDeCredito === null || $this->limiteDeCredito === '' || !is_numeric($this->limiteDeCredito)) {
             $this->tratarInvalido('limite de crédito');

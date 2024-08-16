@@ -11,7 +11,6 @@ CREATE TABLE cliente (
     telefone VARCHAR(25),
     endereco VARCHAR(255),
     limite_credito DECIMAL(10,2),
-    senha VARCHAR(255),
     CONSTRAINT `pk__cliente` PRIMARY KEY( id )
 )ENGINE=INNODB;
 
@@ -46,23 +45,19 @@ CREATE TABLE parcela (
 
 CREATE TABLE funcionario (
     id INT NOT NULL AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    cpf VARCHAR(14) NOT NULL UNIQUE,
-    data_nascimento DATE NOT NULL,
+    login VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(40) NOT NULL,
-    telefone VARCHAR(25) NOT NULL,
-    endereco VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    permissao ENUM('funcionario', 'gerente') NOT NULL DEFAULT 'funcionario',
+    permissao ENUM("1", "2") NOT NULL DEFAULT "1",
     CONSTRAINT `pk__funcionario` PRIMARY KEY (id)
 )ENGINE=INNODB;
 
 ------------------------------------
 
 INSERT INTO funcionario
-(nome, cpf, data_nascimento, email, telefone, endereco, permissao, senha) 
+(login, email, permissao, senha) 
 VALUES 
-('Gerente 1', '12345678910111', '2001-02-28', 'gerente1@gmail.com', '22212233232', 'Centro, Nova Friburgo, nº 15', 'gerente', 'cdc0a4d7bd333c595f8ab148230e68b816d3df60b089834c1231b25d6c5215464b0c0341c68117fa2973ef2f50a67329');
+('Gerente 1', 'gerente1@gmail.com', '2', 'cdc0a4d7bd333c595f8ab148230e68b816d3df60b089834c1231b25d6c5215464b0c0341c68117fa2973ef2f50a67329');
 
 INSERT INTO cliente
 (nome, cpf, data_nascimento)

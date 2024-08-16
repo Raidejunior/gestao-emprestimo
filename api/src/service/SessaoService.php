@@ -10,7 +10,7 @@ class SessaoService {
         $this->abrirSessao();
 
         $_SESSION['id'] = $funcionario->id;
-        $_SESSION['nome'] = $funcionario->nome;
+        $_SESSION['login'] = $funcionario->login;
         $_SESSION['permissao'] = $funcionario->permissao;
     }
 
@@ -19,9 +19,9 @@ class SessaoService {
         return isset($_SESSION['id']);
     }
 
-    public function verificaPermissaoFuncionario(): string {
+    public function verificaPermissaoFuncionario(): int {
         $this->abrirSessao();
-        $permissao = $_SESSION['permissao'] ?? '';
+        $permissao = intval($_SESSION['permissao']) ?? 0;
         
         return $permissao;
     }

@@ -17,10 +17,10 @@ class FuncionarioRepositoryEmBDR implements FuncionarioRepository {
 
     public function autenticarFuncionario(Credenciais $credenciais): ?Funcionario {
         $ps = $this->pdo->prepare(
-            'SELECT id, nome, cpf, data_nascimento, email, telefone, endereco, permissao, senha FROM funcionario WHERE nome = :nome'
+            'SELECT id, login, email, permissao, senha FROM funcionario WHERE login = :login'
         );
         $ps->execute([
-            'nome' => $credenciais->getLogin()
+            'login' => $credenciais->getLogin()
         ]);
         $dados = $ps->fetchAll(PDO::FETCH_ASSOC);
 
@@ -30,8 +30,8 @@ class FuncionarioRepositoryEmBDR implements FuncionarioRepository {
             $verificacao = $credenciais->compararHash($hashArmazenado);
 
             if($verificacao) {
-                return new Funcionario($dadosFuncionario['id'], $dadosFuncionario['nome'], $dadosFuncionario['cpf'], $dadosFuncionario['data_nascimento'], $dadosFuncionario['telefone'], $dadosFuncionario['email'], $dadosFuncionario['endereco'], 
-                    null, $dadosFuncionario['permissao'] === 'funcionario' ? Funcionario::FUNCIONARIO : Funcionario::GERENTE);
+                return new Funcionario($dadosFuncionario['id'], $dadosFuncionario['login'], $dadosFuncionario['email'], 
+                    null, intval($dadosFuncionario['permissao']) === Funcionario::FUNCIONARIO ? Funcionario::FUNCIONARIO : Funcionario::GERENTE);
             }
 
             return null;
@@ -47,18 +47,14 @@ class FuncionarioRepositoryEmBDR implements FuncionarioRepository {
 
         try {
             $ps = $this->pdo->prepare(
-                'INSERT INTO funcionario(nome, cpf, data_nascimento, email, telefone, endereco, permissao, senha) VALUES (
-                    :nome, :cpf, :data_nascimento, :email, :telefone, :endereco, :permissao, :senha
+                'INSERT INTO funcionario(login, email, senha, permissao) VALUES (
+                    :login, :email, :senha, :permissao
                 )'
             );
             $inserido = $ps->execute([
-                'nome' => $funcionario->nome,
-                'cpf' => $funcionario->cpf,
-                'data_nascimento' => $funcionario->dataNascimento,
+                'login' => $funcionario->login,
                 'email' => $funcionario->email,
-                'telefone' => $funcionario->telefone,
-                'endereco' => $funcionario->endereco,
-                'permissao' => $funcionario->permissao === Funcionario::FUNCIONARIO ? 'funcionario' : 'gerente',
+                'permissao' => $funcionario->permissao === Funcionario::FUNCIONARIO ? '1' : '2',
                 'senha' => $funcionario->credenciais->getSenha(),
             ]);
 
@@ -70,7 +66,6 @@ class FuncionarioRepositoryEmBDR implements FuncionarioRepository {
             return null;
         
         } catch(Exception $e) {
-            echo $e;
             $this->pdo->rollBack();
             return null;
         }

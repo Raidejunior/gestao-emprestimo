@@ -3,17 +3,13 @@
 namespace src\dto;
 
 class FuncionarioParaExibicao {
-    public string $nome;
-    public string $dataNascimento;
+    public string $login;
     public string $email;
-    public string $telefone;
     public string $permissao;
 
-    public function __construct($nome, $dataNascimento, $email, $telefone, $permissao) {
-        $this->nome = $nome;
-        $this->dataNascimento = $dataNascimento;
+    public function __construct($login, $email, $permissao) {
+        $this->login = $login;
         $this->email = $email;
-        $this->telefone = $telefone;
         $this->permissao = $permissao;
     }
 }

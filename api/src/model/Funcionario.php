@@ -3,28 +3,19 @@
 namespace src\model;
 
 class Funcionario {
-    const FUNCIONARIO = 'F';
-    const GERENTE = 'G';
+    const FUNCIONARIO = 1;
+    const GERENTE = 2;
 
     public string $id;
-    public string $nome;
-    public string $cpf;
-    public string $dataNascimento;
-    public string $telefone;
+    public string $login;
     public string $email;
-    public string $endereco;
-    public string $permissao;
+    public int $permissao;
     public ?Credenciais $credenciais;
 
-    public function __construct($id, $nome, $cpf, $dataNascimento, $telefone, $email, $endereco,
-        $credenciais, $permissao = self::FUNCIONARIO){
+    public function __construct($id, $login, $email, $credenciais, $permissao = self::FUNCIONARIO){
         $this->id = $id;
-        $this->nome = $nome;
-        $this->cpf = $cpf;
-        $this->dataNascimento = $dataNascimento;
-        $this->telefone = $telefone;
+        $this->login = $login;
         $this->email = $email;
-        $this->endereco = $endereco;
         $this->permissao = $permissao;
         $this->credenciais = $credenciais;
     }
