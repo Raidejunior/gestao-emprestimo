@@ -15,7 +15,7 @@ class ClienteParaCadastro {
 
     public AtributosInvalidos $atributosInvalidos;
 
-    public function __construct(array $dados = []) {
+    public function __construct(array $dados) {
 
         $this->atributosInvalidos = new AtributosInvalidos();
 
@@ -28,6 +28,10 @@ class ClienteParaCadastro {
         $this->limiteDeCredito = $dados['limiteCredito'] ?? null;
         
         $this->valida();
+    }
+
+    public function chamarConstrutorParaTeste(array $dados = []) {
+        $this->__construct($dados); // Para o construtor novamente apenas para fins de teste.
     }
 
     private function valida(): void {
