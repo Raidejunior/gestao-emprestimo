@@ -1,7 +1,6 @@
 <?php
-namespace src\controller;
 
-require_once 'vendor/autoload.php';
+namespace src\controller;
 
 use src\model\FormaPagamento;
 use src\view\FormaPagamentoView;

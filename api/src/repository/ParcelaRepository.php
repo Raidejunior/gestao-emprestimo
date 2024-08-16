@@ -1,7 +1,6 @@
 <?php
-namespace src\repository;
 
-require_once 'vendor/autoload.php';
+namespace src\repository;
 
 use PDO;
 use src\model\Parcela;

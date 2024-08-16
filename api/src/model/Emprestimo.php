@@ -1,7 +1,6 @@
 <?php
-namespace src\model;
 
-require_once "vendor/autoload.php";
+namespace src\model;
 
 use Exception;
 use src\repository\DBConnection;

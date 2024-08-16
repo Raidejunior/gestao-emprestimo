@@ -2,22 +2,30 @@
 
 namespace src\model;
 
-require_once 'vendor/autoload.php';
-
-use src\repository\DBConnection;
 use src\repository\ClienteRepository;
+use src\repository\ClienteRepositoryEmBDR;
+use src\repository\DBConnection;
 
 class Cliente {
-    public $id;
-    public $nome;
-    public $cpf;
-    public $dataNascimento;
+    public string $id;
+    public string $nome;
+    public string $cpf;
+    public string $dataNascimento;
+    public string $email;
+    public string $telefone;
+    public string $endereco;
+    public float $limiteCredito;
 
-    public function __construct($id = null, $nome = null, $cpf = null, $dataNascimento = null) {
+    public function __construct($id = '', $nome = '', $cpf = '', $dataNascimento = '', $email = '', $telefone = '', 
+        $endereco = '', $limiteCredito = 0) {
         $this->id = $id;
         $this->nome = $nome;
         $this->cpf = $cpf;
         $this->dataNascimento = $dataNascimento;
+        $this->email = $email;
+        $this->telefone = $telefone;
+        $this->endereco = $endereco;
+        $this->limiteCredito = $limiteCredito;
     }
 
     /**
@@ -25,10 +33,13 @@ class Cliente {
      * @param string $cpf
      * @return Cliente - Objeto cliente com os dados ou null caso o cliente não seja encontrado
      */
+
+    // REFAZER
+
     function buscaCPF($cpf) {
         $db = new DBConnection();
         $pdo = $db->conectar();
-        $cr = new ClienteRepository($pdo);
+        $cr = new ClienteRepositoryEmBDR($pdo);
         $dadosCliente = $cr->retornaClientePorCPF($cpf);
         if(!$dadosCliente) {
             return null;

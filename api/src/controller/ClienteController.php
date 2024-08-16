@@ -1,10 +1,14 @@
 <?php
+
 namespace src\controller;
 
-require_once 'vendor/autoload.php';
-
-use src\view\ClienteView;
+use src\dto\ClienteParaExibicao;
 use src\model\Cliente;
+use src\model\Credenciais;
+use src\model\Funcionario;
+use src\service\ClienteService;
+use src\service\SessaoService;
+use src\view\ClienteView;
 
 class ClienteController{
 
@@ -18,6 +22,28 @@ class ClienteController{
         $this->clienteView = new ClienteView($req, $res);
     }
 
+
+    public function cadastrarCliente() {
+        $sessaoService = new SessaoService();
+        $permissao = $sessaoService->verificaPermissaoFuncionario();
+        if($permissao !== Funcionario::GERENTE && $permissao !== Funcionario::FUNCIONARIO) {
+            return $this->clienteView->acessoNegado();
+        }
+
+        $dadosCliente = $this->clienteView->dadosParaCadastro();
+        $clienteParaCadastro = new Cliente('', $dadosCliente->nome, $dadosCliente->cpf, $dadosCliente->dataNascimento, $dadosCliente->email, $dadosCliente->telefone,
+            $dadosCliente->endereco, $dadosCliente->limiteDeCredito);
+        $clienteService = new ClienteService($clienteParaCadastro);
+
+        $clienteCadastrado = $clienteService->cadastrarCliente();
+        if($clienteCadastrado instanceof ClienteParaExibicao) {
+            $this->clienteView->retornaCliente($clienteCadastrado, 201);
+        } else {
+            $this->clienteView->erroServidor();
+        }
+
+    }
+
     /**
      * Responsável por receber um cpf e gerenciar a procura/formatação dele no sistema.
      * @param string $cpf
@@ -28,6 +54,6 @@ class ClienteController{
         $clienteModel = new Cliente();
         $cliente = $clienteModel->buscaCPF($cpf);
         
-        $this->clienteView->retornaClienteEmJson($cliente);
+        $this->clienteView->retornaCliente($cliente, 200);
     }
 }

@@ -2,8 +2,6 @@
 
 namespace src\model;
 
-require_once 'vendor/autoload.php';
-
 use src\repository\DBConnection;
 use src\repository\FormaPagamentoRepository;
 

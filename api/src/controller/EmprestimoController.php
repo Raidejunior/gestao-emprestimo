@@ -1,8 +1,5 @@
 <?php
-
 namespace src\controller;
-
-require_once 'vendor/autoload.php';
 
 use src\model\Cliente;
 use src\model\Emprestimo;
