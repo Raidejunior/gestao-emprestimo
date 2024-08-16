@@ -11,7 +11,6 @@ CREATE TABLE cliente (
     telefone VARCHAR(25),
     endereco VARCHAR(255),
     limite_credito DECIMAL(10,2),
-    senha VARCHAR(255),
     CONSTRAINT `pk__cliente` PRIMARY KEY( id )
 )ENGINE=INNODB;
 
@@ -46,14 +45,10 @@ CREATE TABLE parcela (
 
 CREATE TABLE funcionario (
     id INT NOT NULL AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    cpf VARCHAR(14) NOT NULL UNIQUE,
-    data_nascimento DATE NOT NULL,
+    login VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(40) NOT NULL,
-    telefone VARCHAR(25) NOT NULL,
-    endereco VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    permissao ENUM('funcionario', 'gerente') NOT NULL DEFAULT 'funcionario',
+    permissao ENUM(1, 2) NOT NULL DEFAULT 1,
     CONSTRAINT `pk__funcionario` PRIMARY KEY (id)
 )ENGINE=INNODB;
 
