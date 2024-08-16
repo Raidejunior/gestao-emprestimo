@@ -33,12 +33,11 @@ class FuncionarioController {
 
         $dadosFuncionario = $this->funcionarioView->dadosParaCadastro();
         $credenciais = new Credenciais();
-        $validacao = $credenciais->setCredenciais($dadosFuncionario->nome, $dadosFuncionario->senha, true);
+        $validacao = $credenciais->setCredenciais($dadosFuncionario->login, $dadosFuncionario->senha, true);
         if(! $validacao) {
             return $this->funcionarioView->autenticacaoInvalida();
         }
-        $funcionarioParaCadastro = new Funcionario('', $dadosFuncionario->nome, $dadosFuncionario->cpf, $dadosFuncionario->dataNascimento, $dadosFuncionario->telefone, $dadosFuncionario->email,
-            $dadosFuncionario->endereco, $credenciais, $dadosFuncionario->permissao);
+        $funcionarioParaCadastro = new Funcionario('', $dadosFuncionario->login, $dadosFuncionario->email, $credenciais, $dadosFuncionario->permissao );
 
         $funcionarioService = new FuncionarioService($funcionarioParaCadastro);
         $funcionarioCadastrado = $funcionarioService->cadastrarFuncionario();

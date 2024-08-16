@@ -31,7 +31,7 @@ class FuncionarioRepositoryEmBDR implements FuncionarioRepository {
 
             if($verificacao) {
                 return new Funcionario($dadosFuncionario['id'], $dadosFuncionario['login'], $dadosFuncionario['email'], 
-                    null, $dadosFuncionario['permissao'] === Funcionario::FUNCIONARIO ? Funcionario::FUNCIONARIO : Funcionario::GERENTE);
+                    null, intval($dadosFuncionario['permissao']) === Funcionario::FUNCIONARIO ? Funcionario::FUNCIONARIO : Funcionario::GERENTE);
             }
 
             return null;
@@ -54,7 +54,7 @@ class FuncionarioRepositoryEmBDR implements FuncionarioRepository {
             $inserido = $ps->execute([
                 'login' => $funcionario->login,
                 'email' => $funcionario->email,
-                'permissao' => $funcionario->permissao === Funcionario::FUNCIONARIO ? 'funcionario' : 'gerente',
+                'permissao' => $funcionario->permissao === Funcionario::FUNCIONARIO ? '1' : '2',
                 'senha' => $funcionario->credenciais->getSenha(),
             ]);
 

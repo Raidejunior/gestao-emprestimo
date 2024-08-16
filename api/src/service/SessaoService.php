@@ -19,9 +19,9 @@ class SessaoService {
         return isset($_SESSION['id']);
     }
 
-    public function verificaPermissaoFuncionario(): string {
+    public function verificaPermissaoFuncionario(): int {
         $this->abrirSessao();
-        $permissao = $_SESSION['permissao'] ?? '';
+        $permissao = intval($_SESSION['permissao']) ?? 0;
         
         return $permissao;
     }
