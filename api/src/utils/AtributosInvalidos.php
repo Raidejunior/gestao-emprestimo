@@ -13,7 +13,15 @@ class AtributosInvalidos
 
     public function contem(string $mensagem): ResultadoVerificacao{
         $encontrado = in_array($mensagem, $this->atributos);
-        return new ResultadoVerificacao($encontrado, $mensagem);
+        if ($encontrado) {
+            // Busca o índice da mensagem encontrada
+            $indice = array_search($mensagem, $this->atributos);
+            // Retorna a mensagem real baseada no índice encontrado
+            return new ResultadoVerificacao(true, $this->atributos[$indice]);
+        }
+        
+        // Se não encontrado, retorna false com uma mensagem padrão ou nula
+        return new ResultadoVerificacao(false, '');
     }
 
     public function todos(): array
