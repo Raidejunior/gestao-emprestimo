@@ -19,8 +19,8 @@ class FuncionarioView {
     public function dadosParaCadastro(): ?FuncionarioParaCadastro {
         $dados = (array) $this->req->body();
         $funcionarioParaCadastro = new FuncionarioParaCadastro($dados);
-        if(count($funcionarioParaCadastro->atributosInvalidos) > 0) {
-            $this->parametrosInvalidos($funcionarioParaCadastro->atributosInvalidos);
+        if(count($funcionarioParaCadastro->atributosInvalidos->todos()) > 0) {
+            $this->parametrosInvalidos($funcionarioParaCadastro->atributosInvalidos->todos());
         }
 
         return $funcionarioParaCadastro;
