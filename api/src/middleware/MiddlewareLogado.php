@@ -9,7 +9,6 @@ use src\view\FuncionarioView;
 
 class MiddlewareLogado {
     public function __invoke(HttpRequest $req, HttpResponse $res, bool &$stop = false) {
-        echo 'aqui';
         $sessao = new SessaoService();
         if(! $sessao->possuiFuncionarioRegistrado()) {
             $funcionarioView = new FuncionarioView($req, $res);

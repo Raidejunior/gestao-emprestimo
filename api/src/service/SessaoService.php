@@ -26,6 +26,10 @@ class SessaoService {
         return $permissao;
     }
 
+    public function realizarLogout(): bool {
+        return session_destroy();
+    }
+
     private function abrirSessao(): void {
         session_name('sid');
         session_set_cookie_params(3600, null, null, null, true);

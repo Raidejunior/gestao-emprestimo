@@ -7,10 +7,9 @@ use phputil\router\HttpResponse;
 use src\dto\FuncionarioParaExibicao;
 use src\model\Credenciais;
 use src\model\Funcionario;
-use src\repository\FuncionarioRepositoryEmBDR;
 use src\service\LoginService;
-use src\service\SessaoService;
 use src\service\FuncionarioService;
+use src\service\SessaoService;
 use src\view\FuncionarioView;
 
 class FuncionarioController {
@@ -25,12 +24,6 @@ class FuncionarioController {
     }
 
     public function cadastrarFuncionario() {
-        $sessaoService = new SessaoService();
-        $permissao = $sessaoService->verificaPermissaoFuncionario();
-        if($permissao !== Funcionario::GERENTE) {
-            return $this->funcionarioView->acessoNegado();
-        }
-
         $dadosFuncionario = $this->funcionarioView->dadosParaCadastro();
         $credenciais = new Credenciais();
         $validacao = $credenciais->setCredenciais($dadosFuncionario->login, $dadosFuncionario->senha, true);
@@ -64,6 +57,15 @@ class FuncionarioController {
             $this->funcionarioView->retornaFuncionario($funcionario, 200);
         } else {
             $this->funcionarioView->autenticacaoInvalida();
+        }
+    }
+
+    public function logoutFuncionario(): void  {
+        $sessao = new SessaoService();
+        if($sessao->realizarLogout()) {
+            $this->funcionarioView->logout();
+        } else {
+            $this->funcionarioView->erroServidor();
         }
     }
 }

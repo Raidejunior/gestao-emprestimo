@@ -18,8 +18,8 @@ class ClienteView{
     public function dadosParaCadastro(): ?ClienteParaCadastro {
         $dados = (array) $this->req->body();
         $clienteParaCadastro = new ClienteParaCadastro($dados);
-        if(count($clienteParaCadastro->atributosInvalidos) > 0) {
-            $this->parametrosInvalidos($clienteParaCadastro->atributosInvalidos);
+        if(count($clienteParaCadastro->atributosInvalidos->todos()) > 0) {
+            $this->parametrosInvalidos($clienteParaCadastro->atributosInvalidos->todos());
         }
 
         return $clienteParaCadastro;

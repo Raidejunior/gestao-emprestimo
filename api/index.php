@@ -28,7 +28,8 @@ $app->post('/login', function( HttpRequest $req,  HttpResponse $res ) {
 });
 
 $app->delete('/login', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
-
+    $funcionarioController = new FuncionarioController($req, $res);
+    $funcionarioController->logoutFuncionario();
 });
 
 

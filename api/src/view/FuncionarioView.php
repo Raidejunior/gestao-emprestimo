@@ -58,6 +58,11 @@ class FuncionarioView {
         die();
     }
 
+    public function logout() {
+        $this->res->status(204)->end();
+        die();
+    }
+
     public function erroServidor() {
         $this->res->status(500)->send('Erro interno do servidor');
         die();
