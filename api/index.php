@@ -11,6 +11,9 @@ use src\controller\ClienteController;
 use src\controller\EmprestimoController;
 use src\controller\FormaPagamentoController;
 use src\controller\FuncionarioController;
+use src\middleware\MiddlewareGerente;
+use src\middleware\MiddlewareLogado;
+
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -18,44 +21,50 @@ $dotenv->load();
 $app = new Router();
 $app->use( cors() );
 
+
 $app->post('/login', function( HttpRequest $req,  HttpResponse $res ) {
     $funcionarioController = new FuncionarioController($req, $res);
     $funcionarioController->autenticarFuncionario();
 });
 
+$app->delete('/login', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
 
-$app->post('/funcionarios', function( HttpRequest $req,  HttpResponse $res ) {
+});
+
+
+$app->post('/funcionarios', new MiddlewareGerente(), function( HttpRequest $req,  HttpResponse $res ) {
     $funcionarioController = new FuncionarioController($req, $res);
     $funcionarioController->cadastrarFuncionario();
 });
 
 
-$app->post('/clientes', function( HttpRequest $req,  HttpResponse $res ) {
+$app->post('/clientes', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
     $clienteController = new ClienteController($req, $res);
     $clienteController->cadastrarCliente();
 });
 
-$app->get('/clientes', function( HttpRequest $req,  HttpResponse $res ) {
+$app->get('/clientes', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
     $clienteController = new ClienteController($req, $res);
     $clienteController->buscaCPF();
 });
 
 
-$app->get('/forma_pagamento', function( HttpRequest $req,  HttpResponse $res ) {
+$app->get('/forma_pagamento', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
     $formaPagamentoController = new FormaPagamentoController($req, $res);
     $formaPagamentoController->buscarFormasPagamento();
 });
 
-$app->get('/emprestimos', function( HttpRequest $req,  HttpResponse $res ) {
+$app->get('/emprestimos', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
     $emprestimoController = new EmprestimoController($req, $res);
     $emprestimoController->buscarTodosEmprestimos();
 });
 
 
-$app->post('/emprestimos', function( HttpRequest $req,  HttpResponse $res ) {
+$app->post('/emprestimos', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
     $emprestimoController = new EmprestimoController($req, $res);
     $emprestimoController->salvarEmprestimo();
 });
 
 $app->listen();
+
 ?>

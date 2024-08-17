@@ -27,8 +27,8 @@ class FuncionarioRepositoryEmBDR implements FuncionarioRepository {
         if(count($dados) > 0) {
             $dadosFuncionario = $dados[0];
             $hashArmazenado = $dadosFuncionario['senha'];
-            $verificacao = $credenciais->compararHash($hashArmazenado);
 
+            $verificacao = $credenciais->compararHash($hashArmazenado);
             if($verificacao) {
                 return new Funcionario($dadosFuncionario['id'], $dadosFuncionario['login'], $dadosFuncionario['email'], 
                     null, intval($dadosFuncionario['permissao']) === Funcionario::FUNCIONARIO ? Funcionario::FUNCIONARIO : Funcionario::GERENTE);
