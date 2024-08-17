@@ -4,10 +4,7 @@ namespace src\controller;
 
 use src\dto\ClienteParaExibicao;
 use src\model\Cliente;
-use src\model\Credenciais;
-use src\model\Funcionario;
 use src\service\ClienteService;
-use src\service\SessaoService;
 use src\view\ClienteView;
 
 class ClienteController{
@@ -24,12 +21,6 @@ class ClienteController{
 
 
     public function cadastrarCliente() {
-        $sessaoService = new SessaoService();
-        $permissao = $sessaoService->verificaPermissaoFuncionario();
-        if($permissao !== Funcionario::GERENTE && $permissao !== Funcionario::FUNCIONARIO) {
-            return $this->clienteView->acessoNegado();
-        }
-
         $dadosCliente = $this->clienteView->dadosParaCadastro();
         $clienteParaCadastro = new Cliente('', $dadosCliente->nome, $dadosCliente->cpf, $dadosCliente->dataNascimento, $dadosCliente->email, $dadosCliente->telefone,
             $dadosCliente->endereco, $dadosCliente->limiteDeCredito);

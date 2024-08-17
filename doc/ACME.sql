@@ -39,6 +39,7 @@ CREATE TABLE parcela (
     valor DECIMAL(10,2) NOT NULL,
     vencimento DATE NOT NULL,
     emprestimo_id INT NOT NULL,
+    status ENUM("aberta", "paga") NOT NULL DEFAULT "aberta",
     CONSTRAINT `pk__parcela` PRIMARY KEY (id),
 	CONSTRAINT `fk__emprestimo_id` FOREIGN KEY (emprestimo_id) REFERENCES emprestimo(id)
 )ENGINE=INNODB;
@@ -46,7 +47,7 @@ CREATE TABLE parcela (
 CREATE TABLE funcionario (
     id INT NOT NULL AUTO_INCREMENT,
     login VARCHAR(100) NOT NULL UNIQUE,
-    email VARCHAR(40) NOT NULL,
+    email VARCHAR(40) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
     permissao ENUM("1", "2") NOT NULL DEFAULT "1",
     CONSTRAINT `pk__funcionario` PRIMARY KEY (id)
