@@ -1,7 +1,6 @@
 import { Cliente } from '../models/Cliente.ts';
 import { ServicoCliente } from '../services/servico-cliente.ts';
 import { VisaoCliente } from '../views/visao-cliente.ts';
-import { ControladoraEmprestimo } from './controladora-emprestimo.ts';
 
 export class ControladoraCliente {
 
@@ -37,9 +36,10 @@ export class ControladoraCliente {
             
             const nome = cliente.nome;
             const idade = cliente.getIdade();
-            const controlEmprestimo = new ControladoraEmprestimo();
+            window.location.hash = 'formulario-emprestimo';
+            // const controlEmprestimo = new ControladoraEmprestimo();
             
-            controlEmprestimo.configurarFormulario(nome, idade);
+            // controlEmprestimo.configurarFormulario(nome, idade);
 
         } catch(e: any) {
             this.visao.mostrarResultado(e.message);

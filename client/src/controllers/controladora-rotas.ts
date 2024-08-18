@@ -1,6 +1,8 @@
+import { Funcionario } from "../models/Funcionario.ts";
+import { GerenciadorSessao } from "../utils/GerenciadorSessao.ts";
 import { VisaoRotas } from "../views/visao-rotas.ts";
 import { ControladoraCliente } from "./controladora-cliente.ts";
-import { ControladoraEmprestimo } from "./controladora-emprestimo.ts";
+import { ControladoraFuncionario } from "./controladora-funcionario.ts";
 import { ControladoraLogin } from "./controladora-login.ts";
 
 export class ControladoraRotas {
@@ -15,16 +17,23 @@ export class ControladoraRotas {
         const hash = this.visao.hash();
 
         switch(hash) {
-            case 'formulario-cliente':
-                await this.carregarConteudo('form-cliente');
-                let controlCliente = new ControladoraCliente();
-                controlCliente.configurarBusca();
-                
+            case 'home':
+                if(! this.verificarFuncionarioLogado()) {
+                    this.redirecionarParaLogin();
+                    break;
+                }
+                await this.carregarConteudo('home');
+                let controlFuncionario = new ControladoraFuncionario();
+                controlFuncionario.verificarPermissao(); // verificando a permissão para saber se o usuário pode ter acesso aos relatórios
                 break;
             case 'formulario-emprestimo':
+                if(! this.verificarFuncionarioLogado()) {
+                    this.redirecionarParaLogin();
+                    break;
+                }
                 await this.carregarConteudo('form-emprestimo');
-                const controlEmprestimo = new ControladoraEmprestimo();
-                controlEmprestimo.configurarFormulario('a', 13);
+                let controlCliente = new ControladoraCliente();
+                controlCliente.configurarBusca();
                 break;
             default:
                 await this.carregarConteudo('login');
@@ -33,11 +42,32 @@ export class ControladoraRotas {
         }
     }
     
+    verificarFuncionarioLogado(verificarPermissao: boolean = false): boolean {
+        const sessao = new GerenciadorSessao();
+        const funcionario = sessao.obterFuncionarioDaSessao();
+
+        if(!funcionario) {
+            return false;
+        }
+
+        if(verificarPermissao) {
+            return funcionario.permissao === Funcionario.PERMISSAO_GERENTE 
+        }
+
+        return true;
+
+    }
+
     async carregarConteudo(pagina: string) {
         const resp = await fetch(`../../pages/${pagina}.html`);
         const html = await resp.text();
-        //console.log(html);
         this.visao.carregarConteudo(html);
+    }
+
+    async redirecionarParaLogin() {
+        await this.carregarConteudo('login');
+        let controlLogin = new ControladoraLogin();
+        controlLogin.configurarLogin();
     }
 
     configurarRotas(): void {

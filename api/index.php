@@ -6,7 +6,7 @@ use phputil\router\HttpRequest;
 use phputil\router\HttpResponse;
 use function phputil\cors\cors;
 use Dotenv\Dotenv;
-
+use phputil\cors\CorsOptions;
 use src\controller\ClienteController;
 use src\controller\EmprestimoController;
 use src\controller\FormaPagamentoController;
@@ -15,13 +15,18 @@ use src\controller\RelatorioController;
 use src\middleware\MiddlewareGerente;
 use src\middleware\MiddlewareLogado;
 
-
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $app = new Router();
-$app->use( cors() );
 
+$options = (new CorsOptions())
+    ->withOrigin('http://localhost:5173')
+    ->withCredentials(true)
+    ->withMethods('GET,POST,OPTIONS,PUT,DELETE')
+    ->withAllowedHeaders('Content-Type, Authorization');
+
+$app->use(cors($options));
 
 $app->post('/login', function( HttpRequest $req,  HttpResponse $res ) {
     $funcionarioController = new FuncionarioController($req, $res);

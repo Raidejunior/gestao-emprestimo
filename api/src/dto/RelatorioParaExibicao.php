@@ -30,6 +30,6 @@ class RelatorioParaExibicao {
         $dadosGerais = $dados[0];
         $this->qtdEmprestimosPeriodo = intval($dadosGerais['total_emprestimos_periodo']);
         $this->valorTotalPeriodo = floatval($dadosGerais['total_valor_periodo']);
-        $this->mediaPeriodo = $dadosGerais['media_periodo'];
+        $this->mediaPeriodo = floatval($dadosGerais['media_periodo']);
     }
 }

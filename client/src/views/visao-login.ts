@@ -10,6 +10,10 @@ export class VisaoLogin {
         return senha;
     }
 
+    definirHash(): void {
+        window.location.hash = 'login';
+    }
+
     definirAcaoAoEntrar(funcao: Function): void {
         //console.log(document.body.innerHTML);
         document.getElementById('entrar')

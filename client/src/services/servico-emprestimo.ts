@@ -20,7 +20,7 @@ export class ServicoEmprestimo {
     }
 
     async buscarFormasDePagamento() {
-        const resp = await fetch(API + '/forma_pagamento');
+        const resp = await fetch(API + '/forma_pagamento', { credentials: 'include' });
         if(!resp.ok) {
             throw new Error('Erro ao carregar formas de pagamento');
         }
