@@ -8,6 +8,7 @@ export class ServicoEmprestimo {
     async salvarEmprestimo(emprestimo: Emprestimo): Promise<boolean | Error> {
         const resp = await fetch(API + `/emprestimos`, { 
             method: 'POST',
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(emprestimo)
         });
@@ -34,7 +35,7 @@ export class ServicoEmprestimo {
     }
 
     async buscarTodosEmprestimos(): Promise<Emprestimo[]> {
-        const resp = await fetch(API + '/emprestimos');
+        const resp = await fetch(API + '/emprestimos', { credentials: 'include' });
         const dados = await resp.json();
 
         let emprestimos = []

@@ -2,6 +2,7 @@ import { Funcionario } from "../models/Funcionario.ts";
 import { GerenciadorSessao } from "../utils/GerenciadorSessao.ts";
 import { VisaoRotas } from "../views/visao-rotas.ts";
 import { ControladoraCliente } from "./controladora-cliente.ts";
+import { ControladoraEmprestimo } from "./controladora-emprestimo.ts";
 import { ControladoraFuncionario } from "./controladora-funcionario.ts";
 import { ControladoraLogin } from "./controladora-login.ts";
 
@@ -26,6 +27,13 @@ export class ControladoraRotas {
                 let controlFuncionario = new ControladoraFuncionario();
                 controlFuncionario.verificarPermissao(); // verificando a permissão para saber se o usuário pode ter acesso aos relatórios
                 break;
+            case 'cadastro-cliente':
+                if(! this.verificarFuncionarioLogado()) {
+                    this.redirecionarParaLogin();
+                    break;
+                }
+                this.carregarConteudo('form-cliente');
+                break;
             case 'formulario-emprestimo':
                 if(! this.verificarFuncionarioLogado()) {
                     this.redirecionarParaLogin();
@@ -34,6 +42,14 @@ export class ControladoraRotas {
                 await this.carregarConteudo('form-emprestimo');
                 let controlCliente = new ControladoraCliente();
                 controlCliente.configurarBusca();
+                break;
+            case 'emprestimos':
+                if(! this.verificarFuncionarioLogado()) {
+                    this.redirecionarParaLogin();
+                    break;
+                }
+                let controlEmprestimo = new ControladoraEmprestimo();
+                controlEmprestimo.buscarTodosEmprestimos();
                 break;
             default:
                 await this.carregarConteudo('login');
