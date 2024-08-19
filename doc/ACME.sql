@@ -53,7 +53,8 @@ CREATE TABLE funcionario (
     CONSTRAINT `pk__funcionario` PRIMARY KEY (id)
 )ENGINE=INNODB;
 
-------------------------------------
+
+
 
 INSERT INTO funcionario
 (login, email, permissao, senha) 
