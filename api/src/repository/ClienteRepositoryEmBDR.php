@@ -18,8 +18,8 @@ class ClienteRepositoryEmBDR implements ClienteRepository{
 
         try {
             $ps = $this->pdo->prepare(
-                'INSERT INTO cliente(nome, cpf, data_nascimento, email, telefone, endereco, limite_credito, senha) VALUES (
-                    :nome, :cpf, :data_nascimento, :email, :telefone, :endereco, :limite_credito, :senha
+                'INSERT INTO cliente(nome, cpf, data_nascimento, email, telefone, endereco, limite_credito) VALUES (
+                    :nome, :cpf, :data_nascimento, :email, :telefone, :endereco, :limite_credito
                 )'
             );
             $inserido = $ps->execute([
@@ -30,7 +30,7 @@ class ClienteRepositoryEmBDR implements ClienteRepository{
                 'telefone' => $cliente->telefone,
                 'endereco' => $cliente->endereco,
                 'limite_credito' => $cliente->limiteCredito,
-                'senha' => $cliente->credenciais->getSenha(),
+                //'senha' => $cliente->credenciais->getSenha(),
             ]);
 
             if($inserido){
