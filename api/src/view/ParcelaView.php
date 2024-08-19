@@ -25,6 +25,26 @@ class ParcelaView {
         return $parcelaParaPagamento;
     } 
 
+    /**
+     * Responsável por retornar o Id de empréstimo da requisição, devolve uma resposta com código 400 caso não haja um parâmetro Id
+     * @return string
+     */
+    public function emprestimoId(): string {
+        $emprestimoId = $this->req->param('emprestimoId');
+        if(!$emprestimoId) {
+            $this->res->status(400)->send('Parâmetros inválidos');
+        }
+
+        return $emprestimoId;
+    }
+
+    /**
+     * Retorna todas as parcelas de um empréstimo para o lado do cliente em formato JSON
+     */
+    public function RetornaTodasParcelasDeEmprestimoId($parcelas): void {
+        $this->res->status(200)->json($parcelas);
+    }
+
     public function parametrosInvalidos(array $parametros) {
         $this->res->status(400)->json(['Erros' => $parametros]);
         die();

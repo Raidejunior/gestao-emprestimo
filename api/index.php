@@ -73,9 +73,14 @@ $app->post('/emprestimos', new MiddlewareLogado(), function( HttpRequest $req,  
     $emprestimoController->salvarEmprestimo();
 });
 
+$app->get('/parcelasDeIdEmprestimo', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
+    $ParcelaController = new ParcelaController($req, $res);
+    $ParcelaController->buscarTodasParcelasDeEmprestimoId();
+});
+
 $app->post('/parcelas', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
-    $emprestimoController = new ParcelaController($req, $res);
-    $emprestimoController->pagarParcela();
+    $ParcelaController = new ParcelaController($req, $res);
+    $ParcelaController->pagarParcela();
 });
 
 

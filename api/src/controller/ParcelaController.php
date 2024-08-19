@@ -3,8 +3,8 @@ namespace src\controller;
 
 use phputil\router\HttpRequest;
 use phputil\router\HttpResponse;
-use src\view\EmprestimoView;
 use src\view\ParcelaView;
+use src\service\ParcelaService;
 
 class ParcelaController{
 
@@ -20,6 +20,14 @@ class ParcelaController{
 
     public function pagarParcela() {
         $dadosParcela = $this->parcelaView->dadosParcela();
+    }
+
+    public function buscarTodasParcelasDeEmprestimoId() {
+        $emprestimoId = $this->parcelaView->emprestimoId();
+        $parcelaService = new ParcelaService();
+        $parcelas = $parcelaService->buscarTodasParcelasDeEmprestimoId($emprestimoId);
+
+        $this->parcelaView->RetornaTodasParcelasDeEmprestimoId($parcelas);
     }
 
 }
