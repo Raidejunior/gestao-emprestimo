@@ -21,7 +21,7 @@ class EmprestimoRepository{
      * 
      */
     function buscarTodosEmprestimos() {
-        $sql = "SELECT e.data_emprestimo, c.nome AS cliente_nome, e.valor, fp.meses AS parcelas, fp.juros 
+        $sql = "SELECT e.id, e.data_emprestimo, c.nome AS cliente_nome, e.valor, fp.meses AS parcelas, fp.juros 
             FROM emprestimo e
             JOIN cliente c ON c.id = e.cliente_id
             JOIN forma_pagamento fp ON fp.id = e.forma_pagamento_id

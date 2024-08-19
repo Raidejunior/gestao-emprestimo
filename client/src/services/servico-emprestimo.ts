@@ -42,7 +42,7 @@ export class ServicoEmprestimo {
         for(let dado of dados) {
             let formaPagamento = new FormaPagamento(0, '', Number(dado.parcelas), Number(dado.juros));
             let cliente = new Cliente(0, dado.cliente_nome, '12345678910', new Date());
-            let emprestimo = new Emprestimo(Number(dado.valor), formaPagamento);
+            let emprestimo = new Emprestimo(Number(dado.valor), formaPagamento, dado.id);
             emprestimo.cliente = cliente;
 
             const [data, hora] = dado.data_emprestimo.split(' ');

@@ -8,6 +8,7 @@ const VALOR_MAX = 50000;
 
 export class Emprestimo {
     
+    id?: number;
     cliente?: Cliente;
     valorSolicitadoEmprestimo: number;
     formaPagamento: FormaPagamento;
@@ -15,7 +16,8 @@ export class Emprestimo {
     valorPagoEmprestimo?: number = 0
     parcelas?: Array<Parcela>
 
-    constructor(valorEmp: number, formaPag: FormaPagamento) {
+    constructor(valorEmp: number, formaPag: FormaPagamento, id?: number) {
+        this.id = id;
         this.valorSolicitadoEmprestimo = valorEmp;
         this.formaPagamento = formaPag;
     }
