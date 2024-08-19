@@ -2,7 +2,9 @@
 
 namespace src\repository;
 
+use Exception;
 use PDO;
+use src\dto\ParcelaParaPagamento;
 use src\model\Parcela;
 
 class ParcelaRepository{
@@ -35,6 +37,21 @@ class ParcelaRepository{
             return true;
         }
         return false;
+    }
+
+    public function pagarParcela(ParcelaParaPagamento $parcela): bool {
+        try {
+            $this->pdo->beginTransaction();
+            $sql = "UPDATE parcela 
+                SET status = 'paga', 
+                data_pagamento = CURRENT_TIMESTAMP, 
+                funcionario_id_pagamento = :idFuncionario 
+                WHERE id = :idParcela AND emprestimo_id = :idEmprestimo
+            ";
+            return true;
+        } catch(Exception $e) {
+            return false;
+        }
     }
 
 }
