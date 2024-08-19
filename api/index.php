@@ -11,6 +11,7 @@ use src\controller\ClienteController;
 use src\controller\EmprestimoController;
 use src\controller\FormaPagamentoController;
 use src\controller\FuncionarioController;
+use src\controller\ParcelaController;
 use src\controller\RelatorioController;
 use src\middleware\MiddlewareGerente;
 use src\middleware\MiddlewareLogado;
@@ -70,6 +71,11 @@ $app->get('/emprestimos', new MiddlewareLogado(), function( HttpRequest $req,  H
 $app->post('/emprestimos', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
     $emprestimoController = new EmprestimoController($req, $res);
     $emprestimoController->salvarEmprestimo();
+});
+
+$app->post('/parcelas', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
+    $emprestimoController = new ParcelaController($req, $res);
+    $emprestimoController->pagarParcela();
 });
 
 
