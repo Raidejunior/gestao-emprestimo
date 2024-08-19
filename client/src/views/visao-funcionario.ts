@@ -1,9 +1,12 @@
 export class VisaoFuncionario {
 
-    adicionarOpcaoRelatorio(): void{
+    adicionarOpcaoesGerente(): void{
         document.getElementById('menu')!.innerHTML += `
             <li>
-                <a href="#relatorio">Acessar relatório<a>
+                <a href="#cadastro-funcionario">Cadastrar funcionário</a>
+            </li>
+            <li>
+                <a href="#relatorio">Acessar relatório</a>
             </li>
         `
     } 
