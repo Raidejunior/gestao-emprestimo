@@ -10,7 +10,6 @@ class SessaoService {
         $this->abrirSessao();
 
         $_SESSION['id'] = $funcionario->id;
-        $_SESSION['login'] = $funcionario->login;
         $_SESSION['permissao'] = $funcionario->permissao;
     }
 

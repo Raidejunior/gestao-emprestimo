@@ -24,11 +24,11 @@ class LoginService {
         $funcionario = $this->funcionarioRepository->autenticarFuncionario($this->credenciais);
 
         if($funcionario instanceof Funcionario) {
-            $funcionarioParaSessao = new FuncionarioParaSessao($funcionario->id, $funcionario->login, $funcionario->permissao);
+            $funcionarioParaSessao = new FuncionarioParaSessao($funcionario->id, $funcionario->permissao);
             $sessaoService = new SessaoService();
             $sessaoService->registrarFuncionario($funcionarioParaSessao);
 
-            $funcionarioParaExibicao = new FuncionarioParaExibicao($funcionario->login, $funcionario->email, $funcionario->permissao);
+            $funcionarioParaExibicao = new FuncionarioParaExibicao($funcionario->nome, $funcionario->email, $funcionario->permissao);
             return $funcionarioParaExibicao;
         }
 
