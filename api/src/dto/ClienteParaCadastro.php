@@ -10,8 +10,7 @@ class ClienteParaCadastro {
     public ?string $telefone;
     public ?string $email;
     public ?string $endereco;
-
-    public ?string $limiteDeCredito;
+    public ?float $limiteDeCredito;
 
     public AtributosInvalidos $atributosInvalidos;
 

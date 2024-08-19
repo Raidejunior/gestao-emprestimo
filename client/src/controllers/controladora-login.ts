@@ -11,7 +11,7 @@ export class ControladoraLogin {
     constructor() {
         this.visao = new VisaoLogin();
         this.gerenciadorSessao = new GerenciadorSessao();
-        this.gerenciadorSessao.limparSessao();
+        this.gerenciadorSessao.limparSessaoFuncionario();
     }
 
     configurarLogin(): void {

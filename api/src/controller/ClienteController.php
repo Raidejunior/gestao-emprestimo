@@ -21,12 +21,10 @@ class ClienteController{
 
 
     public function cadastrarCliente() {
-        $dadosCliente = $this->clienteView->dadosParaCadastro();
-        $clienteParaCadastro = new Cliente('', $dadosCliente->nome, $dadosCliente->cpf, $dadosCliente->dataNascimento, $dadosCliente->email, $dadosCliente->telefone,
-            $dadosCliente->endereco, $dadosCliente->limiteDeCredito);
-        $clienteService = new ClienteService($clienteParaCadastro);
+        $clienteParaCadastro = $this->clienteView->dadosParaCadastro();
+        $clienteService = new ClienteService();
 
-        $clienteCadastrado = $clienteService->cadastrarCliente();
+        $clienteCadastrado = $clienteService->cadastrarCliente($clienteParaCadastro);
         if($clienteCadastrado instanceof ClienteParaExibicao) {
             $this->clienteView->retornaCliente($clienteCadastrado, 201);
         } else {
@@ -42,8 +40,8 @@ class ClienteController{
      */
     public function buscaCPF() {
         $cpf = $this->clienteView->cpf();
-        $clienteModel = new Cliente();
-        $cliente = $clienteModel->buscaCPF($cpf);
+        $clienteService = new ClienteService();
+        $cliente = $clienteService->buscaCPF($cpf);
         
         $this->clienteView->retornaCliente($cliente, 200);
     }

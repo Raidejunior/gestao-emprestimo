@@ -15,9 +15,10 @@ export class ServicoCliente {
             throw new Error('Erro ao buscar cliente');
         }
         
-        const dados = await resp.json();        
-        const {...dadosCliente} = dados;
-        const cliente = new Cliente(dadosCliente.id, dadosCliente.nome, dadosCliente.cpf, dadosCliente.dataNascimento );
+        const dadosCliente = await resp.json();        
+        const cliente = new Cliente(dadosCliente.id, dadosCliente.nome, dadosCliente.cpf, dadosCliente.dataNascimento,  Number(dadosCliente.limiteCredito.toFixed(2)), 
+            Number(dadosCliente.limiteCreditoUtilizado.toFixed(2)), Number(dadosCliente.limiteCreditoDisponivel.toFixed(2))
+         );
 
         return cliente;
     }

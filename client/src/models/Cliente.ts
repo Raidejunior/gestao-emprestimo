@@ -6,12 +6,19 @@ export class Cliente {
     nome: string;
     cpf: string;
     dataNascimento: Date;
+    limiteCredito: number;
+    limiteCreditoUtilizado: number;
+    limiteCreditoDisponivel: number;
 
-    constructor(id: number, nome: string, cpf: string, dataNascimento: Date | string ) {
+    constructor(id: number = 0, nome: string = '', cpf: string = '', dataNascimento: Date | string = '', limiteCredito: number = 0,
+        limiteCreditoUtilizado: number = 0, limiteCreditoDisponivel: number= 0) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = this.converterData(dataNascimento);
+        this.limiteCredito = limiteCredito;
+        this.limiteCreditoUtilizado = limiteCreditoUtilizado;
+        this.limiteCreditoDisponivel = limiteCreditoDisponivel;
     }
 
 
@@ -93,6 +100,10 @@ export class Cliente {
     }
 
     converterData(data: Date | string): Date {
+        if(data === '') {
+            return new Date();
+        }
+
         if(data instanceof Date) {
             return data;
         }

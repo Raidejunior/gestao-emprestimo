@@ -27,32 +27,5 @@ class Cliente {
         $this->endereco = $endereco;
         $this->limiteCredito = $limiteCredito;
     }
-
-    /**
-     * Responsável por chamar o repository para buscar cliente e retorná-lo.
-     * @param string $cpf
-     * @return Cliente - Objeto cliente com os dados ou null caso o cliente não seja encontrado
-     */
-
-    // REFAZER
-
-    function buscaCPF($cpf) {
-        $db = new DBConnection();
-        $pdo = $db->conectar();
-        $cr = new ClienteRepositoryEmBDR($pdo);
-        $dadosCliente = $cr->retornaClientePorCPF($cpf);
-        if(!$dadosCliente) {
-            return null;
-        }
-
-        $cliente = new Cliente(
-            $dadosCliente["id"],
-            $dadosCliente["nome"],
-            $dadosCliente["cpf"],
-            $dadosCliente["data_nascimento"]
-        );
-        
-        return $cliente;
-    }
 }
 ?>

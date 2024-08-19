@@ -14,13 +14,13 @@ export class ControladoraEmprestimo {
     /**
     * Responsável por todas as chamadas iniciais necessárias para o funcionamento do formulário.
     */
-    configurarFormulario(nome:string, idade: number): void {
-        this.visao.montarFormulario(nome, idade);
+    configurarFormulario(nome:string, idade: number, limiteCredito: number, limiteCreditoDisponivel: number, limiteCreditoUtilizado: number): void {
+        this.visao.montarFormulario(nome, idade, limiteCredito, limiteCreditoDisponivel, limiteCreditoUtilizado);
         
         this.carregarFormasDePagamento();
-        this.configurarCalcDeParcelasAoSelecionaFormaDePg();
+        this.configurarCalcDeParcelasAoSelecionaFormaDePg(limiteCreditoDisponivel);
         this.configurarEmprestimo();
-        this.configurarCalcDeParcelasAoDigitarValor();
+        this.configurarCalcDeParcelasAoDigitarValor(limiteCreditoDisponivel);
     }
 
     /**
@@ -99,15 +99,15 @@ export class ControladoraEmprestimo {
     /**
     * Responsável por chamar método na visao para definir qual ação será feita quando for selecionado a forma de pagamento.
     */
-    private configurarCalcDeParcelasAoSelecionaFormaDePg(): void {
-        this.visao.definirAcaoAoSelecionarFormaDePg(Emprestimo.verificarValorEmprestimo, this.montarParcelas.bind(this));
+    private configurarCalcDeParcelasAoSelecionaFormaDePg(LimiteCreditoCliente: number): void {
+        this.visao.definirAcaoAoSelecionarFormaDePg(Emprestimo.verificarValorEmprestimo, this.montarParcelas.bind(this), LimiteCreditoCliente);
     }
     
     /**
     * Responsável por chamar método na visao para definir qual ação será feita quando for selecionado o valor do empréstimo.
     */
-    private configurarCalcDeParcelasAoDigitarValor(): void {
-        this.visao.definirAcaoAoDigitarValor(Emprestimo.verificarValorEmprestimo, this.montarParcelas.bind(this));
+    private configurarCalcDeParcelasAoDigitarValor(LimiteCreditoCliente: number): void {
+        this.visao.definirAcaoAoDigitarValor(Emprestimo.verificarValorEmprestimo, this.montarParcelas.bind(this), LimiteCreditoCliente);
     }
 
     /**
