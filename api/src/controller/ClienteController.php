@@ -23,9 +23,9 @@ class ClienteController{
     public function cadastrarCliente() {
         $dadosCliente = $this->clienteView->dadosParaCadastro();
         $clienteParaCadastro = new Cliente('', $dadosCliente->nome, $dadosCliente->cpf, $dadosCliente->dataNascimento, $dadosCliente->email, $dadosCliente->telefone,
-            $dadosCliente->endereco, $dadosCliente->limiteDeCredito);
+            $dadosCliente->endereco, $dadosCliente->limiteCredito);
         $clienteService = new ClienteService($clienteParaCadastro);
-
+        
         $clienteCadastrado = $clienteService->cadastrarCliente();
         if($clienteCadastrado instanceof ClienteParaExibicao) {
             $this->clienteView->retornaCliente($clienteCadastrado, 201);
