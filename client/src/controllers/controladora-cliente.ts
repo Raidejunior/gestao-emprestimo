@@ -44,4 +44,26 @@ export class ControladoraCliente {
             this.visao.mostrarResultado(e.message);
         }
     }
+
+    configurarEnvioFormulario(): void {
+        this.visao.definirAcaoAoEnviar(this.enviarFormularioCliente.bind(this));
+    }
+
+    async enviarFormularioCliente(): Promise<void> {
+        const cliente = this.visao.obterDadosFormulario();
+
+        try {
+            const servicoCliente = new ServicoCliente();
+            const resposta = await servicoCliente.cadastrarCliente(cliente);
+
+            if (resposta.ok) {
+                this.visao.mostrarMensagemSucesso('Cliente cadastrado com sucesso.');
+            } else {
+                const erro = await resposta.json();
+                this.visao.mostrarMensagemErro(`Erro ao cadastrar cliente: ${erro.mensagem}`);
+            }
+        } catch (error: any) {
+            this.visao.mostrarMensagemErro(`Erro ao conectar ao servidor: ${error.message}`);
+        }
+    }
 }

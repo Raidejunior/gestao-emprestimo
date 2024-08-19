@@ -32,7 +32,9 @@ export class ControladoraRotas {
                     this.redirecionarParaLogin();
                     break;
                 }
-                this.carregarConteudo('form-cliente');
+                await this.carregarConteudo('form-cliente');
+                let controlClienteConfigEnvioFormulario = new ControladoraCliente();
+                controlClienteConfigEnvioFormulario.configurarEnvioFormulario();
                 break;
             case 'formulario-emprestimo':
                 if(! this.verificarFuncionarioLogado()) {

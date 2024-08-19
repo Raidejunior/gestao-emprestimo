@@ -1,5 +1,6 @@
 import { Cliente } from "../models/Cliente.ts";
 import { API } from "../models/API.ts";
+import { ClienteDTO } from '../dto/ClienteDadosFormulario';
 
 export class ServicoCliente {
 
@@ -20,5 +21,18 @@ export class ServicoCliente {
         const cliente = new Cliente(dadosCliente.id, dadosCliente.nome, dadosCliente.cpf, dadosCliente.dataNascimento );
 
         return cliente;
+    }
+
+    async cadastrarCliente(cliente: ClienteDTO): Promise<Response> {
+        const response = await fetch('http://localhost:8080/clientes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cliente),
+            credentials: "include"
+        });
+
+        return response;
     }
 }
