@@ -46,6 +46,7 @@ CREATE TABLE parcela (
 
 CREATE TABLE funcionario (
     id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
     login VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(40) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
@@ -57,15 +58,15 @@ CREATE TABLE funcionario (
 
 
 INSERT INTO funcionario
-(login, email, permissao, senha) 
+(nome, login, email, permissao, senha) 
 VALUES 
-('Gerente 1', 'gerente1@gmail.com', '2', 'cdc0a4d7bd333c595f8ab148230e68b816d3df60b089834c1231b25d6c5215464b0c0341c68117fa2973ef2f50a67329');
+('Gerente XYZ', 'Gerente 1', 'gerente1@gmail.com', '2', 'cdc0a4d7bd333c595f8ab148230e68b816d3df60b089834c1231b25d6c5215464b0c0341c68117fa2973ef2f50a67329');
 
 INSERT INTO cliente
-(nome, cpf, data_nascimento)
+(nome, cpf, data_nascimento, email, telefone, endereco, limite_credito)
 VALUES
-('Cliente 1', '19195920757', '2008-07-26'),
-('Cliente 2', '12345678910', '2008-02-28');
+('Cliente 1', '19195920757', '2008-07-26', 'cliente1@gmail.com', '2224567899', 'Rua ABC, bairro XYZ', 50000),
+('Cliente 2', '12345678910', '2008-02-28', 'cliente2@gmail.com', '2233333121', 'Rua XYZ, bairro ABC', 40000);
 
 INSERT INTO forma_pagamento
 (descricao, meses, juros)

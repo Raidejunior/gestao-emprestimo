@@ -117,8 +117,8 @@ export class Emprestimo {
      * @param valor Valor a ser verificado
      * @returns Retorna true se o valor é válido para um empréstimo
      */
-    static verificarValorEmprestimo(valor: number) {
-        if(valor < VALOR_MIN || valor > VALOR_MAX) {
+    static verificarValorEmprestimo(valor: number, limiteCreditoCliente: number = VALOR_MAX) {
+        if(valor < VALOR_MIN || valor > limiteCreditoCliente) {
             return false;
         }
         return true;

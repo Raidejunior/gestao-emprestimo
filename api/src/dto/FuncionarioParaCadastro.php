@@ -4,6 +4,7 @@ namespace src\dto;
 use src\utils\AtributosInvalidos;
 
 class FuncionarioParaCadastro {
+    public ?string $nome;
     public ?string $login;
     public ?string $email;
     public ?string $senha;
@@ -13,6 +14,7 @@ class FuncionarioParaCadastro {
 
     public function __construct(array $dados) {
         $this->atributosInvalidos = new AtributosInvalidos();
+        $this->nome = $dados['nome'] ?? null;
         $this->login = $dados['login'] ?? null;
         $this->email = $dados['email'] ?? null; 
         $this->senha = $dados['senha'] ?? null;
@@ -27,16 +29,19 @@ class FuncionarioParaCadastro {
 
     private function valida(): void {
         // Valida cada atributo
-        if ($this->login === null || $this->login === '') {
+        if ($this->nome === null || trim($this->nome) === '') {
+            $this->tratarInvalido('nome');
+        }
+        if ($this->login === null || trim($this->login) === '') {
             $this->tratarInvalido('login');
         }
-        if ($this->email === null || $this->email === '') {
+        if ($this->email === null || trim($this->email) === '') {
             $this->tratarInvalido('email');
         }
-        if ($this->senha === null || $this->senha === '') {
+        if ($this->senha === null || trim($this->senha) === '') {
             $this->tratarInvalido('senha');
         }
-        if ($this->permissao === null || $this->permissao === '') {
+        if ($this->permissao === null || trim($this->permissao) === '') {
             $this->tratarInvalido('permissao');
         }
     }

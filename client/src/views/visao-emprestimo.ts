@@ -24,20 +24,23 @@ export class VisaoEmprestimo {
     }
 
 
-    montarFormulario(nome: string, idade: number) {
+    montarFormulario(nome: string, idade: number, limiteCredito: number, limiteCreditoDisponivel: number, limiteCreditoUtilizado:number) {
         
         document.getElementById('conteudo')!.innerHTML = `
             <section id="form-emprestimo-header">
                 <div>
-                    <a class="btn btn-large" href="/">Início</a>
+                    <a class="btn btn-large" href="#home">Início</a>
                 </div>
                 <h2 class="info-cliente"><span>${nome}</span>, ${idade} anos</h2>
+                <div>Limite de crédito do cliente: ${limiteCredito.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
+                <div>Limite de crédito utilizado: ${limiteCreditoUtilizado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
+                <div>Limite de crédito disponível: ${limiteCreditoDisponivel.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
             </section>
             <form class="form-emprestimo mb-3" id="form-emprestimo">
                 <div class="valor-parcelas">
                     <label for="valor" class="form-label">Valor</label>
                     <input type="number" required class="form-control" id="valor">
-                    <div class="form-text">Apenas valores entre R$500 e R$ 50.000</div>
+                    <div class="form-text">Apenas valores entre R$ 500 e ${limiteCreditoDisponivel.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
                 </div>
                 <div class="forma-pagamento">
                     <label for="formas-pagamento" class="form-label">Forma de pagamento</label>
@@ -189,23 +192,26 @@ export class VisaoEmprestimo {
         `;
     }
 
-    definirAcaoAoDigitarValor(funcaoVerificadora: Function, funcaoCalculadora: Function) {
+    definirAcaoAoDigitarValor(funcaoVerificadora: Function, funcaoCalculadora: Function, LimiteCreditoCliente: number) {
         document.getElementById('valor')?.addEventListener('input', e => {
             const valor = Number((e.target as HTMLInputElement ).value);
             const divAviso = document.querySelector('.form-text');
 
-            if(!funcaoVerificadora(valor)) {
+            if(! valor || ! funcaoVerificadora(valor, LimiteCreditoCliente)) {
                      // alterando
-                    divAviso!.classList.add('div-aviso-valor-color-red'); // se o valor não for válido, o texto da div ficará com a cor vermelhar
+                    divAviso!.classList.add('div-aviso-valor-color-red'); // se o valor não for válido, o texto da div ficará com a cor vermelha
+                    (document.getElementById('realizar-emprestimo') as HTMLButtonElement).disabled = true; // desabilitando o botão de submit do form de empréstimo
+                    this.desfazerParcelas(); // Se houver alguma parcela sendo mostrada, a tabela e as informações são defeitas
+                    return;
             } else {
                     divAviso!.classList.remove('div-aviso-valor-color-red');
             }
 
-            if(!valor || !funcaoVerificadora(valor)){ // Se o valor não for válido, o cálculo de parcelas não é feito
-                (document.getElementById('realizar-emprestimo') as HTMLButtonElement).disabled = true; // desabilitando o botão de submit do form de empréstimo
-                this.desfazerParcelas(); // Se houver alguma parcela sendo mostrada, a tabela e as informações são defeitas
-                return;
-            }
+            // if(!valor || !funcaoVerificadora(valor, LimiteCreditoCliente)){ // Se o valor não for válido, o cálculo de parcelas não é feito
+            //     (document.getElementById('realizar-emprestimo') as HTMLButtonElement).disabled = true; // desabilitando o botão de submit do form de empréstimo
+            //     this.desfazerParcelas(); // Se houver alguma parcela sendo mostrada, a tabela e as informações são defeitas
+            //     return;
+            // }
 
             const formaPagamento = this.formaPagamento();
             if(!formaPagamento.id){ // Se não houver uma forma de pagamento, o cálculo de parcelas não é feito 
@@ -218,10 +224,11 @@ export class VisaoEmprestimo {
         });
     } 
 
-    definirAcaoAoSelecionarFormaDePg(funcaoVerificadora: Function, funcaoCalculadora: Function): void {
+    definirAcaoAoSelecionarFormaDePg(funcaoVerificadora: Function, funcaoCalculadora: Function, LimiteCreditoCliente: number): void {
         document.getElementById('formas-pagamento')?.addEventListener('change', () => {
             const fp = this.formaPagamento();
-            if(!fp.id || !funcaoVerificadora(this.valor())){ // Se não houver uma forma de pagamento definida ou o valor for inválido, o cálculo de parcelas não é feito
+            console.log(LimiteCreditoCliente);
+            if(!fp.id || !funcaoVerificadora(this.valor(), LimiteCreditoCliente)){ // Se não houver uma forma de pagamento definida ou o valor for inválido, o cálculo de parcelas não é feito
                 (document.getElementById('realizar-emprestimo') as HTMLButtonElement).disabled = true;
 
                 this.desfazerParcelas(); // desfazendo parcelas caso a forma de pagamento não seja válida

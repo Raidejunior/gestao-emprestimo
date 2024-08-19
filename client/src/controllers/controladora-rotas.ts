@@ -53,6 +53,13 @@ export class ControladoraRotas {
                 let controlEmprestimo = new ControladoraEmprestimo();
                 controlEmprestimo.buscarTodosEmprestimos();
                 break;
+            case 'cadastro-funcionario':
+                if(! this.verificarFuncionarioLogado(true)) {
+                    this.redirecionarParaLogin();
+                    break;
+                }
+                await this.carregarConteudo('form-funcionario')
+                break;
             default:
                 await this.carregarConteudo('login');
                 let controlLogin = new ControladoraLogin();
@@ -60,7 +67,7 @@ export class ControladoraRotas {
         }
     }
     
-    verificarFuncionarioLogado(verificarPermissao: boolean = false): boolean {
+    verificarFuncionarioLogado(verificarSeEhGerente: boolean = false): boolean {
         const sessao = new GerenciadorSessao();
         const funcionario = sessao.obterFuncionarioDaSessao();
 
@@ -68,7 +75,7 @@ export class ControladoraRotas {
             return false;
         }
 
-        if(verificarPermissao) {
+        if(verificarSeEhGerente) {
             return funcionario.permissao === Funcionario.PERMISSAO_GERENTE 
         }
 

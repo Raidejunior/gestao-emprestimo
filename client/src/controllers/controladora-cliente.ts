@@ -1,5 +1,7 @@
+import { ClienteParaSessionStorage } from '../dto/ClienteParaSessionStorage.ts';
 import { Cliente } from '../models/Cliente.ts';
 import { ServicoCliente } from '../services/servico-cliente.ts';
+import { GerenciadorSessao } from '../utils/GerenciadorSessao.ts';
 import { VisaoCliente } from '../views/visao-cliente.ts';
 import { ControladoraEmprestimo } from './controladora-emprestimo.ts';
 
@@ -25,20 +27,22 @@ export class ControladoraCliente {
     async buscar(): Promise<void> {
         const cpf = this.visao.cpf(Cliente.desformataCPF);
         const servicoCliente = new ServicoCliente();
+        const sessao = new GerenciadorSessao();
 
         try {
             if(!Cliente.isCPFValido(cpf)) {
-                Cliente.salvarClienteSessionStorage(null);
+                sessao.limparSessaoCliente();
                 throw new Error('CPF inválido!');
             }
             
             const cliente = await servicoCliente.localizarCliente(cpf);
-            Cliente.salvarClienteSessionStorage(cliente);
-            
-            const nome = cliente.nome;
-            const idade = cliente.getIdade();
+
             const controlEmprestimo = new ControladoraEmprestimo();
-            controlEmprestimo.configurarFormulario(nome, idade);
+            controlEmprestimo.configurarFormulario(cliente.nome, cliente.getIdade(), cliente.limiteCredito, cliente.limiteCreditoDisponivel, cliente.limiteCreditoUtilizado);
+
+            const clienteParaSessao = new ClienteParaSessionStorage(cliente.id, cliente.nome, cliente.dataNascimento, cliente.limiteCredito, 
+                cliente.limiteCreditoUtilizado, cliente.limiteCreditoDisponivel);
+            sessao.setarClienteNaSessao(clienteParaSessao); // salvando cliente na session storage
 
         } catch(e: any) {
             this.visao.mostrarResultado(e.message);

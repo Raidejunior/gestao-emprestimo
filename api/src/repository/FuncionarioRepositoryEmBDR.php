@@ -17,7 +17,7 @@ class FuncionarioRepositoryEmBDR implements FuncionarioRepository {
 
     public function autenticarFuncionario(Credenciais $credenciais): ?Funcionario {
         $ps = $this->pdo->prepare(
-            'SELECT id, login, email, permissao, senha FROM funcionario WHERE login = :login'
+            'SELECT id, nome, login, email, permissao, senha FROM funcionario WHERE login = :login'
         );
         $ps->execute([
             'login' => $credenciais->getLogin()
@@ -26,11 +26,12 @@ class FuncionarioRepositoryEmBDR implements FuncionarioRepository {
 
         if(count($dados) > 0) {
             $dadosFuncionario = $dados[0];
-            $hashArmazenado = $dadosFuncionario['senha'];
 
+            $hashArmazenado = $dadosFuncionario['senha'];
             $verificacao = $credenciais->compararHash($hashArmazenado);
+
             if($verificacao) {
-                return new Funcionario($dadosFuncionario['id'], $dadosFuncionario['login'], $dadosFuncionario['email'], 
+                return new Funcionario($dadosFuncionario['id'], $dadosFuncionario['nome'], $dadosFuncionario['email'], 
                     null, intval($dadosFuncionario['permissao']) === Funcionario::FUNCIONARIO ? Funcionario::FUNCIONARIO : Funcionario::GERENTE);
             }
 
@@ -47,12 +48,13 @@ class FuncionarioRepositoryEmBDR implements FuncionarioRepository {
 
         try {
             $ps = $this->pdo->prepare(
-                'INSERT INTO funcionario(login, email, senha, permissao) VALUES (
-                    :login, :email, :senha, :permissao
+                'INSERT INTO funcionario(nome, login, email, senha, permissao) VALUES (
+                    :nome, :login, :email, :senha, :permissao
                 )'
             );
             $inserido = $ps->execute([
-                'login' => $funcionario->login,
+                'nome' => $funcionario->nome,
+                'login' => $funcionario->credenciais->getLogin(),
                 'email' => $funcionario->email,
                 'permissao' => $funcionario->permissao === Funcionario::FUNCIONARIO ? '1' : '2',
                 'senha' => $funcionario->credenciais->getSenha(),
