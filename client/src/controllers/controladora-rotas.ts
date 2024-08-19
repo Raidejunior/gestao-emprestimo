@@ -5,7 +5,6 @@ import { ControladoraCliente } from "./controladora-cliente.ts";
 import { ControladoraEmprestimo } from "./controladora-emprestimo.ts";
 import { ControladoraFuncionario } from "./controladora-funcionario.ts";
 import { ControladoraLogin } from "./controladora-login.ts";
-import { ControladoraParcela } from "./controladora-parcela.ts";
 
 export class ControladoraRotas {
 
@@ -53,16 +52,7 @@ export class ControladoraRotas {
                 }
                 let controlEmprestimo = new ControladoraEmprestimo();
                 controlEmprestimo.buscarTodosEmprestimos();
-                break;
-            case 'parcelas':
-                if (!this.verificarFuncionarioLogado()) {
-                    this.redirecionarParaLogin();
-                    break;
-                }
-                const emprestimoId = parseInt(hash.split('/')[1]);
-                let controlParcela = new ControladoraParcela();
-                controlParcela.buscarParcelasPorEmprestimo(emprestimoId);
-                break;                
+                break;               
             case 'cadastro-funcionario':
                 if(! this.verificarFuncionarioLogado(true)) {
                     this.redirecionarParaLogin();

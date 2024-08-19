@@ -9,10 +9,14 @@ export class ControladoraParcela{
         this.visao = new VisaoParcela();
     }
 
+    configurarParcela(): void {
+        this.visao.definirAcaoAoClicar(this.buscarParcelasPorEmprestimo.bind(this));
+    }
+
     /**
     * Responsável por chamar o serviço para buscar as parcelas de um empréstimo específico.
     */
-    async buscarParcelasPorEmprestimo(idEmprestimo: number) {
+    async buscarParcelasPorEmprestimo(idEmprestimo: string) {
         const servicoParcela = new ServicoParcela();
         const parcelas = await servicoParcela.buscarParcelasPorEmprestimoId(idEmprestimo);
         this.visao.montarTabelaDeParcelas(parcelas);

@@ -1,15 +1,34 @@
 export class VisaoParcela {
+
+    definirAcaoAoClicar(funcao: Function): void {
+        document.getElementById('verParcelas')
+        ?.addEventListener('click', e => {
+            e.preventDefault();
+            // Pegando o elemento da linha (tr) correspondente ao botão clicado
+            const linha = (e.target as HTMLElement).closest('tr');
+            
+            // Pegando o ID da célula que está oculta
+            const emprestimoId = linha?.querySelector('#emprestimoId')?.textContent;
+            
+            // Passando o ID para a função
+            if (emprestimoId) {
+                funcao(emprestimoId.trim());
+            }
+        });
+    }
+
     montarTabelaDeParcelas(parcelas: any): void {
         const parcelasHTML = parcelas.map(
-            (p: { numero: any; valor: any; vencimento: any; pago: boolean; }) => {
-                const valorParcela = p.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                const status = p.pago ? "Pago" : `<button class="btn btn-success">Pagar</button>`;
+            (p: { id:number; numero_parcela: any; valor_parcela: any; data_vencimento: any; status: string; id_emprestimo: number; pago: boolean; }) => {
+                const valorParcela = p.valor_parcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                const status = p.status ? `<button class="btn btn-success">Pagar</button>` : "Pago";
                 return (`
                 <tr>
-                    <td>${p.numero}</td>
+                    <td>${p.numero_parcela}</td>
                     <td>${valorParcela}</td>
-                    <td>${p.vencimento}</td>
+                    <td>${p.data_vencimento}</td>
                     <td>${status}</td>
+                    <td hidden>${p.id_emprestimo}</td>
                 </tr>
             `)});
     

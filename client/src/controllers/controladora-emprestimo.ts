@@ -2,6 +2,7 @@ import { VisaoEmprestimo } from "../views/visao-emprestimo.ts";
 import { ServicoEmprestimo } from "../services/servico-emprestimo.ts";
 import { Emprestimo } from "../models/Emprestimo.ts";
 import { FormaPagamento } from "../models/FormaPagamento.ts";
+import { ControladoraParcela } from "./controladora-parcela.ts";
 
 export class ControladoraEmprestimo {
 
@@ -94,6 +95,8 @@ export class ControladoraEmprestimo {
         const servicoEmprestimo = new ServicoEmprestimo();
         const emprestimos = await servicoEmprestimo.buscarTodosEmprestimos();
         this.visao.montarTabelaDeEmprestimos(emprestimos);
+        let controlParcela = new ControladoraParcela();
+        controlParcela.configurarParcela();
     }
 
     /**

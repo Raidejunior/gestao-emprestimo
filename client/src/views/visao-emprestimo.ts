@@ -116,13 +116,14 @@ export class VisaoEmprestimo {
             (e: { id: number, dataHora: any; cliente: { nome: any; }; valorSolicitadoEmprestimo: any; formaPagamento: { meses: any; juros: any; }; valorPagoEmprestimo: any; }) => {
                 return (`
                 <tr>
+                    <td id="emprestimoId" hidden>${e.id}</td>
                     <td>${e.dataHora}</td>
                     <td>${e.cliente.nome}</td>
                     <td>${e.valorSolicitadoEmprestimo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                     <td>${e.formaPagamento.meses}</td>
                     <td>${e.formaPagamento.juros}%</td>
                     <td>${e.valorPagoEmprestimo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
-                    <td><button class="btn btn-info" onclick="window.location.hash = 'parcelas/${e.id}'">Ver Parcelas</button></td>
+                    <td><button class="btn btn-info" id="verParcelas">Ver Parcelas</button></td>
                 </tr>
         `)});
     
