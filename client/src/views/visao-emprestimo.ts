@@ -113,7 +113,7 @@ export class VisaoEmprestimo {
 
     montarTabelaDeEmprestimos(emprestimos: any): void {
         const emprestimosHTML = emprestimos.map(
-            (e: { dataHora: any; cliente: { nome: any; }; valorSolicitadoEmprestimo: any; formaPagamento: { meses: any; juros: any; }; valorPagoEmprestimo: any; }) => {
+            (e: { id: number, dataHora: any; cliente: { nome: any; }; valorSolicitadoEmprestimo: any; formaPagamento: { meses: any; juros: any; }; valorPagoEmprestimo: any; }) => {
                 return (`
                 <tr>
                     <td>${e.dataHora}</td>
@@ -122,9 +122,10 @@ export class VisaoEmprestimo {
                     <td>${e.formaPagamento.meses}</td>
                     <td>${e.formaPagamento.juros}%</td>
                     <td>${e.valorPagoEmprestimo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
+                    <td><button class="btn btn-info" onclick="window.location.hash = 'parcelas/${e.id}'">Ver Parcelas</button></td>
                 </tr>
         `)});
-
+    
         document.getElementById('conteudo')!.innerHTML = `
             <section id="form-emprestimo-header">
                 <div>
@@ -132,7 +133,7 @@ export class VisaoEmprestimo {
                 </div>
                 <h2>Empréstimos</h2>
             </section>
-
+    
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -142,6 +143,7 @@ export class VisaoEmprestimo {
                         <th>Parcelas</th>
                         <th>Juros</th>
                         <th>Valor a ser pago</th>
+                        <th>Ações</th>
                     <tr>
                 </thead>
                 <tbody>
@@ -150,6 +152,7 @@ export class VisaoEmprestimo {
             </table>
         `;
     }
+    
 
     montarDialogoAoClicarEmRealizarEmprestimo(): void { 
         document.body.innerHTML += `
