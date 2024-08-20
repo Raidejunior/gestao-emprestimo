@@ -3,9 +3,7 @@
 namespace src\dto;
 
 class RelatorioParaExibicao {
-    /** @var EmprestimoParaExibicao[] */
     public array $emprestimosDoPeriodo = [];
-    /** @var DadosDoDiaParaRelatorio[] */
     public array $dadosDosDias = [];
 
     public int $qtdEmprestimosPeriodo;
@@ -13,16 +11,22 @@ class RelatorioParaExibicao {
     public float $mediaPeriodo;
 
     public function setEmprestimosPeriodo(array $emprestimos) {
+        $i = 1;
         foreach($emprestimos as $emprestimo) {
-            $empExibicao = new EmprestimoParaExibicao($emprestimo['cliente'], $emprestimo['valor'], $emprestimo['data_emprestimo']);
+            [$ano, $mes, $dia] = explode('-', $emprestimo['data_emprestimo']);
+            $dataFormatada = $dia . '/' . $mes . '/' . $ano;
+            $empExibicao = new EmprestimoParaExibicao($emprestimo['cliente'], $emprestimo['valor'], $dataFormatada, $i);
             array_push($this->emprestimosDoPeriodo, $empExibicao);
+            $i++;
         }
     }
 
     public function setDadosDosDias(array $dadosDias) {
-        foreach($dadosDias as $dia) {
-            $dadosDia = new DadosDoDiaParaRelatorio($dia['data'], $dia['qtd_emprestimos_dia'], $dia['valor_total_dia']);
-            array_push($this->dadosDosDias, $dadosDia);
+        foreach($dadosDias as $dadoDia) {
+            [$ano, $mes, $dia] = explode('-', $dadoDia['data']);
+            $dataFormatada = $dia . '/' . $mes . '/' . $ano;
+            $dadosDiaParaRel = new DadosDoDiaParaRelatorio($dataFormatada, $dadoDia['qtd_emprestimos_dia'], $dadoDia['valor_total_dia']);
+            array_push($this->dadosDosDias, $dadosDiaParaRel);
         }
     }
 
