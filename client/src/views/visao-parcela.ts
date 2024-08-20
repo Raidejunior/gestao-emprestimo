@@ -34,11 +34,17 @@ export class VisaoParcela {
     }
 
     montarTabelaDeParcelas(parcelas: ParcelaParaListagem[]): void {
-        console.log(parcelas);
+        let nenhumaParcelaAPagar = true;
         const parcelasHTML = parcelas.map(
             (p) => {
                 const valorParcela = p.valorParcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                const status = p.status === 'aberta' ? `<button class="btn btn-success" data-parcelaId="${p.id} data-emprestimoId="${p.idEmprestimo}">Pagar</button>` : "Pago";
+
+                let status = "A receber";
+                if(nenhumaParcelaAPagar) {
+                    status = p.status === 'aberta' ? `<button class="btn btn-success" data-parcelaId="${p.id} data-emprestimoId="${p.idEmprestimo}">Pagar</button>` : "Paga";
+                    nenhumaParcelaAPagar = false;
+                }
+
                 return (`
                 <tr>
                     <td>${p.numeroParcela}</td>

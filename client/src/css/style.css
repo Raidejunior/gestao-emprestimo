@@ -43,7 +43,7 @@ html body{
     display: flex;
     flex-direction: column;
     padding: 30px;
-    width: 900px;
+    width: 1000px;
     min-height: 650px;
     margin-bottom: 30px;
     border-radius: 20px;
