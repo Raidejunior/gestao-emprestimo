@@ -40,6 +40,8 @@ CREATE TABLE parcela (
     vencimento DATE NOT NULL,
     emprestimo_id INT NOT NULL,
     status ENUM("aberta", "paga") NOT NULL DEFAULT "aberta",
+    data_pagamento DATETIME DEFAULT NULL,
+    funcionario_pagamento_id INT DEFAULT NULL,
     CONSTRAINT `pk__parcela` PRIMARY KEY (id),
 	CONSTRAINT `fk__emprestimo_id` FOREIGN KEY (emprestimo_id) REFERENCES emprestimo(id)
 )ENGINE=INNODB;
