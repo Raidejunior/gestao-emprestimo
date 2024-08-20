@@ -30,7 +30,7 @@ class ParcelaView {
      * @return string
      */
     public function emprestimoId(): string {
-        $emprestimoId = $this->req->param('emprestimoId');
+        $emprestimoId = $this->req->param('id');
         if(!$emprestimoId) {
             $this->res->status(400)->send('Parâmetros inválidos');
         }
@@ -47,6 +47,21 @@ class ParcelaView {
 
     public function parametrosInvalidos(array $parametros) {
         $this->res->status(400)->json(['Erros' => $parametros]);
+        die();
+    }
+
+    public function naoEncontrado() {
+        $this->res->status(404)->json(['mensagem' => 'Nenhuma parcela encontrada para este emprestimo']);
+        die();
+    }
+
+    public function erroServidor() {
+        $this->res->status(500)->json(['mensagem' => 'Erro interno do servidor']);
+        die();
+    }
+
+    public function ok() {
+        $this->res->status(200)->send('');
         die();
     }
 }

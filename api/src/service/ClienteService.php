@@ -40,7 +40,7 @@ class ClienteService {
         }
 
         $limiteCreditoUtilizado = $clienteRepository->verificaLimiteCreditoUtilizadoCliente($cliente->id);
-        $cliente->limiteCreditoUtilizado = $limiteCreditoUtilizado;
+        $cliente->limiteCreditoUtilizado = $limiteCreditoUtilizado !== null ? $limiteCreditoUtilizado : 0;
         $cliente->limiteCreditoDisponivel = $cliente->limiteCredito - $limiteCreditoUtilizado;
 
         return $cliente;

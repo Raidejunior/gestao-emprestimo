@@ -20,12 +20,23 @@ class ParcelaController{
 
     public function pagarParcela() {
         $dadosParcela = $this->parcelaView->dadosParcela();
+        $parcelaService = new ParcelaService;
+        $confirmacao = $parcelaService->pagarParcela($dadosParcela);
+
+        if($confirmacao) {
+            $this->parcelaView->ok();
+        }
+        $this->parcelaView->erroServidor();
     }
 
     public function buscarTodasParcelasDeEmprestimoId() {
         $emprestimoId = $this->parcelaView->emprestimoId();
         $parcelaService = new ParcelaService();
+
         $parcelas = $parcelaService->buscarTodasParcelasDeEmprestimoId($emprestimoId);
+        if(! $parcelas) {
+            $this->parcelaView->naoEncontrado();
+        }
 
         $this->parcelaView->RetornaTodasParcelasDeEmprestimoId($parcelas);
     }

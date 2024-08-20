@@ -6,6 +6,7 @@ use Exception;
 use src\repository\DBConnection;
 use src\repository\EmprestimoRepository;
 use src\repository\ParcelaRepository;
+use src\repository\ParcelaRepositoryEmBDR;
 
 class Emprestimo{
     public $id;
@@ -61,7 +62,7 @@ class Emprestimo{
     function salvarParcelas($parcelas, $idEmprestimo) {
         $db = new DBConnection();
         $pdo = $db->conectar();
-        $parcelaRepository = new ParcelaRepository($pdo);
+        $parcelaRepository = new ParcelaRepositoryEmBDR($pdo);
         foreach($parcelas as $p){
             $parcelaRepository->salvarParcelas($p, $idEmprestimo);
         }
