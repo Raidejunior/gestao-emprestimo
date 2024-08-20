@@ -10,9 +10,11 @@ import { ControladoraRelatorio } from "./controladora-relatorio.ts";
 export class ControladoraRotas {
 
     visao: VisaoRotas;
+    controlFuncionario: ControladoraFuncionario;
 
     constructor() {
         this.visao = new VisaoRotas();
+        this.controlFuncionario = new ControladoraFuncionario();
     }
 
     async carregarRota() {
@@ -25,8 +27,7 @@ export class ControladoraRotas {
                     break;
                 }
                 await this.carregarConteudo('home');
-                let controlFuncionario = new ControladoraFuncionario();
-                controlFuncionario.verificarPermissao(); // verificando a permissão para saber o conteúdo que o usuário pode ter acesso
+                this.controlFuncionario.verificarPermissao(); // verificando a permissão para saber o conteúdo que o usuário pode ter acesso
                 break;
             case 'cadastro-cliente':
                 if(! this.verificarFuncionarioLogado()) {
@@ -59,7 +60,8 @@ export class ControladoraRotas {
                     this.redirecionarParaLogin();
                     break;
                 }
-                await this.carregarConteudo('form-funcionario')
+                await this.carregarConteudo('form-funcionario');
+                this.controlFuncionario.configurarFuncionario();
                 break;
             case 'relatorio':
                 if(! this.verificarFuncionarioLogado(true)) {
