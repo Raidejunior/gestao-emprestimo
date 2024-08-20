@@ -1,5 +1,6 @@
 import { RelatorioParaExibicao } from "../dto/RelatorioParaExibicao";
 import { API } from "../models/API";
+import { formataValorParaReais } from "../utils/FormataValorParaReais";
 
 export class ServicoRelatorio {
 
@@ -12,8 +13,8 @@ export class ServicoRelatorio {
         } else if(!resp.ok) {
             throw new Error(dados.mensagem);
         }
-
-        return new RelatorioParaExibicao(dados.qtdEmprestimosPeriodo, dados.valorTotalPeriodo, dados.mediaPeriodo, 
+        
+        return new RelatorioParaExibicao(dados.qtdEmprestimosPeriodo, formataValorParaReais(dados.valorTotalPeriodo), formataValorParaReais(dados.mediaPeriodo), 
             dados.emprestimosDoPeriodo, dados.dadosDosDias
         );
     }

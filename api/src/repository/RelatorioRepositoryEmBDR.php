@@ -16,10 +16,11 @@ class RelatorioRepositoryEmBDR implements RelatorioRepository{
     public function emprestimosNoPeriodo(string $dataInicio, string $dataTermino): ?array {
         try {
             $ps = $this->pdo->prepare(
-                'SELECT cliente.nome as cliente, emprestimo.valor, emprestimo.data_emprestimo 
+                'SELECT cliente.nome as cliente, emprestimo.valor, DATE(emprestimo.data_emprestimo) as data_emprestimo 
                 FROM emprestimo
                 JOIN cliente ON(cliente.id = emprestimo.cliente_id)
-                WHERE DATE(data_emprestimo) BETWEEN :dataInicio AND :dataTermino'
+                WHERE DATE(data_emprestimo) BETWEEN :dataInicio AND :dataTermino
+                ORDER BY emprestimo.data_emprestimo'
             );
             $ps->execute([
                 'dataInicio' => $dataInicio,
@@ -40,7 +41,8 @@ class RelatorioRepositoryEmBDR implements RelatorioRepository{
                 'SELECT DATE(data_emprestimo) as data, COUNT(*) as qtd_emprestimos_dia, SUM(valor) as valor_total_dia
                 FROM emprestimo
                 WHERE DATE(data_emprestimo) BETWEEN :dataInicio AND :dataTermino
-                GROUP BY data'
+                GROUP BY DATE(data_emprestimo)
+                ORDER BY DATE(data_emprestimo) ASC'
             );
             $ps->execute([
                 'dataInicio' => $dataInicio,
@@ -48,6 +50,7 @@ class RelatorioRepositoryEmBDR implements RelatorioRepository{
             ]);
 
             $dados = $ps->fetchAll(PDO::FETCH_ASSOC);
+
             return $dados;
             
         } catch(Exception $e) {
