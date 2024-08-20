@@ -16,7 +16,11 @@ export class ControladoraEmprestimo {
     * Responsável por todas as chamadas iniciais necessárias para o funcionamento do formulário.
     */
     configurarFormulario(nome:string, idade: number, limiteCredito: number, limiteCreditoDisponivel: number, limiteCreditoUtilizado: number): void {
-        this.visao.montarFormulario(nome, idade, limiteCredito, limiteCreditoDisponivel, limiteCreditoUtilizado);
+        const porcentagemLimiteUtilizada = Number(((limiteCreditoUtilizado / limiteCredito) * 100).toFixed(2));
+        const porcentagemLimiteDisponivel = Number((100 - porcentagemLimiteUtilizada).toFixed(2));
+        this.visao.montarFormulario(nome, idade, limiteCredito, limiteCreditoDisponivel, 
+            limiteCreditoUtilizado, porcentagemLimiteUtilizada, porcentagemLimiteDisponivel
+        );
         
         this.carregarFormasDePagamento();
         this.configurarCalcDeParcelasAoSelecionaFormaDePg(limiteCreditoDisponivel);
@@ -62,10 +66,18 @@ export class ControladoraEmprestimo {
     montarParcelas(): void {
         const emprestimo = this.calcularParcelas();
 
+        const limiteDisponivel = this.visao.limiteDisponivel();
+        let liberarEmprestimo = true;
+
+        if(emprestimo.valorPagoEmprestimo && emprestimo.valorPagoEmprestimo > limiteDisponivel) {
+            liberarEmprestimo = false
+        }
+
         this.visao.montarParcelas({ 
             parcelas: emprestimo.parcelas, 
             juros: emprestimo.formaPagamento.juros,
-            total: emprestimo.valorPagoEmprestimo
+            total: emprestimo.valorPagoEmprestimo,
+            liberarEmprestimo: liberarEmprestimo
         });
     }
 

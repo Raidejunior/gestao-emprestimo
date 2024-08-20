@@ -24,7 +24,7 @@ export class ServicoCliente {
         return cliente;
     }
 
-    async cadastrarCliente(cliente: ClienteDTO): Promise<Response> {
+    async cadastrarCliente(cliente: ClienteDTO): Promise<{sucesso: boolean, mensagem: string}> {
         const response = await fetch('http://localhost:8080/clientes', {
             method: 'POST',
             headers: {
@@ -33,7 +33,12 @@ export class ServicoCliente {
             body: JSON.stringify(cliente),
             credentials: "include"
         });
+        const dados = await response.json();
 
-        return response;
+        if(response.status !== 201) {
+            return { sucesso: false, mensagem: dados.mensagem } 
+        }
+
+        return { sucesso: true, mensagem: dados };
     }
 }
