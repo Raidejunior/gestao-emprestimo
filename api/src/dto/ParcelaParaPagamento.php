@@ -8,6 +8,7 @@ class ParcelaParaPagamento {
 
     public string $parcelaId = '';
     public string $emprestimoId = '';
+    public int $funcionarioId;
 
     public AtributosInvalidos $atributosInvalidos;
 

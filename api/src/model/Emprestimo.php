@@ -5,6 +5,7 @@ namespace src\model;
 use Exception;
 use src\repository\DBConnection;
 use src\repository\EmprestimoRepository;
+use src\repository\ParcelaRepository;
 use src\repository\ParcelaRepositoryEmBDR;
 
 class Emprestimo{

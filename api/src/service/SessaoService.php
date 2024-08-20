@@ -25,6 +25,12 @@ class SessaoService {
         return $permissao;
     }
 
+    public function idFuncionario(): ?int {
+        $this->abrirSessao();
+        $id = intval($_SESSION['id']);
+        return $id ?? null;
+    }
+
     public function realizarLogout(): bool {
         return session_destroy();
     }

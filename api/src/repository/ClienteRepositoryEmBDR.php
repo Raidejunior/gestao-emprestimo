@@ -79,16 +79,12 @@ class ClienteRepositoryEmBDR implements ClienteRepository{
     public function verificaLimiteCreditoUtilizadoCliente(int $clienteId): ?float {
         try {
             $ps = $this->pdo->prepare(
-                'SELECT SUM(valor_a_pagar) as limite_utilizado_cliente
-                FROM (
-                    SELECT emprestimo.valor * ( 1 + (forma_pagamento.juros / 100) ) as valor_a_pagar,
-                        cliente.limite_credito
-                    FROM emprestimo
-                    JOIN cliente ON(cliente.id = emprestimo.cliente_id)
-                    JOIN forma_pagamento ON(forma_pagamento.id = emprestimo.forma_pagamento_id)
-                    WHERE cliente.id = :id
-                    GROUP BY emprestimo.id
-                ) as subconsulta'
+                'SELECT SUM(parcela.valor) as limite_utilizado_cliente
+                FROM cliente
+                JOIN emprestimo ON(emprestimo.cliente_id = cliente.id)
+                JOIN parcela ON(parcela.emprestimo_id = emprestimo.id)
+                WHERE cliente.id = :id AND parcela.status = "aberta"
+                GROUP BY cliente.id'
             );
     
             $ps->execute( ['id' => $clienteId] );
@@ -97,9 +93,10 @@ class ClienteRepositoryEmBDR implements ClienteRepository{
                 return null;
             }
 
-            $limiteCreditoUtilizado = floatval($dados['limite_utilizado_cliente']);
+            $limiteCreditoUtilizado = $dados['limite_utilizado_cliente'];
 
-            return $limiteCreditoUtilizado;
+
+            return floatval($limiteCreditoUtilizado);
 
         } catch(Exception $e) {
             return null;

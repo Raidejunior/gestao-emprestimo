@@ -73,7 +73,7 @@ $app->post('/emprestimos', new MiddlewareLogado(), function( HttpRequest $req,  
     $emprestimoController->salvarEmprestimo();
 });
 
-$app->get('/parcelasDeIdEmprestimo', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
+$app->get('/emprestimos/:id/parcelas', new MiddlewareLogado(), function( HttpRequest $req,  HttpResponse $res ) {
     $ParcelaController = new ParcelaController($req, $res);
     $ParcelaController->buscarTodasParcelasDeEmprestimoId();
 });
