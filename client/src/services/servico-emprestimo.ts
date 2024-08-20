@@ -53,6 +53,7 @@ export class ServicoEmprestimo {
             let valorPagoEmprestimo = Number(dado.valor) * (1 + Number(dado.juros) / 100); // calculando o total que será pago pelo empréstimo
             valorPagoEmprestimo = Number(valorPagoEmprestimo.toFixed(2));
             emprestimo.valorPagoEmprestimo = valorPagoEmprestimo;
+            emprestimo.id = dado.id;
 
             emprestimos.push(emprestimo);
         }

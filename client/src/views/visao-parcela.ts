@@ -1,6 +1,21 @@
+import { ParcelaParaListagem } from "../dto/ParcelaParaListagem";
+
 export class VisaoParcela {
 
     definirAcaoAoClicar(funcao: Function): void {
+        const botoes = document.getElementsByClassName('verParcelas'); // buscando todos os botões para configurá-los
+
+        for(let botao of botoes) {
+            botao.addEventListener('click', e => {
+                e.preventDefault();
+
+                // Pegando o id do empréstimo, que está como atributo do botão
+                const emprestimoId = botao.getAttribute('data-idEmprestimo');
+                
+                // Passando o ID para a função
+                funcao(Number(emprestimoId));
+            });
+        }
         document.getElementById('verParcelas')
         ?.addEventListener('click', e => {
             e.preventDefault();
@@ -9,6 +24,7 @@ export class VisaoParcela {
             
             // Pegando o ID da célula que está oculta
             const emprestimoId = linha?.querySelector('#emprestimoId')?.textContent;
+            console.log(emprestimoId);
             
             // Passando o ID para a função
             if (emprestimoId) {
@@ -17,18 +33,21 @@ export class VisaoParcela {
         });
     }
 
-    montarTabelaDeParcelas(parcelas: any): void {
+    montarTabelaDeParcelas(parcelas: ParcelaParaListagem[]): void {
+        console.log(parcelas);
         const parcelasHTML = parcelas.map(
-            (p: { id:number; numero_parcela: any; valor_parcela: any; data_vencimento: any; status: string; id_emprestimo: number; pago: boolean; }) => {
-                const valorParcela = p.valor_parcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                const status = p.status ? `<button class="btn btn-success">Pagar</button>` : "Pago";
+            (p) => {
+                const valorParcela = p.valorParcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                const status = p.status === 'aberta' ? `<button class="btn btn-success" data-parcelaId="${p.id} data-emprestimoId="${p.idEmprestimo}">Pagar</button>` : "Pago";
                 return (`
                 <tr>
-                    <td>${p.numero_parcela}</td>
+                    <td>${p.numeroParcela}</td>
                     <td>${valorParcela}</td>
-                    <td>${p.data_vencimento}</td>
+                    <td>${p.dataVencimento}</td>
+                    <td>${p.dataPagamento}</td>
+                    <td>${p.funcionarioQueConfirmouPg}</td>
+                    <td hidden>${p.idEmprestimo}</td>
                     <td>${status}</td>
-                    <td hidden>${p.id_emprestimo}</td>
                 </tr>
             `)});
     
@@ -46,6 +65,8 @@ export class VisaoParcela {
                         <th>Parcela</th>
                         <th>Valor</th>
                         <th>Vencimento</th>
+                        <th>Data Pagamento</th>
+                        <th>Pg. confirmado por</th>
                         <th>Status</th>
                     <tr>
                 </thead>

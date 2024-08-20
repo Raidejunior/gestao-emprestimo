@@ -1,17 +1,22 @@
 export class ParcelaParaListagem {
     id: number;
-    numero_parcela: number;
-    valor_parcela: number;
-    data_vencimento: Date | String;
+    numeroParcela: number;
+    valorParcela: number;
+    dataVencimento: Date | string;
     status: string;
-    id_emprestimo: number;
-
-    constructor(id: number, numero_parcela: number, valor_parcela: number, data_vencimento: Date | String, status: string, id_emprestimo: number) {
+    dataPagamento: Date | string;
+    funcionarioQueConfirmouPg: string;
+    idEmprestimo: number;
+    
+    constructor(id: number, numeroParcela: number, valorParcela: number, dataVencimento: Date | string, status: string,
+        dataPagamento: Date | string, funcConfPagamento: string, IdEmprestimo: number) {
         this.id = id;
-        this.numero_parcela = numero_parcela;
-        this.valor_parcela = valor_parcela;
-        this.data_vencimento = data_vencimento;
+        this.numeroParcela = numeroParcela;
+        this.valorParcela = valorParcela;
+        this.dataVencimento = dataVencimento;
         this.status = status;
-        this.id_emprestimo = id_emprestimo;
+        this.dataPagamento = dataPagamento;
+        this.funcionarioQueConfirmouPg = funcConfPagamento;
+        this.idEmprestimo = IdEmprestimo;
     }
 }

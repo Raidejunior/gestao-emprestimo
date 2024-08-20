@@ -4,7 +4,7 @@ import { ParcelaParaListagem } from "../dto/ParcelaParaListagem.ts";
 export class ServicoParcela {
 
     async buscarParcelasPorEmprestimoId(emprestimoId: string): Promise<ParcelaParaListagem[]> {
-        const resp = await fetch(`${API}/parcelasDeIdEmprestimo?emprestimoId=${emprestimoId}`, { credentials: 'include' });
+        const resp = await fetch(`${API}/emprestimos/${emprestimoId}/parcelas`, { credentials: 'include' });
 
         console.log(resp.ok);
 
@@ -22,16 +22,18 @@ export class ServicoParcela {
 
         let parcelas: ParcelaParaListagem[] = [];
         for (let dado of dados) {
-            const [ano, mes, dia] = dado.vencimento.split('-');
+            const [ano, mes, dia] = dado.dataVencimento.split('-');
             const dataFormatada = `${dia}/${mes}/${ano}`;
 
             const parcela = new ParcelaParaListagem(
                 Number(dado.id),
-                Number(dado.numero),
-                Number(dado.valor),
+                Number(dado.numeroParcela),
+                Number(dado.valorParcela),
                 dataFormatada,
                 dado.status,
-                Number(dado.emprestimo_id)
+                dado.dataPagamento ? dado.dataPagamento : '-',
+                dado.funcionarioQueConfirmouPg ? dado.funcionarioQueConfirmouPg : '-',
+                dado.idEmprestimo
             );
 
             console.log(parcela);
