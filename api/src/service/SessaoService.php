@@ -31,7 +31,7 @@ class SessaoService {
 
     private function abrirSessao(): void {
         session_name('sid');
-        session_set_cookie_params(3600, null, null, null, true);
+        session_set_cookie_params(3600, '/', null, null, true);
         session_start();
 
         session_regenerate_id(true);
