@@ -15,12 +15,17 @@ export class ControladoraRelatorio {
 
     }
 
-    gerarRelatorio() {
+    async gerarRelatorio() {
         const dataInicio = this.visao.dataInicio();
         const dataTermino = this.visao.dataTermino();
 
         const servicoRelatorio = new ServicoRelatorio();
-        servicoRelatorio.gerarRelatorio(dataInicio, dataTermino);
+        try {
+            const relatorio = await servicoRelatorio.gerarRelatorio(dataInicio, dataTermino);
+            this.visao.montarRelatorio(relatorio);
+        } catch(e) {
+            alert(e);
+        }
     }
 
 }

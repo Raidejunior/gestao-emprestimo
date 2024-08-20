@@ -1,3 +1,7 @@
+import 'anychart'; 
+
+import { RelatorioParaExibicao } from "../dto/RelatorioParaExibicao";
+
 export class VisaoRelatorio {
     
     dataInicio(): string {
@@ -6,6 +10,23 @@ export class VisaoRelatorio {
 
     dataTermino(): string {
         return ( document.getElementById('dataTermino') as HTMLInputElement ).value;
+    }
+
+    montarRelatorio(relatorio: RelatorioParaExibicao) {
+        let dadosDosDias = [];
+        for(let d of relatorio.dadosDosDias) { // montando os dados de cada dia do período, colocando cadia dia diferente em uma coluna
+            let dados = [d.dia, d.valorTotalDia];
+            dadosDosDias.push(dados);
+        }
+
+        const chart = anychart.column();
+        chart.column(dadosDosDias);
+        chart.title('Relatório do período');
+        chart.xAxis().title("Dias");
+        chart.yAxis().title("Total emprestado (R$)");
+        chart.container("anychart-container");
+        chart.draw();
+
     }
 
     configurarGerarRelatorio(funcao: Function) {
