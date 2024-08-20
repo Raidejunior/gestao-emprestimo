@@ -156,7 +156,7 @@ export class VisaoEmprestimo {
     
 
     montarDialogoAoClicarEmRealizarEmprestimo(): void { 
-        document.body.innerHTML += `
+        document.getElementById('conteudo')!.innerHTML += `
         <div class="modal fade" id="modalEmprestimo" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
