@@ -5,6 +5,7 @@ import { ControladoraCliente } from "./controladora-cliente.ts";
 import { ControladoraEmprestimo } from "./controladora-emprestimo.ts";
 import { ControladoraFuncionario } from "./controladora-funcionario.ts";
 import { ControladoraLogin } from "./controladora-login.ts";
+import { ControladoraRelatorio } from "./controladora-relatorio.ts";
 
 export class ControladoraRotas {
 
@@ -25,7 +26,7 @@ export class ControladoraRotas {
                 }
                 await this.carregarConteudo('home');
                 let controlFuncionario = new ControladoraFuncionario();
-                controlFuncionario.verificarPermissao(); // verificando a permissão para saber se o usuário pode ter acesso aos relatórios
+                controlFuncionario.verificarPermissao(); // verificando a permissão para saber o conteúdo que o usuário pode ter acesso
                 break;
             case 'cadastro-cliente':
                 if(! this.verificarFuncionarioLogado()) {
@@ -59,6 +60,15 @@ export class ControladoraRotas {
                     break;
                 }
                 await this.carregarConteudo('form-funcionario')
+                break;
+            case 'relatorio':
+                if(! this.verificarFuncionarioLogado(true)) {
+                    this.redirecionarParaLogin();
+                    break;
+                }
+                await this.carregarConteudo('relatorio');
+                let controlRelatorio = new ControladoraRelatorio();
+                controlRelatorio.configurarRelatorio();
                 break;
             default:
                 await this.carregarConteudo('login');

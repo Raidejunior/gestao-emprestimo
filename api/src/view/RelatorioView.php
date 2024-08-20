@@ -17,9 +17,10 @@ class RelatorioView {
     }
 
     public function dadosParaRelatorio(): PeriodoParaRelatorio {
-        $dados = (array) $this->req->body();
+        $dataInicio = $this->req->param('dataInicio');
+        $dataTermino = $this->req->param('dataTermino');
         
-        $periodoParaRelatorio = new PeriodoParaRelatorio($dados);
+        $periodoParaRelatorio = new PeriodoParaRelatorio($dataInicio, $dataTermino);
         if(count($periodoParaRelatorio->atributosInvalidos->todos()) > 0) {
             $this->parametrosInvalidos($periodoParaRelatorio->atributosInvalidos->todos());
         }
@@ -33,12 +34,12 @@ class RelatorioView {
     }
 
     public function parametrosInvalidos(array $parametros) {
-        $this->res->status(400)->json(['Erros' => $parametros]);
+        $this->res->status(400)->json(['mensagem' => implode(', ', $parametros)]);
         die();
     }
 
     public function periodoInvalido() {
-        $this->res->status(400)->json('Não existem dados de empréstimos para serem exibidos no período solicitado');
+        $this->res->status(400)->json(['mensagem' => 'Não existem dados de empréstimos para serem exibidos no período solicitado']);
         die();
     }
 

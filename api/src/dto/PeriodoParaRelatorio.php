@@ -6,16 +6,16 @@ use src\utils\AtributosInvalidos;
 
 class PeriodoParaRelatorio {
 
-    public string $dataInicio = '';
-    public string $dataTermino = '';
+    public ?string $dataInicio = '';
+    public ?string $dataTermino = '';
 
     public AtributosInvalidos $atributosInvalidos;
 
-    public function __construct(array $dados){
+    public function __construct($dataInicio, $dataTermino){
         $this->atributosInvalidos = new AtributosInvalidos();
 
-        $this->dataInicio = $dados['dataInicio'] ?? null;
-        $this->dataTermino = $dados['dataTermino'] ?? null;
+        $this->dataInicio = $dataInicio;
+        $this->dataTermino = $dataTermino;
 
         $this->valida();
     }
