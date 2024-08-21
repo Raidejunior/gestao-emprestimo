@@ -51,22 +51,6 @@ html body{
     background-color: whitesmoke;
 }
 
-#conteudo .form-cliente {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 100px;
-}
-
-#conteudo .form-cliente #cpf {
-    width: 300px;
-}
-
-#conteudo .form-cliente #buscar { 
-    width: 250px
-}
-
 #conteudo #mensagemErro {
     color: red;
     width: 100%;
@@ -119,7 +103,7 @@ html body{
     flex-direction: column;
 }
 
-#conteudo #info-parcelas, #info-relatorio {
+#conteudo #info-parcelas, #info-relatorio, .info-credito{
     margin-top: 20px;
     display: flex;
     flex-direction: row;
@@ -132,6 +116,24 @@ html body{
   padding: 10px;
   text-align: center;
 }
+
+#conteudo .form-cpf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+#conteudo .form-cpf #cpf {
+    width: 300px;
+}
+
+#conteudo .form-cpf #buscar { 
+    width: 250px
+}
+
+
 .alert-success, .alert-danger {
     margin: 0 !important;
 }
@@ -179,10 +181,29 @@ html body{
 
 .form-botao {
     display: inline-block;
-    text-align: center; /* Centraliza o botão, opcional */
+    text-align: center;
 }
 
 #mostrar-dados {
     align-self: center;
     justify-self: center;
 }
+
+.form-cpf {
+    display: flex;
+    flex-direction: column;
+    ;
+}
+
+.form-cliente input {
+    margin-top: 3px;
+}
+
+.form-cliente label {
+    margin-top: 7px;
+}
+
+.form-cliente button {
+    margin-top: 25px;
+}
+

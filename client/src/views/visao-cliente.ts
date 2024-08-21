@@ -35,12 +35,10 @@ export class VisaoCliente {
 
     
     definirAcaoAoEnviar(funcao: Function): void {
-        console.log("definirAcaoAoEnviar");
-        console.log(document.body.innerHTML);
         document.getElementById("cadastrar")
             ?.addEventListener('click', e => {
-                console.log("definirAcaoAoEnviar");
                 e.preventDefault();
+        
                 funcao();
             });
     }

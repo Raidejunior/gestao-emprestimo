@@ -4,8 +4,6 @@ namespace src\service;
 
 use src\dto\ClienteParaCadastro;
 use src\dto\ClienteParaExibicao;
-use src\dto\UsuarioParaExibicao;
-use src\model\Cliente;
 use src\repository\ClienteRepository;
 use src\repository\ClienteRepositoryEmBDR;
 use src\repository\DBConnection;

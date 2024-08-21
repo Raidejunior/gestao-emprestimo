@@ -4,6 +4,7 @@ namespace src\repository;
 
 use Exception;
 use PDO;
+use PDOException;
 use src\dto\ClienteParaCadastro;
 use src\dto\ClienteParaExibicao;
 use src\model\Cliente;
@@ -43,7 +44,15 @@ class ClienteRepositoryEmBDR implements ClienteRepository{
             $this->pdo->rollBack();
             return null;
             
-        } catch(Exception $e) {
+        }catch(PDOException $e){
+            if($e->getCode() == 23000) { // código de erro que indica que um cliente com o mesmo cpf ou email já está cadastrado
+                $this->pdo->rollBack();
+                $clienteErro = new ClienteParaExibicao();
+                $clienteErro->erroAoCadastrar = true;
+                return $clienteErro;
+            }
+
+        }catch(Exception $e) {
             $this->pdo->rollBack();
             return null;
         }

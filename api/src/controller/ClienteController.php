@@ -25,8 +25,10 @@ class ClienteController{
         $clienteService = new ClienteService();
 
         $clienteCadastrado = $clienteService->cadastrarCliente($clienteParaCadastro);
-        if($clienteCadastrado instanceof ClienteParaExibicao) {
+        if($clienteCadastrado instanceof ClienteParaExibicao && ! $clienteCadastrado->erroAoCadastrar) {
             $this->clienteView->retornaCliente($clienteCadastrado, 201);
+        } else if($clienteCadastrado->erroAoCadastrar){
+            $this->clienteView->violacaoUnicidade();
         } else {
             $this->clienteView->erroServidor();
         }

@@ -13,8 +13,10 @@ class ClienteParaExibicao {
     public float $limiteCredito;
     public float $limiteCreditoUtilizado;
     public float $limiteCreditoDisponivel;
+    public bool $erroAoCadastrar = false;
 
-    public function __construct($id, $nome, $cpf, $dataNascimento, $email, $telefone, $endereco, $limiteCredito, $limiteCreditoUtilizado = 0, $limiteCreditoDisponivel = 0) {
+    public function __construct($id = 0, $nome = '', $cpf = '', $dataNascimento = '', $email ='',
+            $telefone = '', $endereco = '', $limiteCredito = 0, $limiteCreditoUtilizado = 0, $limiteCreditoDisponivel = 0) {
         $this->id = $id;
         $this->nome = $nome;
         $this->cpf = $cpf;

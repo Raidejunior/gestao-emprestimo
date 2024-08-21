@@ -1,3 +1,5 @@
+import { formataValorParaReais } from "../utils/FormataValorParaReais";
+
 export class VisaoEmprestimo {
 
     valor(): number {
@@ -23,8 +25,16 @@ export class VisaoEmprestimo {
         return String(nome);
     }
 
+    limiteDisponivel(): number {
+        const elemento = ( document.getElementById('limite-disponivel') as HTMLInputElement );
+        const limite = elemento.getAttribute('data-limite');
+        return Number(limite);
+    }
 
-    montarFormulario(nome: string, idade: number, limiteCredito: number, limiteCreditoDisponivel: number, limiteCreditoUtilizado:number) {
+
+    montarFormulario(nome: string, idade: number, limiteCredito: number, limiteCreditoDisponivel: number, limiteCreditoUtilizado:number,
+        porcentagemUtilizada: number | string, porcentagemDisponivel: number | string
+    ) {
         
         document.getElementById('conteudo')!.innerHTML = `
             <section id="form-emprestimo-header">
@@ -32,15 +42,17 @@ export class VisaoEmprestimo {
                     <a class="btn btn-large" href="#home">Início</a>
                 </div>
                 <h2 class="info-cliente"><span>${nome}</span>, ${idade} anos</h2>
-                <div>Limite de crédito do cliente: ${limiteCredito.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
-                <div>Limite de crédito utilizado: ${limiteCreditoUtilizado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
-                <div>Limite de crédito disponível: ${limiteCreditoDisponivel.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
+                <div class="info-credito">
+                    <p>Limite de crédito do cliente: <b>${formataValorParaReais(limiteCredito)}</b></p>
+                    <p>Limite de crédito utilizado: <b>${formataValorParaReais(limiteCreditoUtilizado)} (${porcentagemUtilizada}%)</b></p>
+                    <p>Limite de crédito disponível: <b id="limite-disponivel" data-limite="${limiteCreditoDisponivel}">${formataValorParaReais(limiteCreditoDisponivel)} (${porcentagemDisponivel}%)</b></p>
+                </div>
             </section>
             <form class="form-emprestimo mb-3" id="form-emprestimo">
                 <div class="valor-parcelas">
                     <label for="valor" class="form-label">Valor</label>
                     <input type="number" required class="form-control" id="valor">
-                    <div class="form-text">Apenas valores entre R$ 500 e ${limiteCreditoDisponivel.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
+                    <div class="form-text">Apenas valores entre R$ 500 e ${formataValorParaReais(limiteCreditoDisponivel)}</div>
                 </div>
                 <div class="forma-pagamento">
                     <label for="formas-pagamento" class="form-label">Forma de pagamento</label>
@@ -53,6 +65,7 @@ export class VisaoEmprestimo {
                 
             <div id="info-parcelas"></div>
             <table id="parcelas" class="table table-striped"></table>
+            <p id="bloquear-emprestimo" hidden>O valor a ser pago pelo emprestimo é maior que o limite disponível</p>
             <button type="submit" form="form-emprestimo" class="btn btn-primary" id="realizar-emprestimo" data-toggle="modal" data-target="#modalEmprestimo" hidden>Realizar empréstimo</button>
         `; // adicionando o form de empréstimo a tela
 
@@ -87,7 +100,7 @@ export class VisaoEmprestimo {
         document.getElementById('info-parcelas')!.innerHTML = `
             <p>Juros: ${dados.juros}%</p>
             <p>Nº de parcelas: ${dados.parcelas.length}</p>
-            <p>Valor total a ser pago: ${dados.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+            <p>Valor total a ser pago: ${formataValorParaReais(dados.total)}</p>
         `;
         document.getElementById('parcelas')!.innerHTML = `
             <thead>
@@ -102,7 +115,13 @@ export class VisaoEmprestimo {
             </tbody>
         `;
 
-        (document.getElementById('realizar-emprestimo') as HTMLButtonElement).hidden = false;
+        if(dados.liberarEmprestimo) {
+            (document.getElementById('bloquear-emprestimo') as HTMLButtonElement).hidden = true;
+            (document.getElementById('realizar-emprestimo') as HTMLButtonElement).hidden = false;
+        } else {
+            (document.getElementById('realizar-emprestimo') as HTMLButtonElement).hidden = true;
+            (document.getElementById('bloquear-emprestimo') as HTMLButtonElement).hidden = false;
+        }
     }
 
     desfazerParcelas(): void {

@@ -52,22 +52,27 @@ class ClienteView{
     }
 
     public function parametrosInvalidos(array $parametros) {
-        $this->res->status(400)->json(['Erros' => $parametros]);
+        $this->res->status(400)->json(['mensagem' => $parametros]);
         die();
     }
 
     public function autenticacaoInvalida() {
-        $this->res->status(400)->send('Login ou senha inválidos');
+        $this->res->status(400)->send(['mensagem' => 'Login ou senha inválidos']);
         die();
     }
 
     public function acessoNegado() {
-        $this->res->status(403)->send('Acesso negado');
+        $this->res->status(403)->send(['mensagem' => 'Acesso negado']);
+        die();
+    }
+
+    public function violacaoUnicidade() {
+        $this->res->status(409)->send(['mensagem' => 'CPF já cadastrado no sistema']);
         die();
     }
 
     public function erroServidor() {
-        $this->res->status(500)->send('Erro interno do servidor');
+        $this->res->status(500)->send(['mensagem' => 'Erro interno do servidor']);
         die();
     }
 }

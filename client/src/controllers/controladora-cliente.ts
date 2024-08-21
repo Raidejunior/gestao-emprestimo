@@ -60,11 +60,10 @@ export class ControladoraCliente {
             const servicoCliente = new ServicoCliente();
             const resposta = await servicoCliente.cadastrarCliente(cliente);
 
-            if (resposta.ok) {
+            if (resposta.sucesso) {
                 this.visao.mostrarMensagemSucesso('Cliente cadastrado com sucesso.');
             } else {
-                const erro = await resposta.json();
-                this.visao.mostrarMensagemErro(`Erro ao cadastrar cliente: ${erro.mensagem}`);
+                this.visao.mostrarMensagemErro(`Erro ao cadastrar cliente: ${resposta.mensagem}`);
             }
         } catch (error: any) {
             this.visao.mostrarMensagemErro(`Erro ao conectar ao servidor: ${error.message}`);
