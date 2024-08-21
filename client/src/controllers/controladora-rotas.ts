@@ -4,8 +4,9 @@ import { VisaoRotas } from "../views/visao-rotas.ts";
 import { ControladoraCliente } from "./controladora-cliente.ts";
 import { ControladoraEmprestimo } from "./controladora-emprestimo.ts";
 import { ControladoraFuncionario } from "./controladora-funcionario.ts";
-import { ControladoraLogin } from "./controladora-login.ts";
+import { ControladoraAutenticacao } from "./controladora-autenticacao.ts";
 import { ControladoraRelatorio } from "./controladora-relatorio.ts";
+import { ControladoraHome } from "./controladora-home.ts";
 
 export class ControladoraRotas {
 
@@ -27,7 +28,8 @@ export class ControladoraRotas {
                     break;
                 }
                 await this.carregarConteudo('home');
-                this.controlFuncionario.verificarPermissao(); // verificando a permissão para saber o conteúdo que o usuário pode ter acesso
+                let controlHome = new ControladoraHome();
+                controlHome.configurarHome();
                 break;
             case 'cadastro-cliente':
                 if(! this.verificarFuncionarioLogado()) {
@@ -74,8 +76,8 @@ export class ControladoraRotas {
                 break;
             default:
                 await this.carregarConteudo('login');
-                let controlLogin = new ControladoraLogin();
-                controlLogin.configurarLogin();
+                let controlAutenticacao = new ControladoraAutenticacao();
+                controlAutenticacao.configurarLogin();
         }
     }
     
@@ -103,8 +105,8 @@ export class ControladoraRotas {
 
     async redirecionarParaLogin() {
         await this.carregarConteudo('login');
-        let controlLogin = new ControladoraLogin();
-        controlLogin.configurarLogin();
+        let controlAutenticacao = new ControladoraAutenticacao();
+        controlAutenticacao.configurarLogin();
     }
 
     configurarRotas(): void {

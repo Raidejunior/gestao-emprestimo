@@ -37,17 +37,6 @@ export class VisaoFuncionario {
         return new FuncionarioParaCadastro(nome, login, email, senha, Number(permissao));
     }
 
-    adicionarOpcaoesGerente(): void{
-        document.getElementById('menu')!.innerHTML += `
-            <li>
-                <a href="#cadastro-funcionario">Cadastrar funcionário</a>
-            </li>
-            <li>
-                <a href="#relatorio">Acessar relatório</a>
-            </li>
-        `
-    }
-
     definirAcaoAoCadastrarFuncionario(funcao: Function): void {
         document.getElementById('cadastrar')?.addEventListener('click', (e) => {
             e.preventDefault();

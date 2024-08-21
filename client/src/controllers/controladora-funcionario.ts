@@ -17,8 +17,10 @@ export class ControladoraFuncionario {
         const funcionario = sessao.obterFuncionarioDaSessao();
 
         if(funcionario != null && funcionario.permissao === Funcionario.PERMISSAO_GERENTE) { 
-            this.visao.adicionarOpcaoesGerente();
+            return true;
         }
+
+        return false;
     }
 
     configurarFuncionario(): void {

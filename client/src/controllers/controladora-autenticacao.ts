@@ -1,17 +1,19 @@
-import { ServicoLogin } from '../services/servico-login.ts';
-import { VisaoLogin } from '../views/visao-login.ts';
+import { ServicoAutenticacao } from '../services/servico-autenticacao.ts';
+import { VisaoAutenticacao } from '../views/visao-autenticacao.ts';
 import { GerenciadorSessao } from '../utils/GerenciadorSessao.ts';
 import { FuncionarioParaSessionStorage } from '../dto/FuncionarioParaSessionStorage.ts';
 
-export class ControladoraLogin {
+export class ControladoraAutenticacao {
 
-    visao: VisaoLogin;
+    visao: VisaoAutenticacao;
     gerenciadorSessao: GerenciadorSessao;
+    servicoAutenticacao: ServicoAutenticacao;
 
     constructor() {
-        this.visao = new VisaoLogin();
+        this.visao = new VisaoAutenticacao();
         this.gerenciadorSessao = new GerenciadorSessao();
         this.gerenciadorSessao.limparSessaoFuncionario();
+        this.servicoAutenticacao = new ServicoAutenticacao();
     }
 
     configurarLogin(): void {
@@ -22,9 +24,8 @@ export class ControladoraLogin {
     async processarLogin(): Promise<void> {
         const login = this.visao.login();
         let senha = this.visao.senha();
-        const servicoLogin = new ServicoLogin();
         
-        const funcionario = await servicoLogin.autenticar(login, senha);
+        const funcionario = await this.servicoAutenticacao.autenticar(login, senha);
         senha = ''; // garantindo que a senha não fique salva na variável
         
         if (funcionario instanceof FuncionarioParaSessionStorage) {
@@ -34,4 +35,10 @@ export class ControladoraLogin {
             alert('Login ou senha inválidos');
         }
     }
+
+    deslogar(): void {
+        this.servicoAutenticacao.deslogar();
+        this.visao.definirHash(); // ajustando o hash da página, pois a página de login é usada como uma página de redirect
+    }
+
 }

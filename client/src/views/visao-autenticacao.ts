@@ -1,4 +1,4 @@
-export class VisaoLogin {
+export class VisaoAutenticacao {
 
     login(): string{
         const login = (document.getElementById("login") as HTMLInputElement).value;
@@ -15,11 +15,11 @@ export class VisaoLogin {
     }
 
     definirAcaoAoEntrar(funcao: Function): void {
-        //console.log(document.body.innerHTML);
         document.getElementById('entrar')
         ?.addEventListener('click', e => {
             e.preventDefault();
             funcao();
         });
     }
+    
 }
