@@ -6,8 +6,6 @@ export class ServicoParcela {
     async buscarParcelasPorEmprestimoId(emprestimoId: string): Promise<ParcelaParaListagem[]> {
         const resp = await fetch(`${API}/emprestimos/${emprestimoId}/parcelas`, { credentials: 'include' });
 
-        console.log(resp.ok);
-
         if (!resp.ok) {
             throw new Error('Erro ao carregar parcelas');
         }
@@ -17,8 +15,6 @@ export class ServicoParcela {
         if (!dados || dados.length === 0) {
             throw new Error('Nenhuma parcela encontrada');
         }
-
-
 
         let parcelas: ParcelaParaListagem[] = [];
         for (let dado of dados) {
@@ -36,12 +32,31 @@ export class ServicoParcela {
                 dado.idEmprestimo
             );
 
-            console.log(parcela);
-
             parcelas.push(parcela);
         }
 
         return parcelas;
     }
 
+    async pagarParcelasPorEmprestimoId(emprestimoId: Number, parcelaId: Number): Promise<Boolean> {
+        const ids = { // Por ser apenas para enviar emrpestimoId e parcelaId para a API, não é necessário criar uma DTO apenas para essa finalidade.
+            emprestimoId: emprestimoId,
+            parcelaId: parcelaId
+        };
+        
+        const resp = await fetch(API + `/parcelas`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(ids),
+            credentials: "include"
+        });
+
+        if (!resp.ok) {
+            throw new Error('Erro ao realizar pagamento da parcela');
+        }
+        
+        return true;
+    }
 }

@@ -7,11 +7,11 @@ export class VisaoParcela {
 
         for(let botao of botoes) {
             botao.addEventListener('click', e => {
-                e.preventDefault();
-
+                e.preventDefault();                
+                
                 // Pegando o id do empréstimo, que está como atributo do botão
                 const emprestimoId = botao.getAttribute('data-idEmprestimo');
-                
+
                 // Passando o ID para a função
                 funcao(Number(emprestimoId));
             });
@@ -21,17 +21,32 @@ export class VisaoParcela {
             e.preventDefault();
             // Pegando o elemento da linha (tr) correspondente ao botão clicado
             const linha = (e.target as HTMLElement).closest('tr');
-            
             // Pegando o ID da célula que está oculta
             const emprestimoId = linha?.querySelector('#emprestimoId')?.textContent;
-            console.log(emprestimoId);
-            
+
             // Passando o ID para a função
             if (emprestimoId) {
                 funcao(emprestimoId.trim());
             }
         });
     }
+
+    definirAcaoAoClicarBtnPagarParcela(funcao: Function): void {
+        document.getElementById('btnPagarParcela')?.addEventListener('click', e => {
+            e.preventDefault();
+    
+            // Pegando os valores dos atributos de dados do botão
+            const emprestimoId = (e.target as HTMLElement).getAttribute('data-emprestimoId');
+            const parcelaId = (e.target as HTMLElement).getAttribute('data-parcelaId');
+    
+            if (emprestimoId && parcelaId) {
+                funcao(Number(emprestimoId), Number(parcelaId));
+            } else {
+                console.error("Erro ao recuperar os IDs da parcela ou do empréstimo.");
+            }
+        });
+    }
+    
 
     montarTabelaDeParcelas(parcelas: ParcelaParaListagem[]): void {
         let control = true;
@@ -43,7 +58,7 @@ export class VisaoParcela {
                 switch(p.status) { // Permitindo que apenas a primeira parcela em aberto seja paga
                     case 'aberta':
                         if(control) {
-                            status = `<button class="btn btn-success" data-parcelaId="${p.id} data-emprestimoId="${p.idEmprestimo}">Pagar</button>`;
+                            status = `<button class="btn btn-success" id="btnPagarParcela" data-parcelaId="${p.id}" data-emprestimoId="${p.idEmprestimo}">Pagar</button>`;
                             control = false;
                             break;
                         }
@@ -89,7 +104,30 @@ export class VisaoParcela {
                     ${parcelasHTML.join('\n')}
                 </tbody>
             </table>
+
+            <div id="mensagemSucesso" class="d-none"></div>
+
+            <div id="mensagemErro" class="d-none"></div>
+
         `;
     }
     
+    mostrarMensagemSucesso(mensagem: string): void {
+        const mensagemElemento = document.querySelector('#mensagemSucesso');
+        if (mensagemElemento) {
+            mensagemElemento.textContent = mensagem;
+            mensagemElemento.classList.remove('d-none');
+            mensagemElemento.classList.add('alert', 'alert-success');
+        }
+    }
+
+    
+    mostrarMensagemErro(mensagem: string): void {
+        const mensagemElemento = document.querySelector('#mensagemErro');
+        if (mensagemElemento) {
+            mensagemElemento.textContent = mensagem;
+            mensagemElemento.classList.remove('d-none');
+            mensagemElemento.classList.add('alert', 'alert-danger');
+        }
+    }
 }
