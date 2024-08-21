@@ -13,7 +13,7 @@ export class ServicoLogin {
             });
 
             const data = await resp.json();
-            console.log(data);
+
             const funcionario = new FuncionarioParaSessionStorage(data.login, data.permissao);
             
             return funcionario; 
