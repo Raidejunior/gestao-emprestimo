@@ -1,6 +1,6 @@
 # 2024-1-pis-g10
 
-## Projeto feito por: Raide Junior.
+## Projeto feito por: Raide Junior e Thiago Nogueira.
 
 ## Para instalação e uso siga os seguintes passos:
 
