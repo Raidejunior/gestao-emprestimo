@@ -1,0 +1,7 @@
+rodar api - php -S localhost:8080
+rodar teste kahlan(api) - composer run test
+rodar análise estática(phpstan) - vendor/bin/phpstan analyse src
+
+rodar client -  npm run dev
+rodar testes unitários(vitest) - npx vitest test
+rodar testes e2e(playwright) - npx playwright test --headed

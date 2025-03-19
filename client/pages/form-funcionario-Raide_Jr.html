@@ -1,0 +1,33 @@
+<h2>Cadastro de funcionários</h2>
+
+<form class="form-cliente">
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input type="text" class="form-control" id="nome" autofocus required>
+    </div>
+    <div class="form-group">
+      <label for="login">Login</label>
+      <input type="text" class="form-control" id="login" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" required>
+    </div>
+    <div class="form-group">
+      <label for="senha">Senha</label>
+      <input type="password" class="form-control" aria-describedby="senha" id="senha" required>
+      <small id="senha" class="form-text text-muted">Mínimo de 6 caracteres</small>
+    </div>
+    <div class="form-group">
+        <label for="permissao">Permissão</label>
+        <select class="form-select" id="permissao">
+            <option selected value="1">Funcionário</option>
+            <option value="2">Gerente</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary" id="cadastrar">Cadastrar</button>
+</form>
+
+<div id="mensagemSucesso" class="d-none"></div>
+
+<div id="mensagemErro" class="d-none"></div>
